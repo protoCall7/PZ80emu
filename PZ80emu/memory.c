@@ -12,13 +12,11 @@
 
 uint8_t *create_ram() {
     uint8_t *memory;
-    memory = malloc(MEMSIZE);
     
-    if (memory == NULL) {
+    if ((memory = calloc(1, sizeof(MEMSIZE))) == NULL) {
         exit(EXIT_FAILURE);
     }
     
-    memset(memory, 0, MEMSIZE);
     return memory;
 }
 

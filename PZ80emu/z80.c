@@ -12,32 +12,9 @@
 
 z80 *new_cpu() {
     z80 *cpu;
-    unsigned int i; // iterator
     
-    if ((cpu = malloc(sizeof(z80))) == NULL) {
+    if ((cpu = calloc(1, sizeof(z80))) == NULL) {
         exit(EXIT_FAILURE);
-    }
-    
-    cpu->pc.W      = 0x0000;
-    cpu->counter   = 0;
-    cpu->a         = 0x00;
-    cpu->bc.W      = 0x0000;
-    cpu->de.W      = 0x0000;
-    cpu->hl.W      = 0x0000;
-    cpu->ix.W      = 0x0000;
-    cpu->iy.W      = 0x0000;
-    cpu->_a        = 0x00;
-    cpu->_bc.W     = 0x0000;
-    cpu->_de.W     = 0x0000;
-    cpu->_hl.W     = 0x0000;
-    cpu->sp.W      = 0x0000;
-    cpu->flags     = 0x000000;
-    cpu->_flags    = 0x000000;
-    
-    for (i = 0; i < 6; i++) {
-
-        cpu->flags &= ~(1 << i);
-        cpu->_flags &= ~(1 << i);
     }
     
     return cpu;
