@@ -12,6 +12,7 @@
 //  * Implement GetOpt
 //  * Check all void casts
 //  * Check implementation of add hl,bc
+//  * Fix error handling and reporting
 
 #include <stdio.h>
 #include <stdlib.h>

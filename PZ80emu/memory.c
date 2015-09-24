@@ -40,7 +40,9 @@ long load_rom(const char *filename, uint8_t *memory) {
     }
     
     (void) fread(memory, sizeof(char), (size_t)file_numbytes, infile);
-    (void) fclose(infile);
+    if((fclose(infile)) != 0) {
+        exit(EXIT_FAILURE);
+    }
     
     return file_numbytes;
 }
