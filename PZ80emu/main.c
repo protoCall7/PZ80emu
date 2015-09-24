@@ -64,7 +64,6 @@ int main(int argc, const char * argv[]) {
     // memory cleanup (leaks are bad, mmkay?)
     free(cpu);
     free(memory);
-    free(register_display);
     
     return 0;
 }
