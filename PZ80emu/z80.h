@@ -19,7 +19,7 @@
 #define INTERRUPT_PERIOD 10240
 #define IS_SET(val, bit) ((val) & (1 << (bit)))
 
-// define 'word' to dead with endianness and access of high/low bits
+// define 'word' to deal with endianness and access of high/low bits
 typedef union {
     unsigned short W;
     
