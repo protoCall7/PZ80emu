@@ -38,7 +38,7 @@ int main(int argc, const char * argv[]) {
     
     // screen init stuff (move me to a display function)
     (void) initscr();
-    (void) cbreak();
+    (void) raw();
     (void) noecho();
     (void) keypad(stdscr, true);
     (void) curs_set(0);
