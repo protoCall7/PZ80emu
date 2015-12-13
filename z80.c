@@ -36,6 +36,23 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
         
         // opcode interpreter switch
         switch (opcode) {
+            // extended instruction set 0xDDxx
+            case 0xDD:
+                opcode = memory[cpu->pc.W++];
+                
+                switch(opcode) {
+                case 0x7E:
+                    // ld a,(ix+nn)
+                    {
+                        word index;
+                        index.B.h = memory[cpu->pc.W++];
+                        index.B.l = memory[cpu->pc.W++];
+
+                        cpu->a = memory[(index.W + cpu->ix.W)];
+                    }
+                    break;
+                }
+
             case 0x00:
                 // nop
                 break;
