@@ -107,11 +107,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 cpu->a = memory[cpu->hl.W];
                 break;
 
-            case 0x0A:
-                // ld a,(bc)
-                cpu->a = memory[cpu->bc.W];
-                break;
-
             case 0x03:
                 // inc bc
                 cpu->bc.W++;
