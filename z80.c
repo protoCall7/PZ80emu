@@ -41,17 +41,58 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 opcode = memory[cpu->pc.W++];
                 
                 switch(opcode) {
-                case 0x7E:
-                    // ld a,(ix+nn)
-                    {
-                        word index;
-                        index.B.h = memory[cpu->pc.W++];
-                        index.B.l = memory[cpu->pc.W++];
+                    case 0x7E:
+                        // ld a,(ix+nn)
+                        {
+                            word index;
+                            index.B.h = memory[cpu->pc.W++];
+                            index.B.l = memory[cpu->pc.W++];
 
-                        cpu->a = memory[(index.W + cpu->ix.W)];
-                    }
-                    break;
+                            cpu->a = memory[(index.W + cpu->ix.W)];
+                        }
+                        break;
+
+                    case 0x46:
+                        // b,(ix+nn)
+                        {
+                            word index;
+                            index.B.h = memory[cpu->pc.W++];
+                            index.B.l = memory[cpu->pc.W++];
+
+                            cpu->b = memory[(index.W + cpu->ix.W)]
+                        }
+                        break;
                 }
+                break;
+        
+            // extended instruction set 0xFDxx
+            case 0xFD:
+                opcode = memory[cpu->pc.W++];
+
+                switch(opcode) {
+                    case 0x7E:
+                        // ld a,(iy+nn)
+                        {
+                            word index;
+                            index.B.h = memory[cpu->pc.W++];
+                            index.B.l = memory[cpu->pc.W++];
+
+                            cpu-a = memory[(index.W + cpu->iy.W)];
+                        }
+                        break;
+
+                    case 0x46:
+                        // b,(iy+nn)
+                        {
+                            word index;
+                            index.B.h = memory[cpu->pc.W++];
+                            index.B.l = memory[cpu->pc.W++];
+
+                            cpu->b = memory[(index.W + cpu->iy.W)]
+                        }
+                        break;
+                }
+                break;
 
             case 0x00:
                 // nop
@@ -136,6 +177,51 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                     nn.B.h = memory[cpu->pc.W++];
                     nn.B.l = memory[cpu->pc.W++];
                     cpu->a = memory[nn.W]; 
+                }
+                break;
+
+            case 0x47:
+                // ld b,a
+                cpu->bc.W.h = cpu->a;
+                break;
+
+            case 0x40:
+                // ld b,b
+                cpu->bc.W.h = cpu->bc.W.h;
+                break;
+
+            case 0x41:
+                // ld b,c
+                cpu->bc.W.h = cpu->bc.W.l;
+                break;
+
+            case 0x42:
+                // ld b,d
+                cpu->bc.W.h = cpu->de.W.h;
+                break;
+
+            case 0x43:
+                // ld b,e
+                cpu->bc.W.h = cpu->de.W.l;
+                break;
+
+            case 0x44:
+                // ld b,h
+                cpu->bc.W.h = cpu->hl.W.h;
+                break;
+
+            case 0x45:
+                // ld b,l
+                cpu->bc.W.h = cpu->hl.W.l;
+                break;
+
+            case 0x46:
+                // ld b,(hl)
+                {
+                    word address;
+                    address.B.h = cpu->hl.B.h
+                    address.B.l = cpu->hl.B.l
+                    cpu->b = memory[address];
                 }
                 break;
 
