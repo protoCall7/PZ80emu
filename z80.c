@@ -40,17 +40,78 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 // nop
                 break;
                 
+            // ld instructions
             case 0x01:
                 // ld bc,nn
+                cpu->bc.B.l = memory[cpu->pc.W++];
                 cpu->bc.B.h = memory[cpu->pc.W++];
-                cpu->bc.B.l = memory[cpu->pc.W];
                 break;
                 
             case 0x02:
                 // ld (bc),a
                 memory[cpu->bc.W] = cpu->a;
                 break;
-                
+
+            case 0x06:
+                // ld b,n
+                cpu->bc.B.h = (memory[cpu->pc.W++]);
+                break;
+
+            case 0x0A:
+                // ld a,(bc)
+                cpu->a = memory[cpu->bc.W];
+                break;
+  
+            case 0x0E:
+                // ld c,n
+                cpu->bc.B.l = memory[cpu->pc.W++];
+                break;
+
+            case 0x7F:
+                // ld a,a
+                cpu->a = cpu->a;
+                break;
+
+            case 0x78:
+                // ld a,b
+                cpu->a = cpu->bc.B.h;
+                break;
+
+            case 0x79:
+                // ld a,c
+                cpu->a = cpu->bc.B.l;
+                break;
+
+            case 0x7A:
+                // ld a,d
+                cpu->a = cpu->de.B.h;
+                break;
+
+            case 0x7B:
+                // ld a,e
+                cpu->a = cpu->de.B.l;
+                break;
+
+            case 0x7C:
+                // ld a,h
+                cpu->a = cpu->hl.B.h;
+                break;
+
+            case 0x7D:
+                // ld a,l
+                cpu->a = cpu->hl.B.l;
+                break;
+
+            case 0x7E:
+                // ld a,(hl)
+                cpu->a = memory[cpu->hl.W];
+                break;
+
+            case 0x0A:
+                // ld a,(bc)
+                cpu->a = memory[cpu->bc.W];
+                break;
+
             case 0x03:
                 // inc bc
                 cpu->bc.W++;
@@ -58,17 +119,12 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 
             case 0x04:
                 // inc b
-                cpu->bc.B.l++;
+                cpu->bc.B.h++;
                 break;
                 
             case 0x05:
                 // dec b
-                cpu->bc.B.l--;
-                break;
-                
-            case 0x06:
-                // ld b,n
-                cpu->bc.B.l = ((memory[cpu->pc.W]) << 8);
+                cpu->bc.B.h--;
                 break;
                 
             case 0x07:
@@ -112,10 +168,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 break;
                 
                 
-            case 0x0A:
-                // ld a,(bc)
-                cpu->a = memory[cpu->bc.W];
-                break;
                 
             case 0x0B:
                 // dec bc
@@ -124,18 +176,14 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 
             case 0x0C:
                 // inc c
-                cpu->bc.B.l++;
+                cpu->bc.B.h++;
                 break;
                 
             case 0x0D:
                 // dec c
-                cpu->bc.B.l--;
+                cpu->bc.B.h--;
                 break;
                 
-            case 0x0E:
-                // ld c,n
-                cpu->bc.B.l = memory[cpu->bc.W];
-                break;
                 
             default:
                 return -1;
