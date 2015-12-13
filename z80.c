@@ -43,7 +43,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
             case 0x01:
                 // ld bc,nn
                 cpu->bc.B.h = memory[cpu->pc.W++];
-                cpu->bc.B.l = memory[cpu->pc.W++];
+                cpu->bc.B.l = memory[cpu->pc.W];
                 break;
                 
             case 0x02:
@@ -68,7 +68,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 
             case 0x06:
                 // ld b,n
-                cpu->bc.B.l = ((memory[cpu->pc.W++]) << 8);
+                cpu->bc.B.l = ((memory[cpu->pc.W]) << 8);
                 break;
                 
             case 0x07:
