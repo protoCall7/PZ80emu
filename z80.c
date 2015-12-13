@@ -107,6 +107,21 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 cpu->a = memory[cpu->hl.W];
                 break;
 
+            case 0x1A:
+                // ld a,(de)
+                cpu->a = memory[cpu->de.W];
+                break;
+
+            case 0x3A:
+                // ld a,(nn)
+                {
+                    word nn;
+                    nn.B.h = memory[cpu->pc.W++];
+                    nn.B.l = memory[cpu->pc.W++];
+                    cpu->a = memory[nn.W]; 
+                }
+                break;
+
             case 0x03:
                 // inc bc
                 cpu->bc.W++;
@@ -124,7 +139,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 
             case 0x07:
                 // rlca
-                
                 if(IS_SET(cpu->a, 7) == 1) {
                     cpu->flags |= (1 << 5);
                 }
