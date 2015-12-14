@@ -27,6 +27,7 @@ void reset_cpu(z80 *cpu) {
 
 int run(z80 *cpu, uint8_t *memory, long runcycles) {
     int count = 0;
+    // number of T cycles for each opcode
     const int cycles[15] = {4, 10, 7, 6, 4, 4, 7, 4, 4, 11, 7, 6, 4, 4, 7};
     
     do {
@@ -74,6 +75,16 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                         }
                         break;
 
+                    case 0x56:
+                        // ld d,(ix+nn)
+                        {
+                            word index;
+                            index.B.h = memory[cpu->pc.W++];
+                            index.B.l = memory[cpu->pc.W++];
+
+                            cpu->de.B.h = memory[(index.W + cpu->ix.W)];
+                        }
+                        break;
                 }
                 break;
         
@@ -112,6 +123,17 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                             index.B.l = memory[cpu->pc.W++];
 
                             cpu->bc.B.l = memory[(index.W + cpu->iy.W)];
+                        }
+                        break;
+
+                    case 0x56:
+                        // ld d,(iy+nn)
+                        {
+                            word index;
+                            index.B.h = memory[cpu->pc.W++];
+                            index.B.l = memory[cpu->pc.W++];
+
+                            cpu->de.B.h = memory[(index.W + cpu->iy.W)];
                         }
                         break;
                 }
@@ -300,6 +322,41 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
             case 0x50:
                 // ld d,b
                 cpu->de.B.h = cpu->bc.B.h;
+                break;
+
+            case 0x51:
+                // ld d,c
+                cpu->de.B.h = cpu->bc.B.l;
+                break;
+
+            case 0x52:
+                // ld d,d
+                cpu->de.B.h = cpu->de.B.h;
+                break;
+
+            case 0x53:
+                // ld d,e
+                cpu->de.B.h = cpu->de.B.l;
+                break;
+
+            case 0x54:
+                // ld d,h
+                cpu->de.B.h = cpu->hl.B.h;
+                break;
+
+            case 0x55:
+                // ld d,l
+                cpu->de.B.h = cpu->hl.B.l;
+                break;
+
+            case 0x56:
+                // ld d,(hl)
+                {
+                    word address;
+                    address.B.h = cpu->hl.B.h;
+                    address.B.l = cpu->hl.B.l;
+                    cpu->de.B.h = memory[address.W];
+                }
                 break;
 
             case 0x03:
