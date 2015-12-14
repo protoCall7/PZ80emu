@@ -62,6 +62,18 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                             cpu->bc.B.h = memory[(index.W + cpu->ix.W)];
                         }
                         break;
+
+                    case 0x4E:
+                        // ld c,(ix+nn)
+                        {
+                            word index;
+                            index.B.h = memory[cpu->pc.W++];
+                            index.B.l = memory[cpu->pc.W++];
+
+                            cpu->bc.B.l = memory[(index.W + cpu->ix.W)];
+                        }
+                        break;
+
                 }
                 break;
         
@@ -89,6 +101,17 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                             index.B.l = memory[cpu->pc.W++];
 
                             cpu->bc.B.h = memory[(index.W + cpu->iy.W)];
+                        }
+                        break;
+
+                    case 0x4E:
+                        // ld c,(iy+nn)
+                        {
+                            word index;
+                            index.B.h = memory[cpu->pc.W++];
+                            index.B.l = memory[cpu->pc.W++];
+
+                            cpu->bc.B.l = memory[(index.W + cpu->iy.W)];
                         }
                         break;
                 }
@@ -257,6 +280,26 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
             case 0x4D:
                 // ld c,l
                 cpu->bc.B.l = cpu->hl.B.l;
+                break;
+
+            case 0x4E:
+                // ld c,(hl)
+                {
+                    word address;
+                    address.B.h = cpu->hl.B.h;
+                    address.B.l = cpu->hl.B.l;
+                    cpu->bc.B.l = memory[address.W];
+                }
+                break;
+
+            case 0x57:
+                // ld d,a
+                cpu->de.B.h = cpu->a;
+                break;
+
+            case 0x50:
+                // ld d,b
+                cpu->de.B.h = cpu->bc.B.h;
                 break;
 
             case 0x03:
