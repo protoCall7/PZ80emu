@@ -59,7 +59,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                             index.B.h = memory[cpu->pc.W++];
                             index.B.l = memory[cpu->pc.W++];
 
-                            cpu->b = memory[(index.W + cpu->ix.W)]
+                            cpu->bc.B.h = memory[(index.W + cpu->ix.W)];
                         }
                         break;
                 }
@@ -77,7 +77,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                             index.B.h = memory[cpu->pc.W++];
                             index.B.l = memory[cpu->pc.W++];
 
-                            cpu-a = memory[(index.W + cpu->iy.W)];
+                            cpu->a = memory[(index.W + cpu->iy.W)];
                         }
                         break;
 
@@ -88,7 +88,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                             index.B.h = memory[cpu->pc.W++];
                             index.B.l = memory[cpu->pc.W++];
 
-                            cpu->b = memory[(index.W + cpu->iy.W)]
+                            cpu->bc.B.h = memory[(index.W + cpu->iy.W)];
                         }
                         break;
                 }
@@ -182,47 +182,52 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
             case 0x47:
                 // ld b,a
-                cpu->bc.W.h = cpu->a;
+                cpu->bc.B.h = cpu->a;
                 break;
 
             case 0x40:
                 // ld b,b
-                cpu->bc.W.h = cpu->bc.W.h;
+                cpu->bc.B.h = cpu->bc.B.h;
                 break;
 
             case 0x41:
                 // ld b,c
-                cpu->bc.W.h = cpu->bc.W.l;
+                cpu->bc.B.h = cpu->bc.B.l;
                 break;
 
             case 0x42:
                 // ld b,d
-                cpu->bc.W.h = cpu->de.W.h;
+                cpu->bc.B.h = cpu->de.B.h;
                 break;
 
             case 0x43:
                 // ld b,e
-                cpu->bc.W.h = cpu->de.W.l;
+                cpu->bc.B.h = cpu->de.B.l;
                 break;
 
             case 0x44:
                 // ld b,h
-                cpu->bc.W.h = cpu->hl.W.h;
+                cpu->bc.B.h = cpu->hl.B.h;
                 break;
 
             case 0x45:
                 // ld b,l
-                cpu->bc.W.h = cpu->hl.W.l;
+                cpu->bc.B.h = cpu->hl.B.l;
                 break;
 
             case 0x46:
                 // ld b,(hl)
                 {
                     word address;
-                    address.B.h = cpu->hl.B.h
-                    address.B.l = cpu->hl.B.l
-                    cpu->b = memory[address];
+                    address.B.h = cpu->hl.B.h;
+                    address.B.l = cpu->hl.B.l;
+                    cpu->bc.B.h = memory[address.W];
                 }
+                break;
+
+            case 0x4F:
+                // ld c,a
+                cpu->bc.B.l = cpu->a;
                 break;
 
             case 0x03:
