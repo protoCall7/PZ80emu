@@ -359,6 +359,51 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 }
                 break;
 
+            case 0x5F:
+                // ld e,a
+                cpu->de.B.l = cpu->a;
+                break;
+
+            case 0x58:
+                // ld e,b
+                cpu->de.B.l = cpu->bc.B.h;
+                break;
+
+            case 0x59:
+                // ld e,c
+                cpu->de.B.l = cpu->bc.B.l;
+                break;
+
+            case 0x5A:
+                // ld e,d
+                cpu->de.B.l = cpu->de.B.h;
+                break;
+
+            case 0x5B:
+                // ld e,e
+                cpu->de.B.l = cpu->de.B.l;
+                break;
+
+            case 0x5C:
+                // ld e,h
+                cpu->de.B.l = cpu->hl.B.h;
+                break;
+
+            case 0x5D:
+                // ld e,l
+                cpu->de.B.l = cpu->hl.B.l;
+                break;
+
+            case 0x5E:
+                // ld e,(hl)
+                {
+                    word address;
+                    address.B.h = cpu->hl.B.h;
+                    address.B.l = cpu->hl.B.l;
+                    cpu->de.B.l = memory[address.W];
+                }
+                break;
+
             case 0x03:
                 // inc bc
                 cpu->bc.W++;
