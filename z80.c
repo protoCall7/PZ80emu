@@ -182,7 +182,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 						}
 						break;
 
-					case 0x76:
+					case 0x36:
 						// ld (ix+n),n
 						{
 							uint8_t index;
@@ -339,7 +339,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 						}
 						break;
 
-					case 0x76:
+					case 0x36:
 						// ld (iy+n),n
 						{
 							uint8_t index;
@@ -362,10 +362,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 cpu->bc.B.h = memory[cpu->pc.W++];
                 break;
                 
-            case 0x02:
-                // ld (bc),a
-                memory[cpu->bc.W] = cpu->a;
-                break;
 
 
             case 0x0A:
@@ -373,11 +369,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 cpu->a = memory[cpu->bc.W];
                 break;
   
-            case 0x0E:
-                // ld c,n
-                cpu->bc.B.l = memory[cpu->pc.W++];
-                break;
-
             case 0x7F:
                 // ld a,a
                 cpu->a = cpu->a;
@@ -744,8 +735,58 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
             case 0x06:
                 // ld b,n
-                cpu->bc.B.h = (memory[cpu->pc.W++]);
+                cpu->bc.B.h = memory[cpu->pc.W++];
                 break;
+
+            case 0x0E:
+                // ld c,n
+                cpu->bc.B.l = memory[cpu->pc.W++];
+                break;
+
+			case 0x16:
+				// ld d,n
+				cpu->de.B.h = memory[cpu->pc.W++];
+				break;
+
+			case 0x1E:
+				// ld e,n
+				cpu->de.B.l = memory[cpu->pc.W++];
+				break;
+
+			case 0x26:
+				// ld h,n
+				cpu->hl.B.h = memory[cpu->pc.W++];
+				break;
+
+			case 0x2E:
+				// ld l,n
+				cpu->hl.B.l = memory[cpu->pc.W++];
+				break;
+
+			case 0x36:
+				// ld (hl),n
+				cpu->hl.W = memory[cpu->pc.W++];
+				break;
+
+            case 0x02:
+                // ld (bc),a
+                memory[cpu->bc.W] = cpu->a;
+                break;
+
+			case 0x12:
+				// ld (de),a
+				memory[cpu->de.W] = cpu->a;
+
+			case 0x32:
+				// ld (nn),a
+				{
+					word address;
+					address.B.h = memory[cpu->pc.W++];
+					address.B.l = memory[cpu->pc.W++];
+
+					memory[address.W] = cpu->a;
+				}
+				break;
 
             case 0x03:
                 // inc bc
