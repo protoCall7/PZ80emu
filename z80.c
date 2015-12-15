@@ -43,79 +43,72 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 
                 switch(opcode) {
                     case 0x7E:
-                        // ld a,(ix+nn)
+                        // ld a,(ix+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->a = memory[(index.W + cpu->ix.W)];
+                            cpu->a = memory[(index + cpu->ix.W)];
                         }
                         break;
 
                     case 0x46:
-                        // ld b,(ix+nn)
+                        // ld b,(ix+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->bc.B.h = memory[(index.W + cpu->ix.W)];
+                            cpu->bc.B.h = memory[(index + cpu->ix.W)];
                         }
                         break;
 
                     case 0x4E:
-                        // ld c,(ix+nn)
+                        // ld c,(ix+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->bc.B.l = memory[(index.W + cpu->ix.W)];
+                            cpu->bc.B.l = memory[(index + cpu->ix.W)];
                         }
                         break;
 
                     case 0x56:
-                        // ld d,(ix+nn)
+                        // ld d,(ix+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index= memory[cpu->pc.W++];
 
-                            cpu->de.B.h = memory[(index.W + cpu->ix.W)];
+                            cpu->de.B.h = memory[(index + cpu->ix.W)];
                         }
                         break;
 
                     case 0x5E:
-                        // ld e,(ix+nn)
+                        // ld e,(ix+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->de.B.l = memory[(index.W + cpu->ix.W)];
+                            cpu->de.B.l = memory[(index + cpu->ix.W)];
                         }
                         break;
 
                     case 0x66:
-                        // ld h,(ix+nn)
+                        // ld h,(ix+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->hl.B.h = memory[(index.W + cpu->ix.W)];
+                            cpu->hl.B.h = memory[(index + cpu->ix.W)];
                         }
                         break;
 
                     case 0x6E:
-                        // ld l,(ix+nn)
+                        // ld l,(ix+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->hl.B.l = memory[(index.W + cpu->ix.W)];
+                            cpu->hl.B.l = memory[(index + cpu->ix.W)];
                         }
                         break;
                 }
@@ -127,79 +120,72 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
                 switch(opcode) {
                     case 0x7E:
-                        // ld a,(iy+nn)
+                        // ld a,(iy+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->a = memory[(index.W + cpu->iy.W)];
+                            cpu->a = memory[(index + cpu->iy.W)];
                         }
                         break;
 
                     case 0x46:
-                        // ld b,(iy+nn)
+                        // ld b,(iy+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->bc.B.h = memory[(index.W + cpu->iy.W)];
+                            cpu->bc.B.h = memory[(index + cpu->iy.W)];
                         }
                         break;
 
                     case 0x4E:
-                        // ld c,(iy+nn)
+                        // ld c,(iy+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->bc.B.l = memory[(index.W + cpu->iy.W)];
+                            cpu->bc.B.l = memory[(index + cpu->iy.W)];
                         }
                         break;
 
                     case 0x56:
-                        // ld d,(iy+nn)
+                        // ld d,(iy+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->de.B.h = memory[(index.W + cpu->iy.W)];
+                            cpu->de.B.h = memory[(index + cpu->iy.W)];
                         }
                         break;
 
                     case 0x5E:
-                        // ld e,(iy+nn)
+                        // ld e,(iy+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->de.B.l = memory[(index.W + cpu->iy.W)];
+                            cpu->de.B.l = memory[(index + cpu->iy.W)];
                         }
                         break;
 
                     case 0x66:
-                        // ld h,(iy+nn)
+                        // ld h,(iy+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->hl.B.h = memory[(index.W + cpu->iy.W)];
+                            cpu->hl.B.h = memory[(index + cpu->iy.W)];
                         }
                         break;
 
                     case 0x6E:
-                        // ld l,(iy+nn)
+                        // ld l,(iy+n)
                         {
-                            word index;
-                            index.B.h = memory[cpu->pc.W++];
-                            index.B.l = memory[cpu->pc.W++];
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-                            cpu->hl.B.l = memory[(index.W + cpu->iy.W)];
+                            cpu->hl.B.l = memory[(index + cpu->iy.W)];
                         }
                         break;
                 }
