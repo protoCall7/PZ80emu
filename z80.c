@@ -111,6 +111,86 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                             cpu->hl.B.l = memory[(index + cpu->ix.W)];
                         }
                         break;
+
+					case 0x77:
+						// ld (ix+n),a
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->ix.W)] = cpu->a;
+						}
+						break;
+
+					case 0x70:
+						// ld (ix+n),b
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->ix.W)] = cpu->bc.B.h;
+						}
+						break;
+
+					case 0x71:
+						// ld (ix+n),c
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->ix.W)] = cpu->bc.B.l;
+						}
+						break;
+
+					case 0x72:
+						// ld (ix+n),d
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->ix.W)] = cpu->de.B.h;
+						}
+						break;
+
+					case 0x73:
+						// ld (ix+n),e
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->ix.W)] = cpu->de.B.l;
+						}
+						break;
+
+					case 0x74:
+						// ld (ix+n),h
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->ix.W)] = cpu->hl.B.h;
+						}
+						break;
+
+					case 0x75:
+						// ld (ix+n),l
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->ix.W)] = cpu->hl.B.l;
+						}
+						break;
+
+					case 0x76:
+						// ld (ix+n),n
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->ix.W)] = cpu->pc.W++;
+						}
+						break;
                 }
                 break;
         
@@ -188,6 +268,86 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                             cpu->hl.B.l = memory[(index + cpu->iy.W)];
                         }
                         break;
+
+					case 0x77:
+						// ld (iy+n),a
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->iy.W)] = cpu->a;
+						}
+						break;
+
+					case 0x70:
+						// ld (iy+n),b
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->iy.W)] = cpu->bc.B.h;
+						}
+						break;
+
+					case 0x71:
+						// ld (iy+n),c
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->iy.W)] = cpu->bc.B.l;
+						}
+						break;
+
+					case 0x72:
+						// ld (iy+n),d
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->iy.W)] = cpu->de.B.h;
+						}
+						break;
+
+					case 0x73:
+						// ld (iy+n),e
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->iy.W)] = cpu->de.B.l;
+						}
+						break;
+
+					case 0x74:
+						// ld (iy+n),h
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->iy.W)] = cpu->hl.B.h;
+						}
+						break;
+
+					case 0x75:
+						// ld (iy+n),l
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->iy.W)] = cpu->hl.B.l;
+						}
+						break;
+
+					case 0x76:
+						// ld (iy+n),n
+						{
+							uint8_t index;
+							index = memory[cpu->pc.W++];
+
+							memory[(index + cpu->iy.W)] = cpu->pc.W++;
+						}
+						break;
                 }
                 break;
 
