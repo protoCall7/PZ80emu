@@ -188,7 +188,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 							uint8_t index;
 							index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->ix.W)] = cpu->pc.W++;
+							memory[(index + cpu->ix.W)] = memory[cpu->pc.W++];
 						}
 						break;
                 }
@@ -345,7 +345,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 							uint8_t index;
 							index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->iy.W)] = cpu->pc.W++;
+							memory[(index + cpu->iy.W)] = memory[cpu->pc.W++];
 						}
 						break;
                 }
@@ -367,10 +367,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 memory[cpu->bc.W] = cpu->a;
                 break;
 
-            case 0x06:
-                // ld b,n
-                cpu->bc.B.h = (memory[cpu->pc.W++]);
-                break;
 
             case 0x0A:
                 // ld a,(bc)
@@ -739,6 +735,16 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
             case 0x75:
                 // ld (hl),l
                 memory[cpu->hl.W] = cpu->hl.B.l;
+                break;
+
+			case 0x3E:
+				// ld a,n
+				cpu->a = memory[cpu->pc.W++];
+				break;
+
+            case 0x06:
+                // ld b,n
+                cpu->bc.B.h = (memory[cpu->pc.W++]);
                 break;
 
             case 0x03:
