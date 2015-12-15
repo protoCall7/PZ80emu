@@ -191,6 +191,11 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 							memory[(index + cpu->ix.W)] = memory[cpu->pc.W++];
 						}
 						break;
+					case 0x21:
+						// ld ix,nn
+		  				cpu->ix.B.h = memory[cpu->pc.W++];
+                		cpu->ix.B.l = memory[cpu->pc.W++];
+                		break;
                 }
                 break;
         
@@ -348,6 +353,12 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 							memory[(index + cpu->iy.W)] = memory[cpu->pc.W++];
 						}
 						break;
+
+					case 0x21:
+						// ld iy,nn
+		  				cpu->iy.B.h = memory[cpu->pc.W++];
+                		cpu->iy.B.l = memory[cpu->pc.W++];
+                		break;
                 }
                 break;
 
@@ -355,15 +366,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 // nop
                 break;
                 
-            // ld instructions
-            case 0x01:
-                // ld bc,nn
-                cpu->bc.B.l = memory[cpu->pc.W++];
-                cpu->bc.B.h = memory[cpu->pc.W++];
-                break;
-                
-
-
+			// 8-bit transfer instructions
             case 0x0A:
                 // ld a,(bc)
                 cpu->a = memory[cpu->bc.W];
@@ -788,6 +791,31 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 				}
 				break;
 
+			// 16-bit transfer instructions
+	        case 0x01:
+                // ld bc,nn
+                cpu->bc.B.h = memory[cpu->pc.W++];
+                cpu->bc.B.l = memory[cpu->pc.W++];
+                break;
+
+			case 0x11:
+	            // ld de,nn
+                cpu->de.B.h = memory[cpu->pc.W++];
+                cpu->de.B.l = memory[cpu->pc.W++];
+                break;
+
+			case 0x21:
+				// ld hl,nn
+	            cpu->de.B.h = memory[cpu->pc.W++];
+                cpu->de.B.l = memory[cpu->pc.W++];
+                break;
+
+			case 0x31:
+				// ld sp,nn
+		        cpu->sp.B.h = memory[cpu->pc.W++];
+                cpu->sp.B.l = memory[cpu->pc.W++];
+                break;
+				
             case 0x03:
                 // inc bc
                 cpu->bc.W++;
