@@ -801,8 +801,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 }
                 break;
                 
-                
-                
             case 0x0B:
                 // dec bc
                 cpu->bc.W--;
