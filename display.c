@@ -12,6 +12,10 @@
 #include "z80.h"
 #include "display.h"
 
+/** Display the contents of a block of memory to a curses window
+\param win The curses window in which to display memory.
+\param memory A pointer to the block of memory to display
+*/
 void display_mem(WINDOW *win, uint8_t *memory) {
     int i;
     int display_counter = 0;
@@ -34,7 +38,10 @@ void display_mem(WINDOW *win, uint8_t *memory) {
         if(display_counter % 4 == 0) (void) wprintw(win, " ");
     }
 }
-
+/** Display the current register state to a curses window 
+\param win The curses window in which to display register state.
+\param cpu A pointer to a z80 cpu struct for which to display registers.
+*/
 void display_registers(WINDOW *win, z80 *cpu) {
     // register status display
     (void) mvwprintw(win, 1, 2, "Register Status:");
@@ -67,7 +74,13 @@ void display_registers(WINDOW *win, z80 *cpu) {
                      );
     (void) wrefresh(win);
 }
-
+/** Creates a new curses window
+\param height The height of the window.
+\param width The width of the window.
+\param starty The starting y coordinate for the new window.
+\param startx The starting x coordinate for the new window.
+\return curses WINDOW
+*/
 WINDOW *create_newwin(int height, int width, int starty, int startx) {
     WINDOW *local_win;
     
