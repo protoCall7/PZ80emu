@@ -11,7 +11,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-uint8_t *create_ram() {
+/** Allocates a block of RAM of size MEMSIZE 
+\return Pointer to allocated block of RAM.
+*/
+uint8_t *create_ram(void) {
     uint8_t *memory;
     
     if ((memory = calloc(1, sizeof(MEMSIZE))) == NULL) {
@@ -21,6 +24,11 @@ uint8_t *create_ram() {
     return memory;
 }
 
+/** Loads the contents of a ROM file into memory
+\param filename String containing the filename of the ROM image.
+\param memory Pointer to the block of RAM to load the ROM into.
+\return Number of bytes loaded into RAM.
+*/
 long load_rom(const char *filename, uint8_t *memory) {
     FILE *infile;
     long file_numbytes;
