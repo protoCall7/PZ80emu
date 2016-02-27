@@ -1,4 +1,7 @@
-/** \file */
+/** \file 
+Display functions for curses management and displaying system info 
+*/
+
 //
 //  display.c
 //  PZ80emu

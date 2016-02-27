@@ -11,6 +11,9 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+/** Fills out a new z80 CPU struct
+\return A z80 struct
+*/
 z80 *new_cpu() {
     z80 *cpu;
     
@@ -21,11 +24,20 @@ z80 *new_cpu() {
     return cpu;
 }
 
+/** Triggers the reset state on the z80 CPU
+\param cpu A z80 struct to reset.
+*/
 void reset_cpu(z80 *cpu) {
     // need to implement interrupt resetting here
     cpu->pc.W = 0x0000;
 }
 
+/** Runs the cpu
+\param cpu A z80 cpu struct to run.
+\param memory An allocated block of memory to pass to the cpu.
+\param runcycles The number of clock cycles to run the cpu.
+\return Count of cycles executed.
+*/
 int run(z80 *cpu, uint8_t *memory, long runcycles) {
     int count = 0;
     // number of T cycles for each opcode

@@ -1,3 +1,4 @@
+/** \file */
 //
 //  display.h
 //  PZ80emu
@@ -15,6 +16,11 @@
 
 #endif /* defined(__PZ80emu__display__) */
 
+/** Determines if a bit is set or not
+\param val Bitfield to check
+\param bit Which bit in the field to check
+\return 0 == Checked Bit False, 1 == Checked Bit True.
+*/
 #define IS_SET(val, bit) ((val) & (1 << (bit)))
 
 void display_mem(WINDOW *win, uint8_t *memory);

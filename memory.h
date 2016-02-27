@@ -1,3 +1,4 @@
+/** \file */
 //
 //  memory.h
 //  PZ80emu
@@ -9,6 +10,7 @@
 #ifndef __PZ80emu__memory__
 #define __PZ80emu__memory__
 
+/** Size of memory for create_ram() to allocate */
 #define MEMSIZE 65536
 
 #include <stdio.h>

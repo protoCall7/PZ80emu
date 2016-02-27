@@ -1,3 +1,4 @@
+/** \file */
 //
 //  z80.h
 //  PZ80emu
@@ -15,14 +16,27 @@
 
 #endif /* defined(__PZ80emu__z80__) */
 
+/** The initial value of the PC register */
 #define INIT_PC 0x0000
+
+/** The number of cycles to run before triggering interrupt */
 #define INTERRUPT_PERIOD 10240
+
+/** Determines if a bit is set or not
+\param val Bitfield to check
+\param bit Which bit in the field to check
+\return 0 == Checked Bit False, 1 == Checked Bit True.
+*/
 #define IS_SET(val, bit) ((val) & (1 << (bit)))
 
-// define 'word' to deal with endianness and access of high/low bits
+/** Type to deal with endianness and access of high/low bits */
 typedef union {
+	/** 16 Bit Pair */
     unsigned short W;
     
+	/** Combination of High and Low bytes in correct order for
+	endianness.
+    */
     struct {
 #ifdef LOW_ENDIAN
         uint8_t l,h;     /* ...in low-endian architecture */
@@ -32,24 +46,56 @@ typedef union {
     } B;
 } word;
 
-// main z80 register struct
+
+/** Creates a z80 type referring to the z80 struct */
 typedef struct z80 z80;
+
+/** Collection of registers comprising a Z80 CPU */
 struct z80 {
-    word pc; // program counter
-    int counter; // interrupt counter
-    uint8_t a; // a register
-    unsigned flags :6; // flags register
-    word bc; // bc register pair
-    word de; // de register pair
-    word hl; // hl register pair
-    word ix; // ix register
-    word iy; // iy register
-    uint8_t _a; // a' register
-    unsigned _flags :6; // flags' register
-    word _bc; // bc' register pair
-    word _de; // de' register pair
-    word _hl; // hl' register pair
-    word sp; // stack pointer
+	/** program counter */
+    word pc;
+
+	/** interrupt counter */
+    int counter;
+
+	/** A register */
+    uint8_t a;
+
+	/** flags register */
+    unsigned flags :6;
+
+	/** BC register pair */
+    word bc;
+
+	/** DE register pair */
+    word de;
+
+	/** HL register pair */
+    word hl;
+
+	/** IX register */
+    word ix;
+
+	/** IY register */
+    word iy;
+
+	/** A' register */
+    uint8_t _a;
+
+	/** flags' register */
+    unsigned _flags :6;
+
+	/** BC' register pair */
+    word _bc;
+
+	/** DE' register pair */
+    word _de;
+
+	/** HL' register pair */
+    word _hl;
+
+	/** Stack Pointer */
+    word sp;
 };
 
 z80 *new_cpu();

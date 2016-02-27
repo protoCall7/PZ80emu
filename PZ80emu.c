@@ -1,19 +1,20 @@
-/** \file */
-//
-//  main.c
-//  PZ80emu
-//
-//  Created by Peter Ezetta on 5/2/15.
-//  Copyright (c) 2015 Peter Ezetta. All rights reserved.
-//
-//  Todo:
-//  * Implement rest of instruction set
-//  * Implement menu system
-//  * Implement stepping
-//  * Implement GetOpt
-//  * Check all void casts
-//  * Check implementation of add hl,bc
-//  * Fix error handling and reporting
+/** \file 
+\mainpage
+PZ80emu
+
+Created by Peter Ezetta on 5/2/15.
+Copyright (c) 2015 Peter Ezetta. All rights reserved.
+
+Todo:
+- Implement rest of instruction set
+- Implement menu system
+- Implement stepping
+- Implement GetOpt
+- Check all void casts
+- Check implementation of add hl,bc
+- Fix error handling and reporting
+- Refactor IS_SET copy pasta
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,6 +24,7 @@
 #include "memory.h"
 #include "display.h"
 
+/** PZ80 Machine Emulator */
 int main(int argc, const char * argv[]) {
     WINDOW *register_display, *memory_display;
     
