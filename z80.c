@@ -112,90 +112,90 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                         }
                         break;
 
-					case 0x77:
-						// ld (ix+n),a
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x77:
+                        // ld (ix+n),a
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->ix.W)] = cpu->a;
-						}
-						break;
+                            memory[(index + cpu->ix.W)] = cpu->a;
+                        }
+                        break;
 
-					case 0x70:
-						// ld (ix+n),b
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x70:
+                        // ld (ix+n),b
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->ix.W)] = cpu->bc.B.h;
-						}
-						break;
+                            memory[(index + cpu->ix.W)] = cpu->bc.B.h;
+                        }
+                        break;
 
-					case 0x71:
-						// ld (ix+n),c
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x71:
+                        // ld (ix+n),c
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->ix.W)] = cpu->bc.B.l;
-						}
-						break;
+                            memory[(index + cpu->ix.W)] = cpu->bc.B.l;
+                        }
+                        break;
 
-					case 0x72:
-						// ld (ix+n),d
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x72:
+                        // ld (ix+n),d
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->ix.W)] = cpu->de.B.h;
-						}
-						break;
+                            memory[(index + cpu->ix.W)] = cpu->de.B.h;
+                        }
+                        break;
 
-					case 0x73:
-						// ld (ix+n),e
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x73:
+                        // ld (ix+n),e
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->ix.W)] = cpu->de.B.l;
-						}
-						break;
+                            memory[(index + cpu->ix.W)] = cpu->de.B.l;
+                        }
+                        break;
 
-					case 0x74:
-						// ld (ix+n),h
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x74:
+                        // ld (ix+n),h
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->ix.W)] = cpu->hl.B.h;
-						}
-						break;
+                            memory[(index + cpu->ix.W)] = cpu->hl.B.h;
+                        }
+                        break;
 
-					case 0x75:
-						// ld (ix+n),l
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x75:
+                        // ld (ix+n),l
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->ix.W)] = cpu->hl.B.l;
-						}
-						break;
+                            memory[(index + cpu->ix.W)] = cpu->hl.B.l;
+                        }
+                        break;
 
-					case 0x36:
-						// ld (ix+n),n
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x36:
+                        // ld (ix+n),n
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->ix.W)] = memory[cpu->pc.W++];
-						}
-						break;
-					case 0x21:
-						// ld ix,nn
-		  				cpu->ix.B.h = memory[cpu->pc.W++];
-                		cpu->ix.B.l = memory[cpu->pc.W++];
-                		break;
+                            memory[(index + cpu->ix.W)] = memory[cpu->pc.W++];
+                        }
+                        break;
+                    case 0x21:
+                        // ld ix,nn
+                        cpu->ix.B.h = memory[cpu->pc.W++];
+                        cpu->ix.B.l = memory[cpu->pc.W++];
+                        break;
                 }
                 break;
         
@@ -274,91 +274,91 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                         }
                         break;
 
-					case 0x77:
-						// ld (iy+n),a
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x77:
+                        // ld (iy+n),a
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->iy.W)] = cpu->a;
-						}
-						break;
+                            memory[(index + cpu->iy.W)] = cpu->a;
+                        }
+                        break;
 
-					case 0x70:
-						// ld (iy+n),b
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x70:
+                        // ld (iy+n),b
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->iy.W)] = cpu->bc.B.h;
-						}
-						break;
+                            memory[(index + cpu->iy.W)] = cpu->bc.B.h;
+                        }
+                        break;
 
-					case 0x71:
-						// ld (iy+n),c
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x71:
+                        // ld (iy+n),c
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->iy.W)] = cpu->bc.B.l;
-						}
-						break;
+                            memory[(index + cpu->iy.W)] = cpu->bc.B.l;
+                        }
+                        break;
 
-					case 0x72:
-						// ld (iy+n),d
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x72:
+                        // ld (iy+n),d
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->iy.W)] = cpu->de.B.h;
-						}
-						break;
+                            memory[(index + cpu->iy.W)] = cpu->de.B.h;
+                        }
+                        break;
 
-					case 0x73:
-						// ld (iy+n),e
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x73:
+                        // ld (iy+n),e
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->iy.W)] = cpu->de.B.l;
-						}
-						break;
+                            memory[(index + cpu->iy.W)] = cpu->de.B.l;
+                        }
+                        break;
 
-					case 0x74:
-						// ld (iy+n),h
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x74:
+                        // ld (iy+n),h
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->iy.W)] = cpu->hl.B.h;
-						}
-						break;
+                            memory[(index + cpu->iy.W)] = cpu->hl.B.h;
+                        }
+                        break;
 
-					case 0x75:
-						// ld (iy+n),l
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x75:
+                        // ld (iy+n),l
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->iy.W)] = cpu->hl.B.l;
-						}
-						break;
+                            memory[(index + cpu->iy.W)] = cpu->hl.B.l;
+                        }
+                        break;
 
-					case 0x36:
-						// ld (iy+n),n
-						{
-							uint8_t index;
-							index = memory[cpu->pc.W++];
+                    case 0x36:
+                        // ld (iy+n),n
+                        {
+                            uint8_t index;
+                            index = memory[cpu->pc.W++];
 
-							memory[(index + cpu->iy.W)] = memory[cpu->pc.W++];
-						}
-						break;
+                            memory[(index + cpu->iy.W)] = memory[cpu->pc.W++];
+                        }
+                        break;
 
-					case 0x21:
-						// ld iy,nn
-		  				cpu->iy.B.h = memory[cpu->pc.W++];
-                		cpu->iy.B.l = memory[cpu->pc.W++];
-                		break;
+                    case 0x21:
+                        // ld iy,nn
+                        cpu->iy.B.h = memory[cpu->pc.W++];
+                        cpu->iy.B.l = memory[cpu->pc.W++];
+                        break;
                 }
                 break;
 
@@ -366,7 +366,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 // nop
                 break;
                 
-			// 8-bit transfer instructions
+            // 8-bit transfer instructions
             case 0x0A:
                 // ld a,(bc)
                 cpu->a = memory[cpu->bc.W];
@@ -731,10 +731,10 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 memory[cpu->hl.W] = cpu->hl.B.l;
                 break;
 
-			case 0x3E:
-				// ld a,n
-				cpu->a = memory[cpu->pc.W++];
-				break;
+            case 0x3E:
+                // ld a,n
+                cpu->a = memory[cpu->pc.W++];
+                break;
 
             case 0x06:
                 // ld b,n
@@ -746,76 +746,76 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
                 cpu->bc.B.l = memory[cpu->pc.W++];
                 break;
 
-			case 0x16:
-				// ld d,n
-				cpu->de.B.h = memory[cpu->pc.W++];
-				break;
+            case 0x16:
+                // ld d,n
+                cpu->de.B.h = memory[cpu->pc.W++];
+                break;
 
-			case 0x1E:
-				// ld e,n
-				cpu->de.B.l = memory[cpu->pc.W++];
-				break;
+            case 0x1E:
+                // ld e,n
+                cpu->de.B.l = memory[cpu->pc.W++];
+                break;
 
-			case 0x26:
-				// ld h,n
-				cpu->hl.B.h = memory[cpu->pc.W++];
-				break;
+            case 0x26:
+                // ld h,n
+                cpu->hl.B.h = memory[cpu->pc.W++];
+                break;
 
-			case 0x2E:
-				// ld l,n
-				cpu->hl.B.l = memory[cpu->pc.W++];
-				break;
+            case 0x2E:
+                // ld l,n
+                cpu->hl.B.l = memory[cpu->pc.W++];
+                break;
 
-			case 0x36:
-				// ld (hl),n
-				cpu->hl.W = memory[cpu->pc.W++];
-				break;
+            case 0x36:
+                // ld (hl),n
+                cpu->hl.W = memory[cpu->pc.W++];
+                break;
 
             case 0x02:
                 // ld (bc),a
                 memory[cpu->bc.W] = cpu->a;
                 break;
 
-			case 0x12:
-				// ld (de),a
-				memory[cpu->de.W] = cpu->a;
+            case 0x12:
+                // ld (de),a
+                memory[cpu->de.W] = cpu->a;
 
-			case 0x32:
-				// ld (nn),a
-				{
-					word address;
-					address.B.h = memory[cpu->pc.W++];
-					address.B.l = memory[cpu->pc.W++];
+            case 0x32:
+                // ld (nn),a
+                {
+                    word address;
+                    address.B.h = memory[cpu->pc.W++];
+                    address.B.l = memory[cpu->pc.W++];
 
-					memory[address.W] = cpu->a;
-				}
-				break;
+                    memory[address.W] = cpu->a;
+                }
+                break;
 
-			// 16-bit transfer instructions
-	        case 0x01:
+            // 16-bit transfer instructions
+            case 0x01:
                 // ld bc,nn
                 cpu->bc.B.h = memory[cpu->pc.W++];
                 cpu->bc.B.l = memory[cpu->pc.W++];
                 break;
 
-			case 0x11:
-	            // ld de,nn
+            case 0x11:
+                // ld de,nn
                 cpu->de.B.h = memory[cpu->pc.W++];
                 cpu->de.B.l = memory[cpu->pc.W++];
                 break;
 
-			case 0x21:
-				// ld hl,nn
-	            cpu->de.B.h = memory[cpu->pc.W++];
+            case 0x21:
+                // ld hl,nn
+                cpu->de.B.h = memory[cpu->pc.W++];
                 cpu->de.B.l = memory[cpu->pc.W++];
                 break;
 
-			case 0x31:
-				// ld sp,nn
-		        cpu->sp.B.h = memory[cpu->pc.W++];
+            case 0x31:
+                // ld sp,nn
+                cpu->sp.B.h = memory[cpu->pc.W++];
                 cpu->sp.B.l = memory[cpu->pc.W++];
                 break;
-				
+                
             case 0x03:
                 // inc bc
                 cpu->bc.W++;
