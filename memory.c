@@ -17,7 +17,7 @@
 uint8_t *create_ram(void) {
     uint8_t *memory;
     
-    if ((memory = calloc(1, sizeof(MEMSIZE))) == NULL) {
+    if ((memory = calloc(MEMSIZE, 1)) == NULL) {
         exit(EXIT_FAILURE);
     }
     
