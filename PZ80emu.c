@@ -26,6 +26,11 @@ Todo:
 
 /** PZ80 Machine Emulator */
 int main(int argc, const char * argv[]) {
+
+	if (argc < 2) {
+		printf("Usage: ./PZ80emu <filename.bin>\n");
+		exit(1);
+	}
     WINDOW *register_display, *memory_display;
     
     // initialize the CPU
