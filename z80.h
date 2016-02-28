@@ -22,13 +22,6 @@
 /** The number of cycles to run before triggering interrupt */
 #define INTERRUPT_PERIOD 10240
 
-/** Determines if a bit is set or not
-\param val Bitfield to check
-\param bit Which bit in the field to check
-\return 0 == Checked Bit False, 1 == Checked Bit True.
-*/
-#define IS_SET(val, bit) ((val) & (1 << (bit)))
-
 /** Type to deal with endianness and access of high/low bits */
 typedef union {
 	/** 16 Bit Pair */

@@ -7,9 +7,10 @@
 //  Copyright (c) 2015 Peter Ezetta. All rights reserved.
 //
 
-#include "z80.h"
 #include <stdlib.h>
 #include <stdint.h>
+#include "z80.h"
+#include "utils.h"
 
 /** Fills out a new z80 CPU struct
 \return A z80 struct

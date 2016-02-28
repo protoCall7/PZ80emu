@@ -14,6 +14,7 @@ Display functions for curses management and displaying system info
 #include <ncurses.h>
 #include "z80.h"
 #include "display.h"
+#include "utils.h"
 
 /** Display the contents of a block of memory to a curses window
 \param win The curses window in which to display memory.
