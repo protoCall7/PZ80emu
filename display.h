@@ -19,3 +19,4 @@
 void display_mem(WINDOW *win, uint8_t *memory);
 void display_registers(WINDOW *win, z80 *cpu);
 WINDOW *create_newwin(int height, int width, int starty, int startx);
+void create_newscreen(int main_row, int main_col);

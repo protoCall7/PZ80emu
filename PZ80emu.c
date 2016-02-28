@@ -13,7 +13,6 @@ Todo:
 - Check all void casts
 - Check implementation of add hl,bc
 - Fix error handling and reporting
-- Refactor IS_SET copy pasta
 */
 
 #include <stdio.h>
@@ -44,18 +43,7 @@ int main(int argc, const char * argv[]) {
     int main_row = 0;
     int main_col = 0;
     
-    // screen init stuff (move me to a display function)
-    (void) initscr();
-    (void) raw();
-    (void) noecho();
-    (void) keypad(stdscr, true);
-    (void) curs_set(0);
-    
-    getmaxyx(stdscr, main_row, main_col);
-    
-    // need to put the damn color setter back in and find out why splint bitches
-    (void) start_color();
-    (void) init_pair(1, COLOR_YELLOW, COLOR_BLUE);
+	create_newscreen(main_row, main_col);
 
     // execute!
     (void) run(cpu, memory, runcycles);
@@ -73,6 +61,4 @@ int main(int argc, const char * argv[]) {
     // memory cleanup (leaks are bad, mmkay?)
     free(cpu);
     free(memory);
-    
-    return 0;
 }

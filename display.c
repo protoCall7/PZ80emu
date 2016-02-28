@@ -96,3 +96,20 @@ WINDOW *create_newwin(int height, int width, int starty, int startx) {
     
     return local_win;
 }
+/** Creates a new curses screen
+\param main_row
+\param main_col
+*/
+void create_newscreen(int main_row, int main_col) {
+    initscr();
+    raw();
+    noecho();
+    keypad(stdscr, true);
+    curs_set(0);
+    
+    getmaxyx(stdscr, main_row, main_col);
+    
+    // need to put the damn color setter back in and find out why splint bitches
+    start_color();
+    init_pair(1, COLOR_YELLOW, COLOR_BLUE);
+}
