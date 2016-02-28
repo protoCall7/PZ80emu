@@ -25,12 +25,7 @@ Todo:
 
 /** PZ80 Machine Emulator */
 int main(int argc, const char * argv[]) {
-
-	if (argc < 2) {
-		printf("Usage: ./PZ80emu <filename.bin>\n");
-		exit(1);
-	}
-    WINDOW *register_display, *memory_display;
+	WINDOW *register_display, *memory_display;
     
     // initialize the CPU
     z80 *cpu = new_cpu();
@@ -42,7 +37,12 @@ int main(int argc, const char * argv[]) {
     // display variables
     int main_row = 0;
     int main_col = 0;
-    
+
+    if (argc < 2) {
+		printf("Usage: ./PZ80emu <filename.bin>\n");
+		exit(EXIT_FAILURE);
+	}
+
 	create_newscreen(main_row, main_col);
 
     // execute!
@@ -61,4 +61,6 @@ int main(int argc, const char * argv[]) {
     // memory cleanup (leaks are bad, mmkay?)
     free(cpu);
     free(memory);
+
+	return 0;
 }
