@@ -81,15 +81,39 @@ static void testLoadReg8FromOffsetIDX(testFixture *tf, gconstpointer data) {
 	uint8_t *memory = calloc(1024, sizeof(uint8_t));
 
 	// check initial setup
+	g_assert(tf->testCpu->a == 0);
+	g_assert(tf->testCpu->ix.W == 0);
+	g_assert(memory[0x0000] == 0);
+	g_assert(memory[0x0122] == 0);
 	g_assert(memory[0x0123] == 0);
+	g_assert(tf->testCpu->pc.W == 0);
+
+	// set index register
+	tf->testCpu->ix.W = 0x0122;
+	g_assert(tf->testCpu->ix.W == 0x0122);
+
+	// put an offset into memory
+	memory[0x0000] = 1;
+	g_assert(memory[0x0000] == 1);
+
+	// store a value in memory to load
+	memory[0x0123] = 0xFF;
+	g_assert(memory[0x0123] == 0xFF);
+
+	// call the helper function
+	_load_reg8_mem_idx_offset(&tf->testCpu->a, &tf->testCpu->ix, memory, &tf->testCpu->pc);
+
+	g_assert(tf->testCpu->a == 0xFF);
+	g_assert(tf->testCpu->pc.W == 0x0001);
 }
 
 int main (int argc, char *argv[]) {
 	g_test_init (&argc, &argv, NULL);
 
-	g_test_add("/z80/Register Init", testFixture, NULL, setupCpu, testRegisterInit, teardownCpu);
-	g_test_add("/z80/CPU Reset", testFixture, NULL, setupCpu, testCpuReset, teardownCpu);
-	g_test_add("/z80/Load 8-Bit Register from Memory", testFixture, NULL, setupCpu, testLoadReg8FromRam, teardownCpu);
+	g_test_add("/z80/new_cpu()", testFixture, NULL, setupCpu, testRegisterInit, teardownCpu);
+	g_test_add("/z80/reset_cpu()", testFixture, NULL, setupCpu, testCpuReset, teardownCpu);
+	g_test_add("/z80/_load_reg8_mem_pair()", testFixture, NULL, setupCpu, testLoadReg8FromRam, teardownCpu);
+	g_test_add("/z80/_load_reg8_mem_idx_offset()", testFixture, NULL, setupCpu, testLoadReg8FromOffsetIDX, teardownCpu);
 
 	return g_test_run();
 }
