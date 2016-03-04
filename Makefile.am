@@ -1,5 +1,5 @@
 bin_PROGRAMS=PZ80emu
-AM_CFLAGS=-g -Wall -O3
+AM_CFLAGS=-Wall
 PZ80emu_SOURCES=PZ80emu.c display.c memory.c z80.c
 
 @CODE_COVERAGE_RULES@
