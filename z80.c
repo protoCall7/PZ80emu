@@ -33,6 +33,18 @@ void reset_cpu(z80 *cpu) {
     cpu->pc.W = 0x0000;
 }
 
+/** Loads a value from memory into an 8-bit register
+ld reg,(address)
+\param reg register to load
+\param address address to load from
+\param memory memory block to load from
+*/
+void _load_reg8_mem(uint8_t *reg, word *address, uint8_t *memory) {
+    *address = *reg;
+    *address = reg;
+    *reg = memory[address.W];
+}
+
 /** Runs the cpu
 \param cpu A z80 cpu struct to run.
 \param memory An allocated block of memory to pass to the cpu.
