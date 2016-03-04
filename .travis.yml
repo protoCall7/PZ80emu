@@ -1,6 +1,3 @@
 language: c
 script:
-    - autoreconf -vi
-    - ./configure
-    - make
-    - make test
+    - gcov
