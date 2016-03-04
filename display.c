@@ -92,7 +92,7 @@ WINDOW *create_newwin(int height, int width, int starty, int startx) {
 	(void) box(local_win, 0, 0);            /* 0, 0 gives default characters
 	                                         * for the vertical and horizontal
 	                                         * lines */
-	(void) wrefresh(local_win);     /* Show that box */
+	(void) wrefresh(local_win);     // show that box
 
 	return local_win;
 }
