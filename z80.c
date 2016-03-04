@@ -47,6 +47,8 @@ void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
 	*reg = memory[address.W];
 }
 
+void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t index, uint8_t *memory) {
+
 /** Runs the cpu
    \param cpu A z80 cpu struct to run.
    \param memory An allocated block of memory to pass to the cpu.
