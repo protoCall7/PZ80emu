@@ -17,4 +17,4 @@ script:
     - ./configure
     - make
     - make check
-    - valgrind --error-exitcode=1 --leak-check=full --show-reachable=yes ./PZ80emu
+    - echo "q" | valgrind --error-exitcode=1 --leak-check=yes ./PZ80emu test.bin
