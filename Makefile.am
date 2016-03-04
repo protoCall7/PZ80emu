@@ -1,7 +1,6 @@
 bin_PROGRAMS=PZ80emu
 AM_CFLAGS=-g -Wall -O3
-PZ80emu_SOURCES=PZ80emu.c display.c memory.c z80.c display.h memory.h utils.h z80.h
-PZ80emu_LDADD=-lcurses
+PZ80emu_SOURCES=PZ80emu.c display.c memory.c z80.c
 
 @CODE_COVERAGE_RULES@
 PZ80emu_CFLAGS=$(AM_CFLAGS) $(CODE_COVERAGE_CFLAGS)
