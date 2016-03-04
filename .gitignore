@@ -3,3 +3,13 @@ PZ80emu
 *.log
 *.dSYM/
 .DS_Store
+Makefile.in
+aclocal.m4
+compile
+config.h.in
+configure
+depcomp
+docs/
+install-sh
+missing
+testPZ80emu
