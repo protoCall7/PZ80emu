@@ -39,6 +39,8 @@ int main(int argc, const char * argv[]) {
 
 	if (argc < 2) {
 		printf("Usage: ./PZ80emu <filename.bin>\n");
+		free(cpu);
+		free(memory);
 		exit(EXIT_FAILURE);
 	}
 
