@@ -32,8 +32,7 @@ int main(int argc, const char * argv[]) {
 
 	// emulated memory
 	uint8_t *memory = create_ram();
-	long runcycles = load_rom(argv[1], memory);
-
+	long runcycles;
 	// display variables
 	int main_row = 0;
 	int main_col = 0;
@@ -42,6 +41,8 @@ int main(int argc, const char * argv[]) {
 		printf("Usage: ./PZ80emu <filename.bin>\n");
 		exit(EXIT_FAILURE);
 	}
+
+	runcycles = load_rom(argv[1], memory);
 
 	create_newscreen(main_row, main_col);
 
