@@ -15,7 +15,7 @@
 /** Fills out a new z80 CPU struct
 \return A z80 struct
 */
-z80 *new_cpu() {
+z80 *new_cpu(void) {
     z80 *cpu;
     
     if ((cpu = calloc(1, sizeof(z80))) == NULL) {

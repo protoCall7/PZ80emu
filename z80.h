@@ -91,6 +91,6 @@ struct z80 {
     word sp;
 };
 
-z80 *new_cpu();
+z80 *new_cpu(void);
 void reset_cpu(z80 *cpu); // reset function
 int run(z80 *cpu, uint8_t *memory, long cycles); // run CPU function
