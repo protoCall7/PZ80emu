@@ -75,13 +75,13 @@ static void testLoadReg8FromRam(testFixture *tf, gconstpointer data) {
 	_load_reg8_mem_pair(&tf->testCpu->a, &tf->testCpu->bc, memory);
 }
 
-static void testLoadReg8FromOffsetIDX(testFixture *tf, gconspointer data) {
+static void testLoadReg8FromOffsetIDX(testFixture *tf, gconstpointer data) {
 	//_load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc)
 	// create block of memory
 	uint8_t *memory = calloc(1024, sizeof(uint8_t));
 
 	// check initial setup
-	g_assert(memory[0x0x123] == 0);
+	g_assert(memory[0x0123] == 0);
 }
 
 int main (int argc, char *argv[]) {
