@@ -9,4 +9,5 @@ before_install:
 script:
     - autoreconf -vi
     - ./configure
-    - cat config.log
+    - make
+    - make check

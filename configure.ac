@@ -20,7 +20,7 @@ AC_CHECK_HEADERS([stdint.h stdlib.h string.h])
 AC_CONFIG_MACRO_DIR([m4])
 
 # Enable coverage rules
-AX_CODE_COVERAGE
+#AX_CODE_COVERAGE
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
