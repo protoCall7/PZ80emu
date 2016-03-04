@@ -47,7 +47,19 @@ void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
 	*reg = memory[address.W];
 }
 
-void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t index, uint8_t *memory) {
+/** Loads a value into an 8-bit register from the memory location stored in an
+   index register + an offset from memory.
+  \param reg register to load
+  \param index_register pointer to ix or iy index register
+  \param memory block of memory containing the value to load
+  \param pc pointer to program counter
+ */
+void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
+	uint8_t index;
+	index = memory[pc->W++];
+
+	*reg = memory[(index + index_register->W)];
+}
 
 /** Runs the cpu
    \param cpu A z80 cpu struct to run.
@@ -74,12 +86,13 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			switch(opcode) {
 			case 0x7E:
 				// ld a,(ix+n)
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
+				_load_reg8_mem_idx_offset(&cpu->a, &cpu->ix, memory, &cpu->pc);
+			//{
+			//	uint8_t index;
+			//	index = memory[cpu->pc.W++];
 
-				cpu->a = memory[(index + cpu->ix.W)];
-			}
+			//	cpu->a = memory[(index + cpu->ix.W)];
+			//}
 			break;
 
 			case 0x46:
