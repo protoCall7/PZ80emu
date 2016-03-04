@@ -14,4 +14,6 @@ before_script:
 
 script:
     - ./configure
+    - make
     - make check
+    - valgrind --error-exitcode=1 --leak-check=full ./PZ80emu
