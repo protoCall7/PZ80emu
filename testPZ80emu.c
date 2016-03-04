@@ -54,11 +54,33 @@ static void testCpuReset(testFixture *tf, gconstpointer data) {
 	g_assert(tf->testCpu->pc.W == 0);
 }
 
+static void testLoadReg8FromRam(testFixture *tf, gconstpointer data) {
+	// create a block of memory
+	uint8_t *memory = calloc(1024, sizeof(uint8_t));
+
+	// check initial setup
+	g_assert(memory[0x0123] == 0);
+	g_assert(tf->testCpu->bc.W == 0);
+	g_assert(tf->testCpu->a == 0);
+
+	// store a value at 0x0123
+	memory[0x0123] = 0xFF;
+	g_assert(memory[0x0123] == 0xFF);
+
+	// load the memory address into the bc register
+	tf->testCpu->bc.W = 0x0123;
+	g_assert(tf->testCpu->bc.W == 0x0123);
+
+	// load 0xFF to the A register
+	_load_reg8_mem_pair(tf->testCpu->a, tf->testCpu->bc.W, memory);
+}
+
 int main (int argc, char *argv[]) {
     g_test_init (&argc, &argv, NULL);
 
 	g_test_add("/z80/Register Init", testFixture, NULL, setupCpu, testRegisterInit, teardownCpu);
 	g_test_add("/z80/CPU Reset", testFixture, NULL, setupCpu, testCpuReset, teardownCpu);
+	g_test_add("/z80/Load 8-Bit Register from Memory", testFixture, NULL, setupCpu, testLoadReg8FromRam, teardownCpu);
 
     return g_test_run();
 }
