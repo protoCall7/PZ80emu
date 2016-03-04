@@ -33,15 +33,17 @@ void reset_cpu(z80 *cpu) {
     cpu->pc.W = 0x0000;
 }
 
-/** Loads a value from memory into an 8-bit register
-ld reg,(address)
+/** Loads a value into an 8-bit register from the memory location stored in a
+16-bit register pair
 \param reg register to load
-\param address address to load from
-\param memory memory block to load from
+\param address_pair 16-bit register pair containing the memory address to load
+from
+\param memory block of memory containing the value to load
 */
-void _load_reg8_mem(uint8_t *reg, word *address, uint8_t *memory) {
-    *address = *reg;
-    *address = reg;
+void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
+	word address;
+    address.B.h = address_pair->B.h;
+    address.B.l = address_pair->B.l;
     *reg = memory[address.W];
 }
 
@@ -714,12 +716,13 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
             case 0x6E:
                 // ld l,(hl)
-                {
-                    word address;
-                    address.B.h = cpu->hl.B.h;
-                    address.B.l = cpu->hl.B.l;
-                    cpu->hl.B.l = memory[address.W];
-                }
+				_load_reg8_mem_pair(&cpu->hl.B.l, &cpu->hl, memory);
+                //{
+                //    word address;
+                //    address.B.h = cpu->hl.B.h;
+                //    address.B.l = cpu->hl.B.l;
+                //    cpu->hl.B.l = memory[address.W];
+                //}
                 break;
 
             case 0x77:
