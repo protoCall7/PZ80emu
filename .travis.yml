@@ -2,6 +2,10 @@ sudo: required
 
 language: c
 
+compiler:
+    - clang
+    - gcc
+
 before_script:
     - sudo add-apt-repository ppa:dns/gnu -y
     - sudo apt-get update -q
