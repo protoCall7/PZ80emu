@@ -28,10 +28,10 @@ int main(int argc, const char * argv[]) {
 	WINDOW *register_display, *memory_display;
 
 	// initialize the CPU
-	z80 *cpu = new_cpu();
+	z80 *cpu;
 
 	// emulated memory
-	uint8_t *memory = create_ram();
+	uint8_t *memory;
 	long runcycles;
 	// display variables
 	int main_row = 0;
@@ -39,11 +39,11 @@ int main(int argc, const char * argv[]) {
 
 	if (argc < 2) {
 		printf("Usage: ./PZ80emu <filename.bin>\n");
-		free(cpu);
-		free(memory);
 		exit(EXIT_FAILURE);
 	}
 
+	cpu = new_cpu();
+	memory = create_ram();
 	runcycles = load_rom(argv[1], memory);
 
 	create_newscreen(main_row, main_col);
