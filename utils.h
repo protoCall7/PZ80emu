@@ -12,9 +12,9 @@
 #endif
 
 /** Determines if a bit is set or not
-\param val Bitfield to check
-\param bit Which bit in the field to check
-\return 0 == Checked Bit False, 1 == Checked Bit True.
-*/
+   \param val Bitfield to check
+   \param bit Which bit in the field to check
+   \return 0 == Checked Bit False, 1 == Checked Bit True.
+ */
 
 #define IS_SET(val, bit) ((val) & (1 << (bit)))

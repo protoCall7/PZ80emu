@@ -76,11 +76,11 @@ static void testLoadReg8FromRam(testFixture *tf, gconstpointer data) {
 }
 
 int main (int argc, char *argv[]) {
-    g_test_init (&argc, &argv, NULL);
+	g_test_init (&argc, &argv, NULL);
 
 	g_test_add("/z80/Register Init", testFixture, NULL, setupCpu, testRegisterInit, teardownCpu);
 	g_test_add("/z80/CPU Reset", testFixture, NULL, setupCpu, testCpuReset, teardownCpu);
 	g_test_add("/z80/Load 8-Bit Register from Memory", testFixture, NULL, setupCpu, testLoadReg8FromRam, teardownCpu);
 
-    return g_test_run();
+	return g_test_run();
 }

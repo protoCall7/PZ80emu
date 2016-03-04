@@ -25,18 +25,18 @@
 /** Type to deal with endianness and access of high/low bits */
 typedef union {
 	/** 16 Bit Pair */
-    unsigned short W;
-    
+	unsigned short W;
+
 	/** Combination of High and Low bytes in correct order for
-	endianness.
-    */
-    struct {
+	   endianness.
+	 */
+	struct {
 #ifdef LOW_ENDIAN
-        uint8_t l,h;     /* ...in low-endian architecture */
+		uint8_t l,h; /* ...in low-endian architecture */
 #else
-        uint8_t h,l;     /* ...in high-endian architecture */
+		uint8_t h,l; /* ...in high-endian architecture */
 #endif
-    } B;
+	} B;
 } word;
 
 
@@ -46,49 +46,49 @@ typedef struct z80 z80;
 /** Collection of registers comprising a Z80 CPU */
 struct z80 {
 	/** program counter */
-    word pc;
+	word pc;
 
 	/** interrupt counter */
-    int counter;
+	int counter;
 
 	/** A register */
-    uint8_t a;
+	uint8_t a;
 
 	/** flags register */
-    unsigned flags :6;
+	unsigned flags : 6;
 
 	/** BC register pair */
-    word bc;
+	word bc;
 
 	/** DE register pair */
-    word de;
+	word de;
 
 	/** HL register pair */
-    word hl;
+	word hl;
 
 	/** IX register */
-    word ix;
+	word ix;
 
 	/** IY register */
-    word iy;
+	word iy;
 
 	/** A' register */
-    uint8_t _a;
+	uint8_t _a;
 
 	/** flags' register */
-    unsigned _flags :6;
+	unsigned _flags : 6;
 
 	/** BC' register pair */
-    word _bc;
+	word _bc;
 
 	/** DE' register pair */
-    word _de;
+	word _de;
 
 	/** HL' register pair */
-    word _hl;
+	word _hl;
 
 	/** Stack Pointer */
-    word sp;
+	word sp;
 };
 
 z80 *new_cpu(void);
