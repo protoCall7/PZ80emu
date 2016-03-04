@@ -12,7 +12,6 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 
 # Checks for libraries.
-# FIXME: Replace `main' with a function in `-lcurses':
 AC_CHECK_LIB([curses], [initscr])
 
 # Checks for header files.
