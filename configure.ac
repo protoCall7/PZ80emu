@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.68])
+AC_PREREQ([2.69])
 AC_INIT([PZ80emu], [0.1])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([PZ80emu.c])
@@ -9,7 +9,6 @@ AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CC
-AM_PROG_CC_C_O
 
 # Checks for libraries.
 AC_CHECK_LIB([curses], [initscr])
@@ -20,10 +19,10 @@ AC_CHECK_HEADERS([stdint.h stdlib.h string.h])
 AC_CONFIG_MACRO_DIR([m4])
 
 # Enable coverage rules
-#AX_CODE_COVERAGE
+AX_CODE_COVERAGE
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_HEADER_STDBOOL
+AC_CHECK_HEADER_STDBOOL
 AC_TYPE_SIZE_T
 AC_TYPE_UINT8_T
 
