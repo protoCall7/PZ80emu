@@ -4,7 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([PZ80emu], [0.1])
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([display.c])
+AC_CONFIG_SRCDIR([PZ80emu.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
@@ -12,7 +12,7 @@ AC_PROG_CC
 
 # Checks for libraries.
 # FIXME: Replace `main' with a function in `-lcurses':
-AC_CHECK_LIB([curses], [main])
+AC_CHECK_LIB([curses], [initscr])
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h])
