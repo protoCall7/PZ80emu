@@ -17,6 +17,11 @@ AC_CHECK_LIB([curses], [main])
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h])
 
+AC_CONFIG_MACRO_DIRS([m4])
+
+# Enable coverage rules
+AX_CODE_COVERAGE
+
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
 AC_TYPE_SIZE_T
