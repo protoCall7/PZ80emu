@@ -3,8 +3,8 @@ sudo: required
 language: c
 
 before_install:
-    - sudo apt-get update
-    - sudo apt-get install autotools-dev autoconf
+    - sudo apt-get update -q
+    - sudo apt-get install -qy autotools-dev autoconf
 
 script:
     - autoreconf -vi
