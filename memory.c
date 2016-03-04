@@ -32,6 +32,7 @@ uint8_t *create_ram(void) {
 long load_rom(const char *filename, uint8_t *memory) {
     FILE *infile;
     long file_numbytes;
+	size_t readbytes;
     
     infile = fopen(filename, "r");
     if (infile == NULL) {
@@ -48,7 +49,11 @@ long load_rom(const char *filename, uint8_t *memory) {
         exit(EXIT_FAILURE);
     }
     
-    (void) fread(memory, sizeof(char), (size_t)file_numbytes, infile);
+    readbytes = fread(memory, sizeof(char), (size_t)file_numbytes, infile);
+	if(readbytes != (size_t)file_numbytes) {
+		exit(EXIT_FAILURE);
+	}
+
     if((fclose(infile)) != 0) {
         exit(EXIT_FAILURE);
     }
