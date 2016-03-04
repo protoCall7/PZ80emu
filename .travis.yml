@@ -1,6 +1,6 @@
 language: c
 script:
-    - autoreconv -vi
+    - autoreconf -vi
     - ./configure
     - make
     - make test
