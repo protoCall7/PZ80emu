@@ -23,7 +23,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AX_CODE_COVERAGE
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_CHECK_HEADER_STDBOOL
+AC_HEADER_STDBOOL
 AC_TYPE_SIZE_T
 AC_TYPE_UINT8_T
 
