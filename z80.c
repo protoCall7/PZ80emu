@@ -397,7 +397,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
             // 8-bit transfer instructions
             case 0x0A:
                 // ld a,(bc)
-                cpu->a = memory[cpu->bc.W];
+				_load_reg8_mem_pair(&cpu->a, &cpu->bc, memory);
                 break;
   
             case 0x7F:
@@ -437,7 +437,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
             case 0x7E:
                 // ld a,(hl)
-                cpu->a = memory[cpu->hl.W];
+				_load_reg8_mem_pair(&cpu->a, &cpu->hl, memory);
                 break;
 
             case 0x1A:
@@ -492,12 +492,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
             case 0x46:
                 // ld b,(hl)
-                {
-                    word address;
-                    address.B.h = cpu->hl.B.h;
-                    address.B.l = cpu->hl.B.l;
-                    cpu->bc.B.h = memory[address.W];
-                }
+				_load_reg8_mem_pair(&cpu->bc.B.h, &cpu->hl, memory);
                 break;
 
             case 0x4F:
@@ -536,12 +531,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
             case 0x4E:
                 // ld c,(hl)
-                {
-                    word address;
-                    address.B.h = cpu->hl.B.h;
-                    address.B.l = cpu->hl.B.l;
-                    cpu->bc.B.l = memory[address.W];
-                }
+				_load_reg8_mem_pair(&cpu->bc.B.l, &cpu->hl, memory);
                 break;
 
             case 0x57:
@@ -581,12 +571,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
             case 0x56:
                 // ld d,(hl)
-                {
-                    word address;
-                    address.B.h = cpu->hl.B.h;
-                    address.B.l = cpu->hl.B.l;
-                    cpu->de.B.h = memory[address.W];
-                }
+				_load_reg8_mem_pair(&cpu->de.B.h, &cpu->hl, memory);
                 break;
 
             case 0x5F:
@@ -626,12 +611,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
             case 0x5E:
                 // ld e,(hl)
-                {
-                    word address;
-                    address.B.h = cpu->hl.B.h;
-                    address.B.l = cpu->hl.B.l;
-                    cpu->de.B.l = memory[address.W];
-                }
+				_load_reg8_mem_pair(&cpu->de.B.l, &cpu->hl, memory);
                 break;
 
             case 0x67:
@@ -671,12 +651,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
             case 0x66:
                 // ld h,(hl)
-                {
-                    word address;
-                    address.B.h = cpu->hl.B.h;
-                    address.B.l = cpu->hl.B.l;
-                    cpu->hl.B.h = memory[address.W];
-                }
+				_load_reg8_mem_pair(&cpu->hl.B.h, &cpu->hl, memory);
                 break;
 
             case 0x6F:
@@ -717,12 +692,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
             case 0x6E:
                 // ld l,(hl)
 				_load_reg8_mem_pair(&cpu->hl.B.l, &cpu->hl, memory);
-                //{
-                //    word address;
-                //    address.B.h = cpu->hl.B.h;
-                //    address.B.l = cpu->hl.B.l;
-                //    cpu->hl.B.l = memory[address.W];
-                //}
                 break;
 
             case 0x77:

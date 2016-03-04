@@ -72,7 +72,7 @@ static void testLoadReg8FromRam(testFixture *tf, gconstpointer data) {
 	g_assert(tf->testCpu->bc.W == 0x0123);
 
 	// load 0xFF to the A register
-	_load_reg8_mem_pair(tf->testCpu->a, tf->testCpu->bc.W, memory);
+	_load_reg8_mem_pair(&tf->testCpu->a, &tf->testCpu->bc, memory);
 }
 
 int main (int argc, char *argv[]) {
