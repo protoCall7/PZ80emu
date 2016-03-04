@@ -28,7 +28,7 @@ static void testRegisterInit(testFixture *tf, gconstpointer data) {
 
 	// iterate over the flags bitfield and make sure all bits are unset
 	for (int i = 0; i < 6; i++) {
-		g_assert_false(IS_SET(tf->testCpu->flags, i));
+		g_assert(!IS_SET(tf->testCpu->flags, i));
 	}
 
 	g_assert(tf->testCpu->bc.W == 0);

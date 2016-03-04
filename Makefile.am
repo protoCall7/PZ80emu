@@ -8,5 +8,5 @@ PZ80emu_CFLAGS=$(AM_CFLAGS) $(CODE_COVERAGE_CFLAGS)
 TESTS=$(check_PROGRAMS)
 check_PROGRAMS=testPZ80emu
 testPZ80emu_SOURCES=testPZ80emu.c z80.c
-testPZ80emu_CFLAGS=$(AM_CFLAGS) `pkg-config --cflags glib-2.0`
-testPZ80emu_LDFLAGS=`pkg-config --libs glib-2.0`
+testPZ80emu_LDADD=$(GLIB_LIBS)
+testPZ80emu_CFLAGS=$(GLIB_CFLAGS)

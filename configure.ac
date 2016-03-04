@@ -9,12 +9,17 @@ AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CC
+AC_PROG_CC_C99
 
 # Checks for libraries.
 AC_CHECK_LIB([curses], [initscr])
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h])
+
+PKG_CHECK_MODULES([GLIB], [glib-2.0])
+AC_SUBST(GLIB_CFLAGS)
+AC_SUBST(GLIB_LIBS)
 
 AC_CONFIG_MACRO_DIR([m4])
 
