@@ -20,3 +20,6 @@ config.h
 config.status
 stamp-h1
 test-driver
+*.gcda
+*.gcno
+*.a
