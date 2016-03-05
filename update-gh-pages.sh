@@ -14,10 +14,10 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
   #go into diractory and copy data we're interested in to that directory
   cd gh-pages
+  git rm -rf coverage
   cp -Rf $HOME/coverage .
 
   #clean, add, commit and push files
-  git rm -rf coverage
   git add -f .
   git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
   git push -fq origin gh-pages > /dev/null
