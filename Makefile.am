@@ -2,10 +2,7 @@ bin_PROGRAMS=PZ80emu
 AM_CFLAGS=-Wall -O3 -g $(GLIB_CFLAGS)
 PZ80emu_SOURCES=PZ80emu.c display.c memory.c z80.c
 
-TESTS=$(check_PROGRAMS)
-check_PROGRAMS=testPZ80emu
-testPZ80emu_SOURCES=testPZ80emu.c z80.c
-testPZ80emu_LDADD=$(GLIB_LIBS)
+
+SUBDIRS = tests
 	
-@CODE_COVERAGE_RULES@
-testPZ80emu_CFLAGS=$(GLIB_CFLAGS) $(CODE_COVERAGE_CFLAGS)
+

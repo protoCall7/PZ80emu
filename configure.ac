@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([PZ80emu], [0.1])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 AC_CONFIG_SRCDIR([PZ80emu.c])
 AC_CONFIG_HEADERS([config.h])
 
@@ -35,5 +35,5 @@ AC_TYPE_UINT8_T
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile tests/Makefile])
 AC_OUTPUT
