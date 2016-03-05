@@ -14,10 +14,5 @@ before_script:
     - autoreconf -vi
 
 script:
-    - ./configure
-    - make
-    - make check
-    - echo "q" | valgrind --error-exitcode=1 --leak-check=yes ./PZ80emu test.bin
-    - make clean
     - ./configure --enable-code-coverage
     - make check-code-coverage
