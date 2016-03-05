@@ -1,8 +1,11 @@
-bin_PROGRAMS=PZ80emu
-AM_CFLAGS=-Wall -O3 -g $(GLIB_CFLAGS)
-PZ80emu_SOURCES=PZ80emu.c display.c memory.c z80.c
+SUBDIRS = \
+		  src/lib \
+		  src/bin \
+		  tests
 
-
-SUBDIRS = tests
-	
-
+@CODE_COVERAGE_RULES@
+CODE_COVERAGE_DIRECTORY = \
+						  $(top_builddir) \
+						  $(top_builddir)/src/lib \
+						  $(top_builddir)/src/bin \
+						  $(top_builddir)/tests

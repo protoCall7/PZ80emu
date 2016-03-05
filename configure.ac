@@ -3,20 +3,24 @@
 
 AC_PREREQ([2.69])
 AC_INIT([PZ80emu], [0.1])
-AM_INIT_AUTOMAKE([subdir-objects])
-AC_CONFIG_SRCDIR([PZ80emu.c])
+AC_CONFIG_SRCDIR([src/bin/PZ80emu.c])
 AC_CONFIG_HEADERS([config.h])
+AM_INIT_AUTOMAKE([subdir-objects])
 
 CFLAGS=''
 
 # Checks for programs.
-AC_PROG_CC
 AC_PROG_CC_C99
+AC_PROG_CPP
+AC_PROG_RANLIB
+
+AC_LANG([C])
 
 # Checks for libraries.
 AC_CHECK_LIB([curses], [initscr])
 
 # Checks for header files.
+AC_HEADER_STDC
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h])
 
 PKG_CHECK_MODULES([GLIB], [glib-2.0])
@@ -35,5 +39,8 @@ AC_TYPE_UINT8_T
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile tests/Makefile])
+AC_CONFIG_FILES([Makefile
+				 src/bin/Makefile
+				 src/lib/Makefile
+				 tests/Makefile])
 AC_OUTPUT
