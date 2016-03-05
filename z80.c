@@ -17,7 +17,6 @@
  */
 z80 *new_cpu(void) {
 	z80 *cpu;
-
 	if ((cpu = calloc(1, sizeof(z80))) == NULL) {
 		exit(EXIT_FAILURE);
 	}
@@ -55,8 +54,7 @@ void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
    \param pc pointer to program counter
  */
 void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
-	uint8_t index;
-	index = memory[pc->W++];
+	uint8_t index = memory[pc->W++];
 
 	*reg = memory[(index + index_register->W)];
 }
