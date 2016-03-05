@@ -16,7 +16,8 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   cd gh-pages
   cp -Rf $HOME/coverage .
 
-  #add, commit and push files
+  #clean, add, commit and push files
+  git rm -rf coverage
   git add -f .
   git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
   git push -fq origin gh-pages > /dev/null
