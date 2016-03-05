@@ -21,13 +21,12 @@
    \param memory A pointer to the block of memory to display
  */
 void display_mem(WINDOW *win, uint8_t *memory) {
-	int i;
 	int display_counter = 0;
 	int rollover_counter = 0;
 
 	//memory display routine
 	(void) mvwprintw(win, 1, 2, "Memory Display:");
-	for (i = 0; i < 128; i++) {
+	for (int i = 0; i < 128; i++) {
 		if (display_counter == 0) (void) mvwprintw(win, rollover_counter+2, 2, "0x%04hhX: ", i);
 		(void)wprintw(win, "%02hhX ", memory[i]);
 		display_counter++;
@@ -86,9 +85,7 @@ void display_registers(WINDOW *win, z80 *cpu) {
    \return curses WINDOW
  */
 WINDOW *create_newwin(int height, int width, int starty, int startx) {
-	WINDOW *local_win;
-
-	local_win = newwin(height, width, starty, startx);
+	WINDOW *local_win = newwin(height, width, starty, startx);
 	(void) box(local_win, 0, 0);            /* 0, 0 gives default characters
 	                                         * for the vertical and horizontal
 	                                         * lines */
