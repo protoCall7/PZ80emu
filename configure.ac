@@ -7,6 +7,8 @@ AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([PZ80emu.c])
 AC_CONFIG_HEADERS([config.h])
 
+CFLAGS=''
+
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_CC_C99
