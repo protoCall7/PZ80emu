@@ -1,18 +1,20 @@
 sudo: required
-
 language: c
-
 compiler:
-    - clang
-    - gcc
-
+- clang
+- gcc
 before_script:
-    - sudo add-apt-repository ppa:dns/gnu -y
-    - sudo apt-get update -q
-    - sudo apt-get install -qy valgrind
-    - sudo apt-get install --only-upgrade autoconf automake
-    - autoreconf -vi
-
+- sudo add-apt-repository ppa:dns/gnu -y
+- sudo apt-get update -q
+- sudo apt-get install -qy valgrind lcov
+- sudo apt-get install --only-upgrade autoconf automake
+- autoreconf -vi
 script:
-    - ./configure --enable-code-coverage
-    - make check-code-coverage
+- ./configure --enable-code-coverage
+- make check-code-coverage
+
+after_success: ./update-gh-pages.sh
+
+env:
+  global:
+    secure: ojnL3rYyGpR2dDPxaW8yJSyqmSvpJFwj2+PMgxxOHwuF9UfsSB3FeKkZ5M+Uji6FDq9Uhx3IHIT0FVEcyKCQeJ00Q7+yhY4GWWz71OkDBe82pcwKYUJsIInnfuw6nxslcOuQ45xXOxGZLM7qGFuDDDuFTqDiP/sqJFkgW++CDpVsRvLLjKRPA+tzf/CYONgkBWi6Gyl8CNe/SUmJZkH67r9j6E7W9NjHPTHL6AHVkFEj84jAMM+VCseRijeWksxpj39YV7GJMe07nLQcMIf9ZjLWorLblJHbM+SI25A2fw6Qd4TDk0nrY2CkxWnAvavz7W8vEv5PsKyDdjvkPKf5woorL5UuuLT+pliwEVc1mwWSI7XEbexABuBgCrfzaweXoIhA6nWGNQhJNUBzAWfjghfUHDAUENpioYvA5F3f57qQCONIMfhQNG4ZdbsG30VcKEMJblUSy5CBOyubIxxYOA+97zhQbFO/OeFJ0S8Ha/2lJ9ClvA9k8iuYS2E6oUqttE/pRy7mKOhu/i7JfLfabPksq0eOi4HVzFLQ0ynYFoPH8QS2MWOG3ZOmOWzXSk7oMJLYLW3kstJj3R+y9gl14tLRWs8JP7lEItPTDOt7yNAEPH6j8/Dv3oYaNBHdDAnLEgiajG+1dKF/8FHpz8Hsc2Hg2neTHUuE79YigGNHseU=
