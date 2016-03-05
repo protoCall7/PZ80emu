@@ -27,12 +27,6 @@
 int main(int argc, const char * argv[]) {
 	WINDOW *register_display, *memory_display;
 
-	// initialize the CPU
-	z80 *cpu;
-
-	// emulated memory
-	uint8_t *memory;
-	long runcycles;
 	// display variables
 	int main_row = 0;
 	int main_col = 0;
@@ -42,9 +36,9 @@ int main(int argc, const char * argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-	cpu = new_cpu();
-	memory = create_ram();
-	runcycles = load_rom(argv[1], memory);
+	z80 *cpu = new_cpu();
+	uint8_t *memory = create_ram();
+	long runcycles = load_rom(argv[1], memory);
 
 	create_newscreen(main_row, main_col);
 
