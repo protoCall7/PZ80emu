@@ -780,7 +780,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 		}
 
 		runcycles--;
-	} while (runcycles >= 0);
+	} while (runcycles > 0);
 
 	return count;
 }
