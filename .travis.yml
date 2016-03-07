@@ -5,12 +5,14 @@ language: c
 before_script:
 - sudo add-apt-repository ppa:dns/gnu -y
 - sudo apt-get update -q
-- sudo apt-get install -qy valgrind lcov
+- sudo apt-get install -qy valgrind lcov doxygen
 - sudo apt-get install --only-upgrade autoconf automake
 - autoreconf -vi
+
 script:
 - ./configure --enable-code-coverage
 - make check-code-coverage
+- make doxygen-run
 
 after_success: ./update-gh-pages.sh
 
