@@ -7,6 +7,8 @@ libmemory_a_SOURCES = memory.c
 
 libdisplay_a_SOURCES = display.c
 
+@DX_RULES@
+
 @CODE_COVERAGE_RULES@
 libz80_a_CFLAGS = $(CODE_COVERAGE_CFLAGS)
 libmemory_a_CFLAGS = $(CODE_COVERAGE_CFLAGS)
