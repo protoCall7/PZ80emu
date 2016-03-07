@@ -1,18 +1,16 @@
-/** \file */
-//
-//  z80.h
-//  PZ80emu
-//
-//  Created by Peter Ezetta on 5/3/15.
-//  Copyright (c) 2015 Peter Ezetta. All rights reserved.
-//
+/** \file z80.h
+ *  \brief z80 CPU data structure and functions
+ *
+ * Created by Peter Ezetta on 5/3/15.
+ * Copyright (c) 2015 Peter Ezetta. All rights reserved.
+ *
+ */
+
 
 #ifndef __PZ80emu__z80__
 #define __PZ80emu__z80__
 
-#include <stdio.h>
 #include <stdint.h>
-#include <ncurses.h>
 
 /** The initial value of the PC register */
 #define INIT_PC 0x0000
@@ -26,7 +24,7 @@ typedef union {
 	unsigned short W;
 
 	/** Combination of High and Low bytes in correct order for
-	   endianness.
+	 * endianness.
 	 */
 	struct {
 #ifdef LOW_ENDIAN
@@ -43,50 +41,21 @@ typedef struct z80 z80;
 
 /** Collection of registers comprising a Z80 CPU */
 struct z80 {
-	/** program counter */
-	word pc;
-
-	/** interrupt counter */
-	int counter;
-
-	/** A register */
-	uint8_t a;
-
-	/** flags register */
-	unsigned flags : 6;
-
-	/** BC register pair */
-	word bc;
-
-	/** DE register pair */
-	word de;
-
-	/** HL register pair */
-	word hl;
-
-	/** IX register */
-	word ix;
-
-	/** IY register */
-	word iy;
-
-	/** A' register */
-	uint8_t _a;
-
-	/** flags' register */
-	unsigned _flags : 6;
-
-	/** BC' register pair */
-	word _bc;
-
-	/** DE' register pair */
-	word _de;
-
-	/** HL' register pair */
-	word _hl;
-
-	/** Stack Pointer */
-	word sp;
+	word pc; /** program counter */
+	int counter; /** interrupt counter */
+	uint8_t a; /** A register */
+	unsigned flags : 6; /** flags register */
+	word bc; /** BC register pair */
+	word de; /** DE register pair */
+	word hl; /** HL register pair */
+	word ix; /** IX register */
+	word iy; /** IY register */
+	uint8_t _a; /** A' register */
+	unsigned _flags : 6; /** flags' register */
+	word _bc; /** BC' register pair */
+	word _de; /** DE' register pair */
+	word _hl; /** HL' register pair */
+	word sp; /** Stack Pointer */
 };
 
 z80 *new_cpu(void);

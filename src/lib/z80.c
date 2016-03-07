@@ -1,4 +1,4 @@
-/** \file */
+/** \file z80.c */
 //
 //  z80.c
 //  PZ80emu
@@ -12,8 +12,9 @@
 #include "z80.h"
 #include "utils.h"
 
-/** Fills out a new z80 CPU struct
-   \return A z80 struct
+/**
+ * Fills out a new z80 CPU struct
+ * \return A z80 struct
  */
 z80 *new_cpu(void) {
 	z80 *cpu;
@@ -24,20 +25,21 @@ z80 *new_cpu(void) {
 	return cpu;
 }
 
-/** Triggers the reset state on the z80 CPU
-   \param cpu A z80 struct to reset.
+/**
+ * Triggers the reset state on the z80 CPU
+ * \param cpu A z80 struct to reset.
  */
 void reset_cpu(z80 *cpu) {
 	// need to implement interrupt resetting here
 	cpu->pc.W = 0x0000;
 }
 
-/** Loads a value into an 8-bit register from the memory location stored in a
-   16-bit register pair
-   \param reg register to load
-   \param address_pair 16-bit register pair containing the memory address to load
-   from
-   \param memory block of memory containing the value to load
+/**
+ * Loads a value into an 8-bit register from the memory location stored in a 16-bit register pair
+ * \param reg register to load
+ * \param address_pair 16-bit register pair containing the memory address to load
+ * from
+ * \param memory block of memory containing the value to load
  */
 void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
 	word address;
@@ -46,12 +48,12 @@ void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
 	*reg = memory[address.W];
 }
 
-/** Loads a value into an 8-bit register from the memory location stored in an
-   index register + an offset from memory.
-   \param reg register to load
-   \param index_register pointer to ix or iy index register
-   \param memory block of memory containing the value to load
-   \param pc pointer to program counter
+/**
+ * Loads a value into an 8-bit register from the memory location stored in an index register + an offset from memory.
+ * \param reg register to load
+ * \param index_register pointer to ix or iy index register
+ * \param memory block of memory containing the value to load
+ * \param pc pointer to program counter
  */
 void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
 	uint8_t index = memory[pc->W++];
@@ -59,12 +61,12 @@ void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memo
 	*reg = memory[(index + index_register->W)];
 }
 
-/** Loads a value into a memory location stored in an
-   index register + an offset from a register.
-   \param reg register to load from
-   \param index_register pointer to ix or iy index register
-   \param memory block of memory containing the value to load
-   \param pc pointer to program counter
+/**
+ * Loads a value into a memory location stored in an index register + an offset from a register.
+ * \param reg register to load from
+ * \param index_register pointer to ix or iy index register
+ * \param memory block of memory containing the value to load
+ * \param pc pointer to program counter
  */
 void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
 	uint8_t index = memory[pc->W++];
@@ -72,11 +74,12 @@ void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memo
 	memory[(index + index_register->W)] = *reg;
 }
 
-/** Runs the cpu
-   \param cpu A z80 cpu struct to run.
-   \param memory An allocated block of memory to pass to the cpu.
-   \param runcycles The number of clock cycles to run the cpu.
-   \return Count of cycles executed.
+/**
+ * Runs the cpu
+ * \param cpu A z80 cpu struct to run.
+ * \param memory An allocated block of memory to pass to the cpu.
+ * \param runcycles The number of clock cycles to run the cpu.
+ * \return Count of cycles executed.
  */
 int run(z80 *cpu, uint8_t *memory, long runcycles) {
 	int count = 0;
