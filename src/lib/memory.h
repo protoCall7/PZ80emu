@@ -16,7 +16,6 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#endif /* defined(__PZ80emu__memory__) */
-
 uint8_t *create_ram();
 long load_rom(const char *filename, uint8_t *memory);
+#endif /* defined(__PZ80emu__memory__) */

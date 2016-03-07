@@ -14,8 +14,6 @@
 #include <stdint.h>
 #include <ncurses.h>
 
-#endif /* defined(__PZ80emu__z80__) */
-
 /** The initial value of the PC register */
 #define INIT_PC 0x0000
 
@@ -96,3 +94,4 @@ void reset_cpu(z80 *cpu); // reset function
 void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory);
 void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc);
 int run(z80 *cpu, uint8_t *memory, long cycles); // run CPU function
+#endif /* defined(__PZ80emu__z80__) */

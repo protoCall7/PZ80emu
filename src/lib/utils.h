@@ -9,7 +9,6 @@
 
 #ifndef __PZ80emu__utils__
 #define __PZ80emu__utils__
-#endif
 
 /** Determines if a bit is set or not
    \param val Bitfield to check
@@ -18,3 +17,4 @@
  */
 
 #define IS_SET(val, bit) ((val) & (1 << (bit)))
+#endif // defined __PZ80emu__utils__
