@@ -1,0 +1,903 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - PZ80emu-0.1 Code Coverage - /home/travis/build/protoCall7/PZ80emu/src/lib/z80.c</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../../../index.html">top level</a> - <a href="index.html">home/travis/build/protoCall7/PZ80emu/src/lib</a> - z80.c<span style="font-size: 80%;"> (source / <a href="z80.c.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">PZ80emu-0.1 Code Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntry">302</td>
+            <td class="headerCovTableEntryLo">6.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2016-03-07</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntryMed">83.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Legend:</td>
+            <td class="headerValueLeg">            Lines:
+            <span class="coverLegendCov">hit</span>
+            <span class="coverLegendNoCov">not hit</span>
+            | Branches:
+            <span class="coverLegendCov">+</span> taken
+            <span class="coverLegendNoCov">-</span> not taken
+            <span class="coverLegendNoCov">#</span> not executed
+</td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">138</td>
+            <td class="headerCovTableEntryLo">0.7 %</td>
+          </tr>
+          <tr><td><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /** \file */</a>
+<span class="lineNum">       2 </span>                :            : //
+<span class="lineNum">       3 </span>                :            : //  z80.c
+<span class="lineNum">       4 </span>                :            : //  PZ80emu
+<span class="lineNum">       5 </span>                :            : //
+<span class="lineNum">       6 </span>                :            : //  Created by Peter Ezetta on 5/3/15.
+<span class="lineNum">       7 </span>                :            : //  Copyright (c) 2015 Peter Ezetta. All rights reserved.
+<span class="lineNum">       8 </span>                :            : //
+<span class="lineNum">       9 </span>                :            : 
+<span class="lineNum">      10 </span>                :            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      11 </span>                :            : #include &lt;stdint.h&gt;
+<span class="lineNum">      12 </span>                :            : #include &quot;z80.h&quot;
+<span class="lineNum">      13 </span>                :            : #include &quot;utils.h&quot;
+<span class="lineNum">      14 </span>                :            : 
+<span class="lineNum">      15 </span>                :            : /** Fills out a new z80 CPU struct
+<a name="16"><span class="lineNum">      16 </span>                :            :    \return A z80 struct</a>
+<span class="lineNum">      17 </span>                :            :  */
+<span class="lineNum">      18 </span>                :<span class="lineCov">         10 : z80 *new_cpu(void) {</span>
+<span class="lineNum">      19 </span>                :            :         z80 *cpu;
+<span class="lineNum">      20 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>]:<span class="lineCov">         10 :         if ((cpu = calloc(1, sizeof(z80))) == NULL) {</span>
+<span class="lineNum">      21 </span>                :<span class="lineNoCov">          0 :                 exit(EXIT_FAILURE);</span>
+<span class="lineNum">      22 </span>                :            :         }
+<span class="lineNum">      23 </span>                :            : 
+<span class="lineNum">      24 </span>                :<span class="lineCov">         10 :         return cpu;</span>
+<span class="lineNum">      25 </span>                :            : }
+<span class="lineNum">      26 </span>                :            : 
+<span class="lineNum">      27 </span>                :            : /** Triggers the reset state on the z80 CPU
+<a name="28"><span class="lineNum">      28 </span>                :            :    \param cpu A z80 struct to reset.</a>
+<span class="lineNum">      29 </span>                :            :  */
+<span class="lineNum">      30 </span>                :<span class="lineCov">          2 : void reset_cpu(z80 *cpu) {</span>
+<span class="lineNum">      31 </span>                :            :         // need to implement interrupt resetting here
+<span class="lineNum">      32 </span>                :<span class="lineCov">          2 :         cpu-&gt;pc.W = 0x0000;</span>
+<span class="lineNum">      33 </span>                :<span class="lineCov">          2 : }</span>
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :            : /** Loads a value into an 8-bit register from the memory location stored in a
+<span class="lineNum">      36 </span>                :            :    16-bit register pair
+<span class="lineNum">      37 </span>                :            :    \param reg register to load
+<span class="lineNum">      38 </span>                :            :    \param address_pair 16-bit register pair containing the memory address to load
+<span class="lineNum">      39 </span>                :            :    from
+<a name="40"><span class="lineNum">      40 </span>                :            :    \param memory block of memory containing the value to load</a>
+<span class="lineNum">      41 </span>                :            :  */
+<span class="lineNum">      42 </span>                :<span class="lineCov">          2 : void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {</span>
+<span class="lineNum">      43 </span>                :            :         word address;
+<span class="lineNum">      44 </span>                :<span class="lineCov">          2 :         address.B.h = address_pair-&gt;B.h;</span>
+<span class="lineNum">      45 </span>                :<span class="lineCov">          2 :         address.B.l = address_pair-&gt;B.l;</span>
+<span class="lineNum">      46 </span>                :<span class="lineCov">          2 :         *reg = memory[address.W];</span>
+<span class="lineNum">      47 </span>                :<span class="lineCov">          2 : }</span>
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :            : /** Loads a value into an 8-bit register from the memory location stored in an
+<span class="lineNum">      50 </span>                :            :    index register + an offset from memory.
+<span class="lineNum">      51 </span>                :            :    \param reg register to load
+<span class="lineNum">      52 </span>                :            :    \param index_register pointer to ix or iy index register
+<span class="lineNum">      53 </span>                :            :    \param memory block of memory containing the value to load
+<a name="54"><span class="lineNum">      54 </span>                :            :    \param pc pointer to program counter</a>
+<span class="lineNum">      55 </span>                :            :  */
+<span class="lineNum">      56 </span>                :<span class="lineCov">          2 : void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {</span>
+<span class="lineNum">      57 </span>                :<span class="lineCov">          2 :         uint8_t index = memory[pc-&gt;W++];</span>
+<span class="lineNum">      58 </span>                :            : 
+<span class="lineNum">      59 </span>                :<span class="lineCov">          2 :         *reg = memory[(index + index_register-&gt;W)];</span>
+<span class="lineNum">      60 </span>                :<span class="lineCov">          2 : }</span>
+<span class="lineNum">      61 </span>                :            : 
+<span class="lineNum">      62 </span>                :            : /** Loads a value into a memory location stored in an
+<span class="lineNum">      63 </span>                :            :    index register + an offset from a register.
+<span class="lineNum">      64 </span>                :            :    \param reg register to load from
+<span class="lineNum">      65 </span>                :            :    \param index_register pointer to ix or iy index register
+<span class="lineNum">      66 </span>                :            :    \param memory block of memory containing the value to load
+<a name="67"><span class="lineNum">      67 </span>                :            :    \param pc pointer to program counter</a>
+<span class="lineNum">      68 </span>                :            :  */
+<span class="lineNum">      69 </span>                :<span class="lineCov">          2 : void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">          2 :         uint8_t index = memory[pc-&gt;W++];</span>
+<span class="lineNum">      71 </span>                :            : 
+<span class="lineNum">      72 </span>                :<span class="lineCov">          2 :         memory[(index + index_register-&gt;W)] = *reg;</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">          2 : }</span>
+<span class="lineNum">      74 </span>                :            : 
+<span class="lineNum">      75 </span>                :            : /** Runs the cpu
+<span class="lineNum">      76 </span>                :            :    \param cpu A z80 cpu struct to run.
+<span class="lineNum">      77 </span>                :            :    \param memory An allocated block of memory to pass to the cpu.
+<span class="lineNum">      78 </span>                :            :    \param runcycles The number of clock cycles to run the cpu.
+<a name="79"><span class="lineNum">      79 </span>                :            :    \return Count of cycles executed.</a>
+<span class="lineNum">      80 </span>                :            :  */
+<span class="lineNum">      81 </span>                :<span class="lineNoCov">          0 : int run(z80 *cpu, uint8_t *memory, long runcycles) {</span>
+<span class="lineNum">      82 </span>                :<span class="lineNoCov">          0 :         int count = 0;</span>
+<span class="lineNum">      83 </span>                :            :         // number of T cycles for each opcode
+<span class="lineNum">      84 </span>                :<span class="lineNoCov">          0 :         const int cycles[15] = {4, 10, 7, 6, 4, 4, 7, 4, 4, 11, 7, 6, 4, 4, 7};</span>
+<span class="lineNum">      85 </span>                :            : 
+<span class="lineNum">      86 </span>                :            :         do {
+<span class="lineNum">      87 </span>                :<span class="lineNoCov">          0 :                 uint8_t opcode = memory[cpu-&gt;pc.W++]; // fetch next opcode from memory</span>
+<span class="lineNum">      88 </span>                :<span class="lineNoCov">          0 :                 cpu-&gt;counter -= cycles[opcode]; // decrease the interrupt counter by number of cycles for opcode</span>
+<span class="lineNum">      89 </span>                :<span class="lineNoCov">          0 :                 count++;</span>
+<span class="lineNum">      90 </span>                :            : 
+<span class="lineNum">      91 </span>                :            :                 // opcode interpreter switch
+<span class="lineNum">      92 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :                 switch (opcode) {</span>
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span><span class="branchNoExec" title="Branch 17 was not executed"> # </span><span class="branchNoExec" title="Branch 18 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 19 was not executed"> # </span><span class="branchNoExec" title="Branch 20 was not executed"> # </span><span class="branchNoExec" title="Branch 21 was not executed"> # </span><span class="branchNoExec" title="Branch 22 was not executed"> # </span><span class="branchNoExec" title="Branch 23 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 24 was not executed"> # </span><span class="branchNoExec" title="Branch 25 was not executed"> # </span><span class="branchNoExec" title="Branch 26 was not executed"> # </span><span class="branchNoExec" title="Branch 27 was not executed"> # </span><span class="branchNoExec" title="Branch 28 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 29 was not executed"> # </span><span class="branchNoExec" title="Branch 30 was not executed"> # </span><span class="branchNoExec" title="Branch 31 was not executed"> # </span><span class="branchNoExec" title="Branch 32 was not executed"> # </span><span class="branchNoExec" title="Branch 33 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 34 was not executed"> # </span><span class="branchNoExec" title="Branch 35 was not executed"> # </span><span class="branchNoExec" title="Branch 36 was not executed"> # </span><span class="branchNoExec" title="Branch 37 was not executed"> # </span><span class="branchNoExec" title="Branch 38 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 39 was not executed"> # </span><span class="branchNoExec" title="Branch 40 was not executed"> # </span><span class="branchNoExec" title="Branch 41 was not executed"> # </span><span class="branchNoExec" title="Branch 42 was not executed"> # </span><span class="branchNoExec" title="Branch 43 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 44 was not executed"> # </span><span class="branchNoExec" title="Branch 45 was not executed"> # </span><span class="branchNoExec" title="Branch 46 was not executed"> # </span><span class="branchNoExec" title="Branch 47 was not executed"> # </span><span class="branchNoExec" title="Branch 48 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 49 was not executed"> # </span><span class="branchNoExec" title="Branch 50 was not executed"> # </span><span class="branchNoExec" title="Branch 51 was not executed"> # </span><span class="branchNoExec" title="Branch 52 was not executed"> # </span><span class="branchNoExec" title="Branch 53 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 54 was not executed"> # </span><span class="branchNoExec" title="Branch 55 was not executed"> # </span><span class="branchNoExec" title="Branch 56 was not executed"> # </span><span class="branchNoExec" title="Branch 57 was not executed"> # </span><span class="branchNoExec" title="Branch 58 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 59 was not executed"> # </span><span class="branchNoExec" title="Branch 60 was not executed"> # </span><span class="branchNoExec" title="Branch 61 was not executed"> # </span><span class="branchNoExec" title="Branch 62 was not executed"> # </span><span class="branchNoExec" title="Branch 63 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 64 was not executed"> # </span><span class="branchNoExec" title="Branch 65 was not executed"> # </span><span class="branchNoExec" title="Branch 66 was not executed"> # </span><span class="branchNoExec" title="Branch 67 was not executed"> # </span><span class="branchNoExec" title="Branch 68 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 69 was not executed"> # </span><span class="branchNoExec" title="Branch 70 was not executed"> # </span><span class="branchNoExec" title="Branch 71 was not executed"> # </span><span class="branchNoExec" title="Branch 72 was not executed"> # </span><span class="branchNoExec" title="Branch 73 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 74 was not executed"> # </span><span class="branchNoExec" title="Branch 75 was not executed"> # </span><span class="branchNoExec" title="Branch 76 was not executed"> # </span><span class="branchNoExec" title="Branch 77 was not executed"> # </span><span class="branchNoExec" title="Branch 78 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 79 was not executed"> # </span><span class="branchNoExec" title="Branch 80 was not executed"> # </span><span class="branchNoExec" title="Branch 81 was not executed"> # </span><span class="branchNoExec" title="Branch 82 was not executed"> # </span><span class="branchNoExec" title="Branch 83 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 84 was not executed"> # </span><span class="branchNoExec" title="Branch 85 was not executed"> # </span><span class="branchNoExec" title="Branch 86 was not executed"> # </span><span class="branchNoExec" title="Branch 87 was not executed"> # </span><span class="branchNoExec" title="Branch 88 was not executed"> # </span> 
+<span class="lineNum">         </span>   <span class="branchNoExec" title="Branch 89 was not executed"> # </span><span class="branchNoExec" title="Branch 90 was not executed"> # </span><span class="branchNoExec" title="Branch 91 was not executed"> # </span><span class="branchNoExec" title="Branch 92 was not executed"> # </span> 
+<span class="lineNum">         </span>            <span class="branchNoExec" title="Branch 93 was not executed"> # </span>]
+<span class="lineNum">      93 </span>                :            :                 // extended instruction set 0xDDxx
+<span class="lineNum">      94 </span>                :            :                 case 0xDD:
+<span class="lineNum">      95 </span>                :<span class="lineNoCov">          0 :                         opcode = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">      96 </span>                :            : 
+<span class="lineNum">      97 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :                         switch(opcode) {</span>
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span> 
+<span class="lineNum">         </span>      <span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span>]
+<span class="lineNum">      98 </span>                :            :                         case 0x7E:
+<span class="lineNum">      99 </span>                :            :                                 // ld a,(ix+n)
+<span class="lineNum">     100 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;a, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     101 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     102 </span>                :            : 
+<span class="lineNum">     103 </span>                :            :                         case 0x46:
+<span class="lineNum">     104 </span>                :            :                                 // ld b,(ix+n)
+<span class="lineNum">     105 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;bc.B.h, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     106 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     107 </span>                :            : 
+<span class="lineNum">     108 </span>                :            :                         case 0x4E:
+<span class="lineNum">     109 </span>                :            :                                 // ld c,(ix+n)
+<span class="lineNum">     110 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;bc.B.l, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     111 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     112 </span>                :            : 
+<span class="lineNum">     113 </span>                :            :                         case 0x56:
+<span class="lineNum">     114 </span>                :            :                                 // ld d,(ix+n)
+<span class="lineNum">     115 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;de.B.h, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     116 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     117 </span>                :            : 
+<span class="lineNum">     118 </span>                :            :                         case 0x5E:
+<span class="lineNum">     119 </span>                :            :                                 // ld e,(ix+n)
+<span class="lineNum">     120 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;de.B.l, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     121 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     122 </span>                :            : 
+<span class="lineNum">     123 </span>                :            :                         case 0x66:
+<span class="lineNum">     124 </span>                :            :                                 // ld h,(ix+n)
+<span class="lineNum">     125 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;hl.B.h, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     126 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     127 </span>                :            : 
+<span class="lineNum">     128 </span>                :            :                         case 0x6E:
+<span class="lineNum">     129 </span>                :            :                                 // ld l,(ix+n)
+<span class="lineNum">     130 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;hl.B.l, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     131 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     132 </span>                :            : 
+<span class="lineNum">     133 </span>                :            :                         case 0x77:
+<span class="lineNum">     134 </span>                :            :                                 // ld (ix+n),a
+<span class="lineNum">     135 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;a, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     136 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     137 </span>                :            : 
+<span class="lineNum">     138 </span>                :            :                         case 0x70:
+<span class="lineNum">     139 </span>                :            :                                 // ld (ix+n),b
+<span class="lineNum">     140 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;bc.B.h, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     141 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     142 </span>                :            : 
+<span class="lineNum">     143 </span>                :            :                         case 0x71:
+<span class="lineNum">     144 </span>                :            :                                 // ld (ix+n),c
+<span class="lineNum">     145 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;bc.B.l, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     146 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     147 </span>                :            : 
+<span class="lineNum">     148 </span>                :            :                         case 0x72:
+<span class="lineNum">     149 </span>                :            :                                 // ld (ix+n),d
+<span class="lineNum">     150 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;de.B.h, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     151 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     152 </span>                :            : 
+<span class="lineNum">     153 </span>                :            :                         case 0x73:
+<span class="lineNum">     154 </span>                :            :                                 // ld (ix+n),e
+<span class="lineNum">     155 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;de.B.l, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     156 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     157 </span>                :            : 
+<span class="lineNum">     158 </span>                :            :                         case 0x74:
+<span class="lineNum">     159 </span>                :            :                                 // ld (ix+n),h
+<span class="lineNum">     160 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;hl.B.h, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     161 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     162 </span>                :            : 
+<span class="lineNum">     163 </span>                :            :                         case 0x75:
+<span class="lineNum">     164 </span>                :            :                                 // ld (ix+n),l
+<span class="lineNum">     165 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;hl.B.l, &amp;cpu-&gt;ix, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     166 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     167 </span>                :            : 
+<span class="lineNum">     168 </span>                :            :                         case 0x36:
+<span class="lineNum">     169 </span>                :            :                                 // ld (ix+n),n
+<span class="lineNum">     170 </span>                :            :                         {
+<span class="lineNum">     171 </span>                :            :                                 uint8_t index;
+<span class="lineNum">     172 </span>                :<span class="lineNoCov">          0 :                                 index = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     173 </span>                :            : 
+<span class="lineNum">     174 </span>                :<span class="lineNoCov">          0 :                                 memory[(index + cpu-&gt;ix.W)] = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     175 </span>                :            :                         }
+<span class="lineNum">     176 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     177 </span>                :            : 
+<span class="lineNum">     178 </span>                :            :                         case 0x21:
+<span class="lineNum">     179 </span>                :            :                                 // ld ix,nn
+<span class="lineNum">     180 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;ix.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     181 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;ix.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     182 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     183 </span>                :            :                         }
+<span class="lineNum">     184 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     185 </span>                :            : 
+<span class="lineNum">     186 </span>                :            :                 // extended instruction set 0xFDxx
+<span class="lineNum">     187 </span>                :            :                 case 0xFD:
+<span class="lineNum">     188 </span>                :<span class="lineNoCov">          0 :                         opcode = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     189 </span>                :            : 
+<span class="lineNum">     190 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :                         switch(opcode) {</span>
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">         </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span><span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span> 
+<span class="lineNum">         </span>      <span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span>]
+<span class="lineNum">     191 </span>                :            :                         case 0x7E:
+<span class="lineNum">     192 </span>                :            :                                 // ld a,(iy+n)
+<span class="lineNum">     193 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;a, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     194 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     195 </span>                :            : 
+<span class="lineNum">     196 </span>                :            :                         case 0x46:
+<span class="lineNum">     197 </span>                :            :                                 // ld b,(iy+n)
+<span class="lineNum">     198 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;bc.B.h, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     199 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     200 </span>                :            : 
+<span class="lineNum">     201 </span>                :            :                         case 0x4E:
+<span class="lineNum">     202 </span>                :            :                                 // ld c,(iy+n)
+<span class="lineNum">     203 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;bc.B.l, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     204 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     205 </span>                :            : 
+<span class="lineNum">     206 </span>                :            :                         case 0x56:
+<span class="lineNum">     207 </span>                :            :                                 // ld d,(iy+n)
+<span class="lineNum">     208 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;de.B.h, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     209 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     210 </span>                :            : 
+<span class="lineNum">     211 </span>                :            :                         case 0x5E:
+<span class="lineNum">     212 </span>                :            :                                 // ld e,(iy+n)
+<span class="lineNum">     213 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;de.B.l, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     214 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     215 </span>                :            : 
+<span class="lineNum">     216 </span>                :            :                         case 0x66:
+<span class="lineNum">     217 </span>                :            :                                 // ld h,(iy+n)
+<span class="lineNum">     218 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;hl.B.h, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     219 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     220 </span>                :            : 
+<span class="lineNum">     221 </span>                :            :                         case 0x6E:
+<span class="lineNum">     222 </span>                :            :                                 // ld l,(iy+n)
+<span class="lineNum">     223 </span>                :<span class="lineNoCov">          0 :                                 _load_reg8_mem_idx_offset(&amp;cpu-&gt;hl.B.l, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     224 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     225 </span>                :            : 
+<span class="lineNum">     226 </span>                :            :                         case 0x77:
+<span class="lineNum">     227 </span>                :            :                                 // ld (iy+n),a
+<span class="lineNum">     228 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;a, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     229 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     230 </span>                :            : 
+<span class="lineNum">     231 </span>                :            :                         case 0x70:
+<span class="lineNum">     232 </span>                :            :                                 // ld (iy+n),b
+<span class="lineNum">     233 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;bc.B.h, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     234 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     235 </span>                :            : 
+<span class="lineNum">     236 </span>                :            :                         case 0x71:
+<span class="lineNum">     237 </span>                :            :                                 // ld (iy+n),c
+<span class="lineNum">     238 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;bc.B.l, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     239 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     240 </span>                :            : 
+<span class="lineNum">     241 </span>                :            :                         case 0x72:
+<span class="lineNum">     242 </span>                :            :                                 // ld (iy+n),d
+<span class="lineNum">     243 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;de.B.h, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     244 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     245 </span>                :            : 
+<span class="lineNum">     246 </span>                :            :                         case 0x73:
+<span class="lineNum">     247 </span>                :            :                                 // ld (iy+n),e
+<span class="lineNum">     248 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;de.B.l, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     249 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     250 </span>                :            : 
+<span class="lineNum">     251 </span>                :            :                         case 0x74:
+<span class="lineNum">     252 </span>                :            :                                 // ld (iy+n),h
+<span class="lineNum">     253 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;hl.B.h, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     254 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     255 </span>                :            : 
+<span class="lineNum">     256 </span>                :            :                         case 0x75:
+<span class="lineNum">     257 </span>                :            :                                 // ld (iy+n),l
+<span class="lineNum">     258 </span>                :<span class="lineNoCov">          0 :                                 _load_mem_idx_offset_reg8(&amp;cpu-&gt;hl.B.l, &amp;cpu-&gt;iy, memory, &amp;cpu-&gt;pc);</span>
+<span class="lineNum">     259 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     260 </span>                :            : 
+<span class="lineNum">     261 </span>                :            :                         case 0x36:
+<span class="lineNum">     262 </span>                :            :                                 // ld (iy+n),n
+<span class="lineNum">     263 </span>                :            :                         {
+<span class="lineNum">     264 </span>                :            :                                 uint8_t index;
+<span class="lineNum">     265 </span>                :<span class="lineNoCov">          0 :                                 index = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     266 </span>                :            : 
+<span class="lineNum">     267 </span>                :<span class="lineNoCov">          0 :                                 memory[(index + cpu-&gt;iy.W)] = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     268 </span>                :            :                         }
+<span class="lineNum">     269 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     270 </span>                :            : 
+<span class="lineNum">     271 </span>                :            :                         case 0x21:
+<span class="lineNum">     272 </span>                :            :                                 // ld iy,nn
+<span class="lineNum">     273 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;iy.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     274 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;iy.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     275 </span>                :<span class="lineNoCov">          0 :                                 break;</span>
+<span class="lineNum">     276 </span>                :            :                         }
+<span class="lineNum">     277 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     278 </span>                :            : 
+<span class="lineNum">     279 </span>                :            :                 case 0x00:
+<span class="lineNum">     280 </span>                :            :                         // nop
+<span class="lineNum">     281 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     282 </span>                :            : 
+<span class="lineNum">     283 </span>                :            :                 // 8-bit transfer instructions
+<span class="lineNum">     284 </span>                :            :                 case 0x0A:
+<span class="lineNum">     285 </span>                :            :                         // ld a,(bc)
+<span class="lineNum">     286 </span>                :<span class="lineNoCov">          0 :                         _load_reg8_mem_pair(&amp;cpu-&gt;a, &amp;cpu-&gt;bc, memory);</span>
+<span class="lineNum">     287 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     288 </span>                :            : 
+<span class="lineNum">     289 </span>                :            :                 case 0x7F:
+<span class="lineNum">     290 </span>                :            :                         // ld a,a
+<span class="lineNum">     291 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = cpu-&gt;a;</span>
+<span class="lineNum">     292 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     293 </span>                :            : 
+<span class="lineNum">     294 </span>                :            :                 case 0x78:
+<span class="lineNum">     295 </span>                :            :                         // ld a,b
+<span class="lineNum">     296 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = cpu-&gt;bc.B.h;</span>
+<span class="lineNum">     297 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     298 </span>                :            : 
+<span class="lineNum">     299 </span>                :            :                 case 0x79:
+<span class="lineNum">     300 </span>                :            :                         // ld a,c
+<span class="lineNum">     301 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = cpu-&gt;bc.B.l;</span>
+<span class="lineNum">     302 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     303 </span>                :            : 
+<span class="lineNum">     304 </span>                :            :                 case 0x7A:
+<span class="lineNum">     305 </span>                :            :                         // ld a,d
+<span class="lineNum">     306 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = cpu-&gt;de.B.h;</span>
+<span class="lineNum">     307 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     308 </span>                :            : 
+<span class="lineNum">     309 </span>                :            :                 case 0x7B:
+<span class="lineNum">     310 </span>                :            :                         // ld a,e
+<span class="lineNum">     311 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = cpu-&gt;de.B.l;</span>
+<span class="lineNum">     312 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     313 </span>                :            : 
+<span class="lineNum">     314 </span>                :            :                 case 0x7C:
+<span class="lineNum">     315 </span>                :            :                         // ld a,h
+<span class="lineNum">     316 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = cpu-&gt;hl.B.h;</span>
+<span class="lineNum">     317 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     318 </span>                :            : 
+<span class="lineNum">     319 </span>                :            :                 case 0x7D:
+<span class="lineNum">     320 </span>                :            :                         // ld a,l
+<span class="lineNum">     321 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = cpu-&gt;hl.B.l;</span>
+<span class="lineNum">     322 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     323 </span>                :            : 
+<span class="lineNum">     324 </span>                :            :                 case 0x7E:
+<span class="lineNum">     325 </span>                :            :                         // ld a,(hl)
+<span class="lineNum">     326 </span>                :<span class="lineNoCov">          0 :                         _load_reg8_mem_pair(&amp;cpu-&gt;a, &amp;cpu-&gt;hl, memory);</span>
+<span class="lineNum">     327 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     328 </span>                :            : 
+<span class="lineNum">     329 </span>                :            :                 case 0x1A:
+<span class="lineNum">     330 </span>                :            :                         // ld a,(de)
+<span class="lineNum">     331 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = memory[cpu-&gt;de.W];</span>
+<span class="lineNum">     332 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     333 </span>                :            : 
+<span class="lineNum">     334 </span>                :            :                 case 0x3A:
+<span class="lineNum">     335 </span>                :            :                         // ld a,(nn)
+<span class="lineNum">     336 </span>                :            :                 {
+<span class="lineNum">     337 </span>                :            :                         word nn;
+<span class="lineNum">     338 </span>                :<span class="lineNoCov">          0 :                         nn.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     339 </span>                :<span class="lineNoCov">          0 :                         nn.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     340 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = memory[nn.W];</span>
+<span class="lineNum">     341 </span>                :            :                 }
+<span class="lineNum">     342 </span>                :<span class="lineNoCov">          0 :                 break;</span>
+<span class="lineNum">     343 </span>                :            : 
+<span class="lineNum">     344 </span>                :            :                 case 0x47:
+<span class="lineNum">     345 </span>                :            :                         // ld b,a
+<span class="lineNum">     346 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h = cpu-&gt;a;</span>
+<span class="lineNum">     347 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     348 </span>                :            : 
+<span class="lineNum">     349 </span>                :            :                 case 0x40:
+<span class="lineNum">     350 </span>                :            :                         // ld b,b
+<span class="lineNum">     351 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h = cpu-&gt;bc.B.h;</span>
+<span class="lineNum">     352 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     353 </span>                :            : 
+<span class="lineNum">     354 </span>                :            :                 case 0x41:
+<span class="lineNum">     355 </span>                :            :                         // ld b,c
+<span class="lineNum">     356 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h = cpu-&gt;bc.B.l;</span>
+<span class="lineNum">     357 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     358 </span>                :            : 
+<span class="lineNum">     359 </span>                :            :                 case 0x42:
+<span class="lineNum">     360 </span>                :            :                         // ld b,d
+<span class="lineNum">     361 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h = cpu-&gt;de.B.h;</span>
+<span class="lineNum">     362 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     363 </span>                :            : 
+<span class="lineNum">     364 </span>                :            :                 case 0x43:
+<span class="lineNum">     365 </span>                :            :                         // ld b,e
+<span class="lineNum">     366 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h = cpu-&gt;de.B.l;</span>
+<span class="lineNum">     367 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     368 </span>                :            : 
+<span class="lineNum">     369 </span>                :            :                 case 0x44:
+<span class="lineNum">     370 </span>                :            :                         // ld b,h
+<span class="lineNum">     371 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h = cpu-&gt;hl.B.h;</span>
+<span class="lineNum">     372 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     373 </span>                :            : 
+<span class="lineNum">     374 </span>                :            :                 case 0x45:
+<span class="lineNum">     375 </span>                :            :                         // ld b,l
+<span class="lineNum">     376 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h = cpu-&gt;hl.B.l;</span>
+<span class="lineNum">     377 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     378 </span>                :            : 
+<span class="lineNum">     379 </span>                :            :                 case 0x46:
+<span class="lineNum">     380 </span>                :            :                         // ld b,(hl)
+<span class="lineNum">     381 </span>                :<span class="lineNoCov">          0 :                         _load_reg8_mem_pair(&amp;cpu-&gt;bc.B.h, &amp;cpu-&gt;hl, memory);</span>
+<span class="lineNum">     382 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     383 </span>                :            : 
+<span class="lineNum">     384 </span>                :            :                 case 0x4F:
+<span class="lineNum">     385 </span>                :            :                         // ld c,a
+<span class="lineNum">     386 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.l = cpu-&gt;a;</span>
+<span class="lineNum">     387 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     388 </span>                :            : 
+<span class="lineNum">     389 </span>                :            :                 case 0x48:
+<span class="lineNum">     390 </span>                :            :                         // ld c,b
+<span class="lineNum">     391 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.l = cpu-&gt;bc.B.h;</span>
+<span class="lineNum">     392 </span>                :            : 
+<span class="lineNum">     393 </span>                :            :                 case 0x49:
+<span class="lineNum">     394 </span>                :            :                         // ld c,c
+<span class="lineNum">     395 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.l = cpu-&gt;bc.B.l;</span>
+<span class="lineNum">     396 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     397 </span>                :            : 
+<span class="lineNum">     398 </span>                :            :                 case 0x4A:
+<span class="lineNum">     399 </span>                :            :                         // ld c,d
+<span class="lineNum">     400 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.l = cpu-&gt;de.B.h;</span>
+<span class="lineNum">     401 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     402 </span>                :            : 
+<span class="lineNum">     403 </span>                :            :                 case 0x4B:
+<span class="lineNum">     404 </span>                :            :                         // ld c,e
+<span class="lineNum">     405 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.l = cpu-&gt;de.B.l;</span>
+<span class="lineNum">     406 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     407 </span>                :            : 
+<span class="lineNum">     408 </span>                :            :                 case 0x4C:
+<span class="lineNum">     409 </span>                :            :                         // ld c,h
+<span class="lineNum">     410 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.l = cpu-&gt;hl.B.h;</span>
+<span class="lineNum">     411 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     412 </span>                :            : 
+<span class="lineNum">     413 </span>                :            :                 case 0x4D:
+<span class="lineNum">     414 </span>                :            :                         // ld c,l
+<span class="lineNum">     415 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.l = cpu-&gt;hl.B.l;</span>
+<span class="lineNum">     416 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     417 </span>                :            : 
+<span class="lineNum">     418 </span>                :            :                 case 0x4E:
+<span class="lineNum">     419 </span>                :            :                         // ld c,(hl)
+<span class="lineNum">     420 </span>                :<span class="lineNoCov">          0 :                         _load_reg8_mem_pair(&amp;cpu-&gt;bc.B.l, &amp;cpu-&gt;hl, memory);</span>
+<span class="lineNum">     421 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     422 </span>                :            : 
+<span class="lineNum">     423 </span>                :            :                 case 0x57:
+<span class="lineNum">     424 </span>                :            :                         // ld d,a
+<span class="lineNum">     425 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.h = cpu-&gt;a;</span>
+<span class="lineNum">     426 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     427 </span>                :            : 
+<span class="lineNum">     428 </span>                :            :                 case 0x50:
+<span class="lineNum">     429 </span>                :            :                         // ld d,b
+<span class="lineNum">     430 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.h = cpu-&gt;bc.B.h;</span>
+<span class="lineNum">     431 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     432 </span>                :            : 
+<span class="lineNum">     433 </span>                :            :                 case 0x51:
+<span class="lineNum">     434 </span>                :            :                         // ld d,c
+<span class="lineNum">     435 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.h = cpu-&gt;bc.B.l;</span>
+<span class="lineNum">     436 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     437 </span>                :            : 
+<span class="lineNum">     438 </span>                :            :                 case 0x52:
+<span class="lineNum">     439 </span>                :            :                         // ld d,d
+<span class="lineNum">     440 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.h = cpu-&gt;de.B.h;</span>
+<span class="lineNum">     441 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     442 </span>                :            : 
+<span class="lineNum">     443 </span>                :            :                 case 0x53:
+<span class="lineNum">     444 </span>                :            :                         // ld d,e
+<span class="lineNum">     445 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.h = cpu-&gt;de.B.l;</span>
+<span class="lineNum">     446 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     447 </span>                :            : 
+<span class="lineNum">     448 </span>                :            :                 case 0x54:
+<span class="lineNum">     449 </span>                :            :                         // ld d,h
+<span class="lineNum">     450 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.h = cpu-&gt;hl.B.h;</span>
+<span class="lineNum">     451 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     452 </span>                :            : 
+<span class="lineNum">     453 </span>                :            :                 case 0x55:
+<span class="lineNum">     454 </span>                :            :                         // ld d,l
+<span class="lineNum">     455 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.h = cpu-&gt;hl.B.l;</span>
+<span class="lineNum">     456 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     457 </span>                :            : 
+<span class="lineNum">     458 </span>                :            :                 case 0x56:
+<span class="lineNum">     459 </span>                :            :                         // ld d,(hl)
+<span class="lineNum">     460 </span>                :<span class="lineNoCov">          0 :                         _load_reg8_mem_pair(&amp;cpu-&gt;de.B.h, &amp;cpu-&gt;hl, memory);</span>
+<span class="lineNum">     461 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     462 </span>                :            : 
+<span class="lineNum">     463 </span>                :            :                 case 0x5F:
+<span class="lineNum">     464 </span>                :            :                         // ld e,a
+<span class="lineNum">     465 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.l = cpu-&gt;a;</span>
+<span class="lineNum">     466 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     467 </span>                :            : 
+<span class="lineNum">     468 </span>                :            :                 case 0x58:
+<span class="lineNum">     469 </span>                :            :                         // ld e,b
+<span class="lineNum">     470 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.l = cpu-&gt;bc.B.h;</span>
+<span class="lineNum">     471 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     472 </span>                :            : 
+<span class="lineNum">     473 </span>                :            :                 case 0x59:
+<span class="lineNum">     474 </span>                :            :                         // ld e,c
+<span class="lineNum">     475 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.l = cpu-&gt;bc.B.l;</span>
+<span class="lineNum">     476 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     477 </span>                :            : 
+<span class="lineNum">     478 </span>                :            :                 case 0x5A:
+<span class="lineNum">     479 </span>                :            :                         // ld e,d
+<span class="lineNum">     480 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.l = cpu-&gt;de.B.h;</span>
+<span class="lineNum">     481 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     482 </span>                :            : 
+<span class="lineNum">     483 </span>                :            :                 case 0x5B:
+<span class="lineNum">     484 </span>                :            :                         // ld e,e
+<span class="lineNum">     485 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.l = cpu-&gt;de.B.l;</span>
+<span class="lineNum">     486 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     487 </span>                :            : 
+<span class="lineNum">     488 </span>                :            :                 case 0x5C:
+<span class="lineNum">     489 </span>                :            :                         // ld e,h
+<span class="lineNum">     490 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.l = cpu-&gt;hl.B.h;</span>
+<span class="lineNum">     491 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     492 </span>                :            : 
+<span class="lineNum">     493 </span>                :            :                 case 0x5D:
+<span class="lineNum">     494 </span>                :            :                         // ld e,l
+<span class="lineNum">     495 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.l = cpu-&gt;hl.B.l;</span>
+<span class="lineNum">     496 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     497 </span>                :            : 
+<span class="lineNum">     498 </span>                :            :                 case 0x5E:
+<span class="lineNum">     499 </span>                :            :                         // ld e,(hl)
+<span class="lineNum">     500 </span>                :<span class="lineNoCov">          0 :                         _load_reg8_mem_pair(&amp;cpu-&gt;de.B.l, &amp;cpu-&gt;hl, memory);</span>
+<span class="lineNum">     501 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     502 </span>                :            : 
+<span class="lineNum">     503 </span>                :            :                 case 0x67:
+<span class="lineNum">     504 </span>                :            :                         // ld h,a
+<span class="lineNum">     505 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.h = cpu-&gt;a;</span>
+<span class="lineNum">     506 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     507 </span>                :            : 
+<span class="lineNum">     508 </span>                :            :                 case 0x60:
+<span class="lineNum">     509 </span>                :            :                         // ld h,b
+<span class="lineNum">     510 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.h = cpu-&gt;bc.B.h;</span>
+<span class="lineNum">     511 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     512 </span>                :            : 
+<span class="lineNum">     513 </span>                :            :                 case 0x61:
+<span class="lineNum">     514 </span>                :            :                         // ld h,c
+<span class="lineNum">     515 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.h = cpu-&gt;bc.B.l;</span>
+<span class="lineNum">     516 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     517 </span>                :            : 
+<span class="lineNum">     518 </span>                :            :                 case 0x62:
+<span class="lineNum">     519 </span>                :            :                         // ld h,d
+<span class="lineNum">     520 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.h = cpu-&gt;de.B.h;</span>
+<span class="lineNum">     521 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     522 </span>                :            : 
+<span class="lineNum">     523 </span>                :            :                 case 0x63:
+<span class="lineNum">     524 </span>                :            :                         // ld h,e
+<span class="lineNum">     525 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.h = cpu-&gt;de.B.l;</span>
+<span class="lineNum">     526 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     527 </span>                :            : 
+<span class="lineNum">     528 </span>                :            :                 case 0x64:
+<span class="lineNum">     529 </span>                :            :                         // ld h,h
+<span class="lineNum">     530 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.h = cpu-&gt;hl.B.h;</span>
+<span class="lineNum">     531 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     532 </span>                :            : 
+<span class="lineNum">     533 </span>                :            :                 case 0x65:
+<span class="lineNum">     534 </span>                :            :                         // ld h,l
+<span class="lineNum">     535 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.h = cpu-&gt;hl.B.l;</span>
+<span class="lineNum">     536 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     537 </span>                :            : 
+<span class="lineNum">     538 </span>                :            :                 case 0x66:
+<span class="lineNum">     539 </span>                :            :                         // ld h,(hl)
+<span class="lineNum">     540 </span>                :<span class="lineNoCov">          0 :                         _load_reg8_mem_pair(&amp;cpu-&gt;hl.B.h, &amp;cpu-&gt;hl, memory);</span>
+<span class="lineNum">     541 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     542 </span>                :            : 
+<span class="lineNum">     543 </span>                :            :                 case 0x6F:
+<span class="lineNum">     544 </span>                :            :                         // ld l,a
+<span class="lineNum">     545 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.l = cpu-&gt;a;</span>
+<span class="lineNum">     546 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     547 </span>                :            : 
+<span class="lineNum">     548 </span>                :            :                 case 0x68:
+<span class="lineNum">     549 </span>                :            :                         // ld l,b
+<span class="lineNum">     550 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.l = cpu-&gt;bc.B.h;</span>
+<span class="lineNum">     551 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     552 </span>                :            : 
+<span class="lineNum">     553 </span>                :            :                 case 0x69:
+<span class="lineNum">     554 </span>                :            :                         // ld l,c
+<span class="lineNum">     555 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.l = cpu-&gt;bc.B.l;</span>
+<span class="lineNum">     556 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     557 </span>                :            : 
+<span class="lineNum">     558 </span>                :            :                 case 0x6A:
+<span class="lineNum">     559 </span>                :            :                         // ld l,d
+<span class="lineNum">     560 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.l = cpu-&gt;de.B.h;</span>
+<span class="lineNum">     561 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     562 </span>                :            : 
+<span class="lineNum">     563 </span>                :            :                 case 0x6B:
+<span class="lineNum">     564 </span>                :            :                         // ld l,e
+<span class="lineNum">     565 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.l = cpu-&gt;de.B.l;</span>
+<span class="lineNum">     566 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     567 </span>                :            : 
+<span class="lineNum">     568 </span>                :            :                 case 0x6C:
+<span class="lineNum">     569 </span>                :            :                         // ld l,h
+<span class="lineNum">     570 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.l = cpu-&gt;hl.B.h;</span>
+<span class="lineNum">     571 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     572 </span>                :            : 
+<span class="lineNum">     573 </span>                :            :                 case 0x6D:
+<span class="lineNum">     574 </span>                :            :                         // ld l,l
+<span class="lineNum">     575 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.l = cpu-&gt;hl.B.l;</span>
+<span class="lineNum">     576 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     577 </span>                :            : 
+<span class="lineNum">     578 </span>                :            :                 case 0x6E:
+<span class="lineNum">     579 </span>                :            :                         // ld l,(hl)
+<span class="lineNum">     580 </span>                :<span class="lineNoCov">          0 :                         _load_reg8_mem_pair(&amp;cpu-&gt;hl.B.l, &amp;cpu-&gt;hl, memory);</span>
+<span class="lineNum">     581 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     582 </span>                :            : 
+<span class="lineNum">     583 </span>                :            :                 case 0x77:
+<span class="lineNum">     584 </span>                :            :                         // ld (hl),a
+<span class="lineNum">     585 </span>                :<span class="lineNoCov">          0 :                         memory[cpu-&gt;hl.W] = cpu-&gt;a;</span>
+<span class="lineNum">     586 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     587 </span>                :            : 
+<span class="lineNum">     588 </span>                :            :                 case 0x70:
+<span class="lineNum">     589 </span>                :            :                         // ld (hl),b
+<span class="lineNum">     590 </span>                :<span class="lineNoCov">          0 :                         memory[cpu-&gt;hl.W] = cpu-&gt;bc.B.h;</span>
+<span class="lineNum">     591 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     592 </span>                :            : 
+<span class="lineNum">     593 </span>                :            :                 case 0x71:
+<span class="lineNum">     594 </span>                :            :                         // ld (hl),c
+<span class="lineNum">     595 </span>                :<span class="lineNoCov">          0 :                         memory[cpu-&gt;hl.W] = cpu-&gt;bc.B.l;</span>
+<span class="lineNum">     596 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     597 </span>                :            : 
+<span class="lineNum">     598 </span>                :            :                 case 0x72:
+<span class="lineNum">     599 </span>                :            :                         // ld (hl),d
+<span class="lineNum">     600 </span>                :<span class="lineNoCov">          0 :                         memory[cpu-&gt;hl.W] = cpu-&gt;de.B.h;</span>
+<span class="lineNum">     601 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     602 </span>                :            : 
+<span class="lineNum">     603 </span>                :            :                 case 0x73:
+<span class="lineNum">     604 </span>                :            :                         // ld (hl),e
+<span class="lineNum">     605 </span>                :<span class="lineNoCov">          0 :                         memory[cpu-&gt;hl.W] = cpu-&gt;de.B.l;</span>
+<span class="lineNum">     606 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     607 </span>                :            : 
+<span class="lineNum">     608 </span>                :            :                 case 0x74:
+<span class="lineNum">     609 </span>                :            :                         // ld (hl),h
+<span class="lineNum">     610 </span>                :<span class="lineNoCov">          0 :                         memory[cpu-&gt;hl.W] = cpu-&gt;hl.B.h;</span>
+<span class="lineNum">     611 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     612 </span>                :            : 
+<span class="lineNum">     613 </span>                :            :                 case 0x75:
+<span class="lineNum">     614 </span>                :            :                         // ld (hl),l
+<span class="lineNum">     615 </span>                :<span class="lineNoCov">          0 :                         memory[cpu-&gt;hl.W] = cpu-&gt;hl.B.l;</span>
+<span class="lineNum">     616 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     617 </span>                :            : 
+<span class="lineNum">     618 </span>                :            :                 case 0x3E:
+<span class="lineNum">     619 </span>                :            :                         // ld a,n
+<span class="lineNum">     620 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     621 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     622 </span>                :            : 
+<span class="lineNum">     623 </span>                :            :                 case 0x06:
+<span class="lineNum">     624 </span>                :            :                         // ld b,n
+<span class="lineNum">     625 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     626 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     627 </span>                :            : 
+<span class="lineNum">     628 </span>                :            :                 case 0x0E:
+<span class="lineNum">     629 </span>                :            :                         // ld c,n
+<span class="lineNum">     630 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     631 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     632 </span>                :            : 
+<span class="lineNum">     633 </span>                :            :                 case 0x16:
+<span class="lineNum">     634 </span>                :            :                         // ld d,n
+<span class="lineNum">     635 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     636 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     637 </span>                :            : 
+<span class="lineNum">     638 </span>                :            :                 case 0x1E:
+<span class="lineNum">     639 </span>                :            :                         // ld e,n
+<span class="lineNum">     640 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     641 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     642 </span>                :            : 
+<span class="lineNum">     643 </span>                :            :                 case 0x26:
+<span class="lineNum">     644 </span>                :            :                         // ld h,n
+<span class="lineNum">     645 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     646 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     647 </span>                :            : 
+<span class="lineNum">     648 </span>                :            :                 case 0x2E:
+<span class="lineNum">     649 </span>                :            :                         // ld l,n
+<span class="lineNum">     650 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     651 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     652 </span>                :            : 
+<span class="lineNum">     653 </span>                :            :                 case 0x36:
+<span class="lineNum">     654 </span>                :            :                         // ld (hl),n
+<span class="lineNum">     655 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;hl.W = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     656 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     657 </span>                :            : 
+<span class="lineNum">     658 </span>                :            :                 case 0x02:
+<span class="lineNum">     659 </span>                :            :                         // ld (bc),a
+<span class="lineNum">     660 </span>                :<span class="lineNoCov">          0 :                         memory[cpu-&gt;bc.W] = cpu-&gt;a;</span>
+<span class="lineNum">     661 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     662 </span>                :            : 
+<span class="lineNum">     663 </span>                :            :                 case 0x12:
+<span class="lineNum">     664 </span>                :            :                         // ld (de),a
+<span class="lineNum">     665 </span>                :<span class="lineNoCov">          0 :                         memory[cpu-&gt;de.W] = cpu-&gt;a;</span>
+<span class="lineNum">     666 </span>                :            : 
+<span class="lineNum">     667 </span>                :            :                 case 0x32:
+<span class="lineNum">     668 </span>                :            :                         // ld (nn),a
+<span class="lineNum">     669 </span>                :            :                 {
+<span class="lineNum">     670 </span>                :            :                         word address;
+<span class="lineNum">     671 </span>                :<span class="lineNoCov">          0 :                         address.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     672 </span>                :<span class="lineNoCov">          0 :                         address.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     673 </span>                :            : 
+<span class="lineNum">     674 </span>                :<span class="lineNoCov">          0 :                         memory[address.W] = cpu-&gt;a;</span>
+<span class="lineNum">     675 </span>                :            :                 }
+<span class="lineNum">     676 </span>                :<span class="lineNoCov">          0 :                 break;</span>
+<span class="lineNum">     677 </span>                :            : 
+<span class="lineNum">     678 </span>                :            :                 // 16-bit transfer instructions
+<span class="lineNum">     679 </span>                :            :                 case 0x01:
+<span class="lineNum">     680 </span>                :            :                         // ld bc,nn
+<span class="lineNum">     681 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     682 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     683 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     684 </span>                :            : 
+<span class="lineNum">     685 </span>                :            :                 case 0x11:
+<span class="lineNum">     686 </span>                :            :                         // ld de,nn
+<span class="lineNum">     687 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     688 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     689 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     690 </span>                :            : 
+<span class="lineNum">     691 </span>                :            :                 case 0x21:
+<span class="lineNum">     692 </span>                :            :                         // ld hl,nn
+<span class="lineNum">     693 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     694 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;de.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     695 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     696 </span>                :            : 
+<span class="lineNum">     697 </span>                :            :                 case 0x31:
+<span class="lineNum">     698 </span>                :            :                         // ld sp,nn
+<span class="lineNum">     699 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;sp.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     700 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;sp.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     701 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     702 </span>                :            : 
+<span class="lineNum">     703 </span>                :            :                 case 0x03:
+<span class="lineNum">     704 </span>                :            :                         // inc bc
+<span class="lineNum">     705 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.W++;</span>
+<span class="lineNum">     706 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     707 </span>                :            : 
+<span class="lineNum">     708 </span>                :            :                 case 0x04:
+<span class="lineNum">     709 </span>                :            :                         // inc b
+<span class="lineNum">     710 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h++;</span>
+<span class="lineNum">     711 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     712 </span>                :            : 
+<span class="lineNum">     713 </span>                :            :                 case 0x05:
+<span class="lineNum">     714 </span>                :            :                         // dec b
+<span class="lineNum">     715 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h--;</span>
+<span class="lineNum">     716 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     717 </span>                :            : 
+<span class="lineNum">     718 </span>                :            :                 case 0x07:
+<span class="lineNum">     719 </span>                :            :                         // rlca
+<span class="lineNum">     720 </span>                :            :                         if(IS_SET(cpu-&gt;a, 7) == 1) {
+<span class="lineNum">     721 </span>                :            :                                 cpu-&gt;flags |= (1 &lt;&lt; 5);
+<span class="lineNum">     722 </span>                :            :                         }
+<span class="lineNum">     723 </span>                :            :                         else {
+<span class="lineNum">     724 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;flags &amp;= ~(1 &lt;&lt; 5);</span>
+<span class="lineNum">     725 </span>                :            :                         }
+<span class="lineNum">     726 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;a = (cpu-&gt;a &lt;&lt; 1) | (cpu-&gt;a &gt;&gt; (sizeof(cpu-&gt;a) * 8 - 1));</span>
+<span class="lineNum">     727 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     728 </span>                :            : 
+<span class="lineNum">     729 </span>                :            :                 case 0x08:
+<span class="lineNum">     730 </span>                :            :                         // ex af,'af
+<span class="lineNum">     731 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :                         if (cpu-&gt;a != cpu-&gt;_a) {</span>
+<span class="lineNum">     732 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;a ^= cpu-&gt;_a;</span>
+<span class="lineNum">     733 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;_a ^= cpu-&gt;a;</span>
+<span class="lineNum">     734 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;a ^= cpu-&gt;_a;</span>
+<span class="lineNum">     735 </span>                :            :                         }
+<span class="lineNum">     736 </span>                :            : 
+<span class="lineNum">     737 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :                         if (cpu-&gt;flags != cpu-&gt;_flags) {</span>
+<span class="lineNum">     738 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;flags ^= cpu-&gt;_flags;</span>
+<span class="lineNum">     739 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;_flags ^= cpu-&gt;flags;</span>
+<span class="lineNum">     740 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;flags ^= cpu-&gt;_flags;</span>
+<span class="lineNum">     741 </span>                :            :                         }
+<span class="lineNum">     742 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     743 </span>                :            : 
+<span class="lineNum">     744 </span>                :            :                 case 0x09:
+<span class="lineNum">     745 </span>                :            :                         // add hl,bc
+<span class="lineNum">     746 </span>                :            : 
+<span class="lineNum">     747 </span>                :            :                         if ((((cpu-&gt;hl.W &amp; 0xF000) + (cpu-&gt;bc.W &amp; 0xF000)) &amp; 0x1000) == 1) {
+<span class="lineNum">     748 </span>                :            :                                 cpu-&gt;flags |= (1 &lt;&lt; 5);
+<span class="lineNum">     749 </span>                :            :                         }
+<span class="lineNum">     750 </span>                :            : 
+<span class="lineNum">     751 </span>                :<span class="lineNoCov">          0 :                         if ((cpu-&gt;hl.W += cpu-&gt;bc.W) &gt; 0xFFFF) {</span>
+<span class="lineNum">     752 </span>                :            :                                 cpu-&gt;flags |= (1 &lt;&lt; 0);
+<span class="lineNum">     753 </span>                :            :                                 cpu-&gt;hl.W -= 65536;
+<span class="lineNum">     754 </span>                :            :                         }
+<span class="lineNum">     755 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     756 </span>                :            : 
+<span class="lineNum">     757 </span>                :            :                 case 0x0B:
+<span class="lineNum">     758 </span>                :            :                         // dec bc
+<span class="lineNum">     759 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.W--;</span>
+<span class="lineNum">     760 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     761 </span>                :            : 
+<span class="lineNum">     762 </span>                :            :                 case 0x0C:
+<span class="lineNum">     763 </span>                :            :                         // inc c
+<span class="lineNum">     764 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h++;</span>
+<span class="lineNum">     765 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     766 </span>                :            : 
+<span class="lineNum">     767 </span>                :            :                 case 0x0D:
+<span class="lineNum">     768 </span>                :            :                         // dec c
+<span class="lineNum">     769 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h--;</span>
+<span class="lineNum">     770 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     771 </span>                :            : 
+<span class="lineNum">     772 </span>                :            : 
+<span class="lineNum">     773 </span>                :            :                 default:
+<span class="lineNum">     774 </span>                :<span class="lineNoCov">          0 :                         return -1;</span>
+<span class="lineNum">     775 </span>                :            :                 }
+<span class="lineNum">     776 </span>                :            : 
+<span class="lineNum">     777 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :                 if (cpu-&gt;counter &lt;= 0) {</span>
+<span class="lineNum">     778 </span>                :            :                         // interrupt tasks here
+<span class="lineNum">     779 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;counter += INTERRUPT_PERIOD;</span>
+<span class="lineNum">     780 </span>                :            :                 }
+<span class="lineNum">     781 </span>                :            : 
+<span class="lineNum">     782 </span>                :<span class="lineNoCov">          0 :                 runcycles--;</span>
+<span class="lineNum">     783 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         } while (runcycles &gt;= 0);</span>
+<span class="lineNum">     784 </span>                :            : 
+<span class="lineNum">     785 </span>                :<span class="lineNoCov">          0 :         return count;</span>
+<span class="lineNum">     786 </span>                :            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.9</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
