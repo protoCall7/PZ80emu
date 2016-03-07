@@ -80,79 +80,55 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <a href="z80_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
-<a name="l00002"></a>00002 <span class="comment">//</span>
-<a name="l00003"></a>00003 <span class="comment">//  z80.h</span>
-<a name="l00004"></a>00004 <span class="comment">//  PZ80emu</span>
-<a name="l00005"></a>00005 <span class="comment">//</span>
-<a name="l00006"></a>00006 <span class="comment">//  Created by Peter Ezetta on 5/3/15.</span>
-<a name="l00007"></a>00007 <span class="comment">//  Copyright (c) 2015 Peter Ezetta. All rights reserved.</span>
-<a name="l00008"></a>00008 <span class="comment">//</span>
-<a name="l00009"></a>00009 
 <a name="l00010"></a>00010 <span class="preprocessor">#ifndef __PZ80emu__z80__</span>
 <a name="l00011"></a>00011 <span class="preprocessor"></span><span class="preprocessor">#define __PZ80emu__z80__</span>
 <a name="l00012"></a>00012 <span class="preprocessor"></span>
-<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;stdio.h&gt;</span>
-<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
-<a name="l00015"></a>00015 <span class="preprocessor">#include &lt;ncurses.h&gt;</span>
-<a name="l00016"></a>00016 
-<a name="l00018"></a><a class="code" href="z80_8h.html#ae62758a9b0155b93aabb7ce2375e2562">00018</a> <span class="preprocessor">#define INIT_PC 0x0000</span>
-<a name="l00019"></a>00019 <span class="preprocessor"></span>
-<a name="l00021"></a><a class="code" href="z80_8h.html#a533f998159de957b1f91e571cda46b9c">00021</a> <span class="preprocessor">#define INTERRUPT_PERIOD 10240</span>
-<a name="l00022"></a>00022 <span class="preprocessor"></span>
-<a name="l00024"></a><a class="code" href="unionword.html">00024</a> <span class="keyword">typedef</span> <span class="keyword">union </span>{
-<a name="l00026"></a><a class="code" href="unionword.html#a2f376e9fd3eca4a8ec08b269f764ad42">00026</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="unionword.html#a2f376e9fd3eca4a8ec08b269f764ad42">W</a>;
-<a name="l00027"></a>00027 
-<a name="l00031"></a>00031     <span class="keyword">struct </span>{
-<a name="l00032"></a>00032 <span class="preprocessor">#ifdef LOW_ENDIAN</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span>        uint8_t l,h; <span class="comment">/* ...in low-endian architecture */</span>
-<a name="l00034"></a>00034 <span class="preprocessor">#else</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span>        uint8_t h,l; <span class="comment">/* ...in high-endian architecture */</span>
-<a name="l00036"></a>00036 <span class="preprocessor">#endif</span>
-<a name="l00037"></a>00037 <span class="preprocessor"></span>    } B;
-<a name="l00038"></a>00038 } <a class="code" href="unionword.html">word</a>;
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040 
-<a name="l00042"></a><a class="code" href="z80_8h.html#a60a4996423ce53818be083ec280f22f6">00042</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structz80.html">z80</a> <a class="code" href="structz80.html">z80</a>;
-<a name="l00043"></a>00043 
-<a name="l00045"></a><a class="code" href="structz80.html">00045</a> <span class="keyword">struct </span><a class="code" href="structz80.html">z80</a> {
-<a name="l00047"></a><a class="code" href="structz80.html#a15804e17044b9e8e47badf9356358f83">00047</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a15804e17044b9e8e47badf9356358f83">pc</a>;
-<a name="l00048"></a>00048 
-<a name="l00050"></a><a class="code" href="structz80.html#ad4a4b67f390d03d252782e3a3c1d6562">00050</a>     <span class="keywordtype">int</span> <a class="code" href="structz80.html#ad4a4b67f390d03d252782e3a3c1d6562">counter</a>;
-<a name="l00051"></a>00051 
-<a name="l00053"></a><a class="code" href="structz80.html#a7dd4013eeacc589916abaa91375a50f0">00053</a>     uint8_t <a class="code" href="structz80.html#a7dd4013eeacc589916abaa91375a50f0">a</a>;
-<a name="l00054"></a>00054 
-<a name="l00056"></a><a class="code" href="structz80.html#a8f3f1481e8f4e08c5a93678382e1454c">00056</a>     <span class="keywordtype">unsigned</span> <a class="code" href="structz80.html#a8f3f1481e8f4e08c5a93678382e1454c">flags</a> : 6;
-<a name="l00057"></a>00057 
-<a name="l00059"></a><a class="code" href="structz80.html#a44c864f9ef634656402e4997008392ce">00059</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a44c864f9ef634656402e4997008392ce">bc</a>;
+<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00014"></a>00014 
+<a name="l00016"></a><a class="code" href="z80_8h.html#ae62758a9b0155b93aabb7ce2375e2562">00016</a> <span class="preprocessor">#define INIT_PC 0x0000</span>
+<a name="l00017"></a>00017 <span class="preprocessor"></span>
+<a name="l00019"></a><a class="code" href="z80_8h.html#a533f998159de957b1f91e571cda46b9c">00019</a> <span class="preprocessor">#define INTERRUPT_PERIOD 10240</span>
+<a name="l00020"></a>00020 <span class="preprocessor"></span>
+<a name="l00022"></a><a class="code" href="unionword.html">00022</a> <span class="keyword">typedef</span> <span class="keyword">union </span>{
+<a name="l00024"></a><a class="code" href="unionword.html#a2f376e9fd3eca4a8ec08b269f764ad42">00024</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="unionword.html#a2f376e9fd3eca4a8ec08b269f764ad42">W</a>;
+<a name="l00025"></a>00025 
+<a name="l00029"></a>00029     <span class="keyword">struct </span>{
+<a name="l00030"></a>00030 <span class="preprocessor">#ifdef LOW_ENDIAN</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span>        uint8_t l,h; <span class="comment">/* ...in low-endian architecture */</span>
+<a name="l00032"></a>00032 <span class="preprocessor">#else</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>        uint8_t h,l; <span class="comment">/* ...in high-endian architecture */</span>
+<a name="l00034"></a>00034 <span class="preprocessor">#endif</span>
+<a name="l00035"></a>00035 <span class="preprocessor"></span>    } B;
+<a name="l00036"></a>00036 } <a class="code" href="unionword.html">word</a>;
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 
+<a name="l00040"></a><a class="code" href="z80_8h.html#a60a4996423ce53818be083ec280f22f6">00040</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structz80.html">z80</a> <a class="code" href="structz80.html">z80</a>;
+<a name="l00041"></a>00041 
+<a name="l00043"></a><a class="code" href="structz80.html">00043</a> <span class="keyword">struct </span><a class="code" href="structz80.html">z80</a> {
+<a name="l00044"></a>00044     <a class="code" href="unionword.html">word</a> pc; 
+<a name="l00045"></a><a class="code" href="structz80.html#ad4a4b67f390d03d252782e3a3c1d6562">00045</a>     <span class="keywordtype">int</span> <a class="code" href="structz80.html#ad4a4b67f390d03d252782e3a3c1d6562">counter</a>; 
+<a name="l00046"></a><a class="code" href="structz80.html#a7dd4013eeacc589916abaa91375a50f0">00046</a>     uint8_t <a class="code" href="structz80.html#a7dd4013eeacc589916abaa91375a50f0">a</a>; 
+<a name="l00047"></a><a class="code" href="structz80.html#a8f3f1481e8f4e08c5a93678382e1454c">00047</a>     <span class="keywordtype">unsigned</span> <a class="code" href="structz80.html#a8f3f1481e8f4e08c5a93678382e1454c">flags</a> : 6; 
+<a name="l00048"></a><a class="code" href="structz80.html#a44c864f9ef634656402e4997008392ce">00048</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a44c864f9ef634656402e4997008392ce">bc</a>; 
+<a name="l00049"></a><a class="code" href="structz80.html#ab4787ade4087683bc5222e570fa67253">00049</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#ab4787ade4087683bc5222e570fa67253">de</a>; 
+<a name="l00050"></a><a class="code" href="structz80.html#a8f48afdd479be4b0948736dae97f1708">00050</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a8f48afdd479be4b0948736dae97f1708">hl</a>; 
+<a name="l00051"></a><a class="code" href="structz80.html#a671588f1fc4e652c9dd266fe65b14765">00051</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a671588f1fc4e652c9dd266fe65b14765">ix</a>; 
+<a name="l00052"></a><a class="code" href="structz80.html#aa131cf6be67b207b08acf70e74cfba96">00052</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#aa131cf6be67b207b08acf70e74cfba96">iy</a>; 
+<a name="l00053"></a><a class="code" href="structz80.html#adda17daca4617c2689d71c9b84ec8ffe">00053</a>     uint8_t <a class="code" href="structz80.html#adda17daca4617c2689d71c9b84ec8ffe">_a</a>; 
+<a name="l00054"></a><a class="code" href="structz80.html#a4c5565c198d8ee866eb74aae00678549">00054</a>     <span class="keywordtype">unsigned</span> <a class="code" href="structz80.html#a4c5565c198d8ee866eb74aae00678549">_flags</a> : 6; 
+<a name="l00055"></a><a class="code" href="structz80.html#ae91e41bc5941a267779c894d65b01290">00055</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#ae91e41bc5941a267779c894d65b01290">_bc</a>; 
+<a name="l00056"></a><a class="code" href="structz80.html#a88b65a7e987b3790de881cfc600eb292">00056</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a88b65a7e987b3790de881cfc600eb292">_de</a>; 
+<a name="l00057"></a><a class="code" href="structz80.html#a6404c674f0888334facb8af9b27d36c3">00057</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a6404c674f0888334facb8af9b27d36c3">_hl</a>; 
+<a name="l00058"></a><a class="code" href="structz80.html#a94789e85dd0f8762ba8bec1ad052dd72">00058</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a94789e85dd0f8762ba8bec1ad052dd72">sp</a>; 
+<a name="l00059"></a>00059 };
 <a name="l00060"></a>00060 
-<a name="l00062"></a><a class="code" href="structz80.html#ab4787ade4087683bc5222e570fa67253">00062</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#ab4787ade4087683bc5222e570fa67253">de</a>;
-<a name="l00063"></a>00063 
-<a name="l00065"></a><a class="code" href="structz80.html#a8f48afdd479be4b0948736dae97f1708">00065</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a8f48afdd479be4b0948736dae97f1708">hl</a>;
-<a name="l00066"></a>00066 
-<a name="l00068"></a><a class="code" href="structz80.html#a671588f1fc4e652c9dd266fe65b14765">00068</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a671588f1fc4e652c9dd266fe65b14765">ix</a>;
-<a name="l00069"></a>00069 
-<a name="l00071"></a><a class="code" href="structz80.html#aa131cf6be67b207b08acf70e74cfba96">00071</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#aa131cf6be67b207b08acf70e74cfba96">iy</a>;
-<a name="l00072"></a>00072 
-<a name="l00074"></a><a class="code" href="structz80.html#adda17daca4617c2689d71c9b84ec8ffe">00074</a>     uint8_t <a class="code" href="structz80.html#adda17daca4617c2689d71c9b84ec8ffe">_a</a>;
-<a name="l00075"></a>00075 
-<a name="l00077"></a><a class="code" href="structz80.html#a4c5565c198d8ee866eb74aae00678549">00077</a>     <span class="keywordtype">unsigned</span> <a class="code" href="structz80.html#a4c5565c198d8ee866eb74aae00678549">_flags</a> : 6;
-<a name="l00078"></a>00078 
-<a name="l00080"></a><a class="code" href="structz80.html#ae91e41bc5941a267779c894d65b01290">00080</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#ae91e41bc5941a267779c894d65b01290">_bc</a>;
-<a name="l00081"></a>00081 
-<a name="l00083"></a><a class="code" href="structz80.html#a88b65a7e987b3790de881cfc600eb292">00083</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a88b65a7e987b3790de881cfc600eb292">_de</a>;
-<a name="l00084"></a>00084 
-<a name="l00086"></a><a class="code" href="structz80.html#a6404c674f0888334facb8af9b27d36c3">00086</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a6404c674f0888334facb8af9b27d36c3">_hl</a>;
-<a name="l00087"></a>00087 
-<a name="l00089"></a><a class="code" href="structz80.html#a94789e85dd0f8762ba8bec1ad052dd72">00089</a>     <a class="code" href="unionword.html">word</a> <a class="code" href="structz80.html#a94789e85dd0f8762ba8bec1ad052dd72">sp</a>;
-<a name="l00090"></a>00090 };
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092 <a class="code" href="structz80.html">z80</a> *<a class="code" href="z80_8c.html#ac8cab0e04e700308b2e92227099cb1af">new_cpu</a>(<span class="keywordtype">void</span>);
-<a name="l00093"></a>00093 <span class="keywordtype">void</span> <a class="code" href="z80_8c.html#a71c44a1a66f1455e396bf0c1d751bda3">reset_cpu</a>(<a class="code" href="structz80.html">z80</a> *cpu); <span class="comment">// reset function</span>
-<a name="l00094"></a>00094 <span class="keywordtype">void</span> <a class="code" href="z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4">_load_reg8_mem_pair</a>(uint8_t *reg, <a class="code" href="unionword.html">word</a> *address_pair, uint8_t *memory);
-<a name="l00095"></a>00095 <span class="keywordtype">void</span> <a class="code" href="z80_8c.html#a20869ce2e719e74335cde7a9ff68da72">_load_reg8_mem_idx_offset</a>(uint8_t *reg, <a class="code" href="unionword.html">word</a> *index_register, uint8_t *memory, <a class="code" href="unionword.html">word</a> *pc);
-<a name="l00096"></a>00096 <span class="keywordtype">void</span> <a class="code" href="z80_8c.html#af15ac3030d787c91b40958824bbee38d">_load_mem_idx_offset_reg8</a>(uint8_t *reg, <a class="code" href="unionword.html">word</a> *index_register, uint8_t *memory, <a class="code" href="unionword.html">word</a> *pc);
-<a name="l00097"></a>00097 <span class="keywordtype">int</span> <a class="code" href="z80_8c.html#a1b74b3253597fc1e33ba18c07cba0c55">run</a>(<a class="code" href="structz80.html">z80</a> *cpu, uint8_t *memory, <span class="keywordtype">long</span> cycles); <span class="comment">// run CPU function</span>
-<a name="l00098"></a>00098 <span class="preprocessor">#endif </span><span class="comment">/* defined(__PZ80emu__z80__) */</span>
+<a name="l00061"></a>00061 <a class="code" href="structz80.html">z80</a> *<a class="code" href="z80_8c.html#ac8cab0e04e700308b2e92227099cb1af">new_cpu</a>(<span class="keywordtype">void</span>);
+<a name="l00062"></a>00062 <span class="keywordtype">void</span> <a class="code" href="z80_8c.html#a71c44a1a66f1455e396bf0c1d751bda3">reset_cpu</a>(<a class="code" href="structz80.html">z80</a> *cpu); <span class="comment">// reset function</span>
+<a name="l00063"></a>00063 <span class="keywordtype">void</span> <a class="code" href="z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4">_load_reg8_mem_pair</a>(uint8_t *reg, <a class="code" href="unionword.html">word</a> *address_pair, uint8_t *<a class="code" href="structmemory.html">memory</a>);
+<a name="l00064"></a>00064 <span class="keywordtype">void</span> <a class="code" href="z80_8c.html#a20869ce2e719e74335cde7a9ff68da72">_load_reg8_mem_idx_offset</a>(uint8_t *reg, <a class="code" href="unionword.html">word</a> *index_register, uint8_t *<a class="code" href="structmemory.html">memory</a>, <a class="code" href="unionword.html">word</a> *pc);
+<a name="l00065"></a>00065 <span class="keywordtype">void</span> <a class="code" href="z80_8c.html#af15ac3030d787c91b40958824bbee38d">_load_mem_idx_offset_reg8</a>(uint8_t *reg, <a class="code" href="unionword.html">word</a> *index_register, uint8_t *<a class="code" href="structmemory.html">memory</a>, <a class="code" href="unionword.html">word</a> *pc);
+<a name="l00066"></a>00066 <span class="keywordtype">int</span> <a class="code" href="z80_8c.html#a1b74b3253597fc1e33ba18c07cba0c55">run</a>(<a class="code" href="structz80.html">z80</a> *cpu, uint8_t *<a class="code" href="structmemory.html">memory</a>, <span class="keywordtype">long</span> cycles); <span class="comment">// run CPU function</span>
+<a name="l00067"></a>00067 <span class="preprocessor">#endif </span><span class="comment">/* defined(__PZ80emu__z80__) */</span>
 </pre></div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

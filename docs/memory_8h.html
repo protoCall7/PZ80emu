@@ -76,27 +76,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Defines</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">src/lib/memory.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
-<code>#include &lt;stdint.h&gt;</code><br/>
+
+<p>Memory setup functions.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br/>
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for memory.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory_8h__incl.png" border="0" usemap="#src_2lib_2memory_8h" alt=""/></div>
+<map name="src_2lib_2memory_8h" id="src_2lib_2memory_8h">
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory_8h__dep__incl.png" border="0" usemap="#src_2lib_2memory_8hdep" alt=""/></div>
+<map name="src_2lib_2memory_8hdep" id="src_2lib_2memory_8hdep">
+</map>
+</div>
 </div>
 <p><a href="memory_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmemory.html">memory</a></td></tr>
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8h.html#ad4661974a66daba2cf78a74dfbe67ebf">MEMSIZE</a>&#160;&#160;&#160;65536</td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8h.html#aa03ab44dcb196fcb1e11d7384f25a945">create_ram</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8h.html#a390216bc3f4d156215b435d0ab30969b">load_rom</a> (const char *filename, uint8_t *memory)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structmemory.html">memory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8h.html#a7b2957db09ca2550636fb55c44efdf7c">memory_new</a> ()</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"></div><hr/><h2>Define Documentation</h2>
+<div class="textblock"><p>Memory setup functions. </p>
+<p>Created by Peter Ezetta on 5/3/15. Copyright (c) 2015 Peter Ezetta. All rights reserved. </p>
+</div><hr/><h2>Define Documentation</h2>
 <a class="anchor" id="ad4661974a66daba2cf78a74dfbe67ebf"></a><!-- doxytag: member="memory.h::MEMSIZE" ref="ad4661974a66daba2cf78a74dfbe67ebf" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -107,17 +128,17 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Size of memory for <a class="el" href="memory_8c.html#aede6da55f591492eef9adb40d0db97ee">create_ram()</a> to allocate </p>
+<p>Size of memory for create_ram() to allocate </p>
 
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
-<a class="anchor" id="aa03ab44dcb196fcb1e11d7384f25a945"></a><!-- doxytag: member="memory.h::create_ram" ref="aa03ab44dcb196fcb1e11d7384f25a945" args="()" -->
+<a class="anchor" id="a7b2957db09ca2550636fb55c44efdf7c"></a><!-- doxytag: member="memory.h::memory_new" ref="a7b2957db09ca2550636fb55c44efdf7c" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t* <a class="el" href="memory_8h.html#aa03ab44dcb196fcb1e11d7384f25a945">create_ram</a> </td>
+          <td class="memname"><a class="el" href="structmemory.html">memory</a>* <a class="el" href="memory_8h.html#a7b2957db09ca2550636fb55c44efdf7c">memory_new</a> </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -129,41 +150,14 @@ Functions</h2></td></tr>
 <p>Allocates a block of RAM of size MEMSIZE </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to allocated block of RAM. </dd></dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory_8h_a7b2957db09ca2550636fb55c44efdf7c_cgraph.png" border="0" usemap="#memory_8h_a7b2957db09ca2550636fb55c44efdf7c_cgraph" alt=""/></div>
+<map name="memory_8h_a7b2957db09ca2550636fb55c44efdf7c_cgraph" id="memory_8h_a7b2957db09ca2550636fb55c44efdf7c_cgraph">
+</map>
 </div>
-</div>
-<a class="anchor" id="a390216bc3f4d156215b435d0ab30969b"></a><!-- doxytag: member="memory.h::load_rom" ref="a390216bc3f4d156215b435d0ab30969b" args="(const char *filename, uint8_t *memory)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">long <a class="el" href="memory_8h.html#a390216bc3f4d156215b435d0ab30969b">load_rom</a> </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>memory</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Loads the contents of a ROM file into memory </p>
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>String containing the filename of the ROM image. </td></tr>
-    <tr><td class="paramname">memory</td><td>Pointer to the block of RAM to load the ROM into. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Number of bytes loaded into RAM. </dd></dl>
+</p>
 
 </div>
 </div>

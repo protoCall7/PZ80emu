@@ -1,0 +1,31 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="main",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="new_cpu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$z80_8c.html#ac8cab0e04e700308b2e92227099cb1af"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="memory_new",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$memory_8c.html#a275b343797d96b7116c8ea15e1540a50"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="memory_load",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$memory_8c.html#afb45d10a4192db504a9e31f1ce2966c2"];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="memory_free",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$memory_8c.html#aa4f446fdad7bcf53f9a1fc34ce5e96b5"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="create_newscreen",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$display_8c.html#a4155f0f7bbade3bd0d0c461885c55423"];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="run",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$z80_8c.html#a1b74b3253597fc1e33ba18c07cba0c55"];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="_load_reg8_mem_idx_offset",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$z80_8c.html#a20869ce2e719e74335cde7a9ff68da72"];
+  Node7 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="_load_mem_idx_offset_reg8",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$z80_8c.html#af15ac3030d787c91b40958824bbee38d"];
+  Node7 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="_load_reg8_mem_pair",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4"];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="create_newwin",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$display_8c.html#a0a44b6e178e2bcc56cba1ce6a2c79bfc"];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="display_registers",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$display_8c.html#af86de78ec4c1740ec30bd58a3dd7b009"];
+  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="display_mem",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$display_8c.html#a714fcfe742140633f6a5bee9efd55f1a"];
+}
