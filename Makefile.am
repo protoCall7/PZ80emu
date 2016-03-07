@@ -4,7 +4,4 @@ SUBDIRS = \
 		  tests
 
 @CODE_COVERAGE_RULES@
-CODE_COVERAGE_DIRECTORY = \
-						  $(top_builddir) \
-						  $(top_builddir)/src/lib \
-						  $(top_builddir)/tests
+CODE_COVERAGE_DIRECTORY = $(top_builddir)/src/lib
