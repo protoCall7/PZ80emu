@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>PZ80emu: File List</title>
+<title>PZ80emu: word Union Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -47,8 +47,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -69,28 +69,64 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li class="current"><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>Globals</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
+      <li><a href="classes.html"><span>Data&#160;Structure&#160;Index</span></a></li>
+      <li><a href="functions.html"><span>Data&#160;Fields</span></a></li>
     </ul>
   </div>
 </div>
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">File List</div>  </div>
+<div class="title">word Union Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented files with brief descriptions:</div><table>
-  <tr><td class="indexkey"><b>config.h</b> <a href="config_8h_source.html">[code]</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey">src/bin/<a class="el" href="_p_z80emu_8c.html">PZ80emu.c</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey">src/lib/<a class="el" href="display_8c.html">display.c</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey">src/lib/<a class="el" href="display_8h.html">display.h</a> <a href="display_8h_source.html">[code]</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey">src/lib/<a class="el" href="memory_8c.html">memory.c</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey">src/lib/<a class="el" href="memory_8h.html">memory.h</a> <a href="memory_8h_source.html">[code]</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey">src/lib/<a class="el" href="utils_8h.html">utils.h</a> <a href="utils_8h_source.html">[code]</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey">src/lib/<a class="el" href="z80_8c.html">z80.c</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey">src/lib/<a class="el" href="z80_8h.html">z80.h</a> <a href="z80_8h_source.html">[code]</a></td><td class="indexvalue"></td></tr>
-  <tr><td class="indexkey">tests/<a class="el" href="test__z80_8c.html">test_z80.c</a></td><td class="indexvalue"></td></tr>
+<!-- doxytag: class="word" -->
+<p><code>#include &lt;<a class="el" href="z80_8h_source.html">z80.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionword.html#a2f376e9fd3eca4a8ec08b269f764ad42">W</a></td></tr>
+<tr><td class="memItemLeft" >struct {</td></tr>
+<tr><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<b>h</b></td></tr>
+<tr><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<b>l</b></td></tr>
+<tr><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionword.html#a9ffd65ac48e231acdf0d855bc6e59de5">B</a></td></tr>
 </table>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>Type to deal with endianness and access of high/low bits </p>
+</div><hr/><h2>Field Documentation</h2>
+<a class="anchor" id="a9ffd65ac48e231acdf0d855bc6e59de5"></a><!-- doxytag: member="word::B" ref="a9ffd65ac48e231acdf0d855bc6e59de5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }   <a class="el" href="unionword.html#a9ffd65ac48e231acdf0d855bc6e59de5">word::B</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Combination of High and Low bytes in correct order for endianness. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2f376e9fd3eca4a8ec08b269f764ad42"></a><!-- doxytag: member="word::W" ref="a2f376e9fd3eca4a8ec08b269f764ad42" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned short <a class="el" href="unionword.html#a2f376e9fd3eca4a8ec08b269f764ad42">word::W</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>16 Bit Pair </p>
+
+</div>
+</div>
+<hr/>The documentation for this union was generated from the following file:<ul>
+<li>src/lib/<a class="el" href="z80_8h_source.html">z80.h</a></li>
+</ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
