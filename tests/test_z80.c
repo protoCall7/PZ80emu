@@ -107,6 +107,39 @@ static void test_load_reg8_from_offset_idx(test_fixture *tf, gconstpointer data)
 	g_assert(tf->test_cpu->pc.W == 0x0001);
 }
 
+static void test_load_mem_offset_idx_from_reg8(test_fixture *tf, gconstpointer data) {
+	//_load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memory, word *pc)
+	// create block of memory
+	uint8_t *memory = calloc(1024, sizeof(uint8_t));
+
+	// check initial setup
+	g_assert(tf->test_cpu->a == 0);
+	g_assert(tf->test_cpu->ix.W == 0);
+	g_assert(memory[0x0000] == 0);
+	g_assert(memory[0x0122] == 0);
+	g_assert(memory[0x0123] == 0);
+	g_assert(tf->test_cpu->pc.W == 0);
+
+	// set index register
+	tf->test_cpu->ix.W = 0x0122;
+	g_assert(tf->test_cpu->ix.W == 0x0122);
+
+	// put an offset into memory
+	memory[0x0000] = 1;
+	g_assert(memory[0x0000] == 1);
+
+	// store a value in register a to load
+	tf->test_cpu->a = 0xFF;
+	g_assert(tf->test_cpu->a == 0xFF);
+
+	// call the helper function
+	_load_mem_idx_offset_reg8(&tf->test_cpu->a, &tf->test_cpu->ix, memory, &tf->test_cpu->pc);
+
+	g_assert(memory[0x0123] == 0xFF);
+	g_assert(tf->test_cpu->pc.W == 0x0001);
+
+}
+
 int main (int argc, char *argv[]) {
 	g_test_init (&argc, &argv, NULL);
 
@@ -114,6 +147,7 @@ int main (int argc, char *argv[]) {
 	g_test_add("/z80/reset_cpu()", test_fixture, NULL, setup_cpu, test_cpu_reset, teardown_cpu);
 	g_test_add("/z80/_load_reg8_mem_pair()", test_fixture, NULL, setup_cpu, test_load_reg8_from_ram, teardown_cpu);
 	g_test_add("/z80/_load_reg8_mem_idx_offset()", test_fixture, NULL, setup_cpu, test_load_reg8_from_offset_idx, teardown_cpu);
+	g_test_add("/z80/_load_mem_idx_offset_reg8()", test_fixture, NULL, setup_cpu, test_load_mem_offset_idx_from_reg8, teardown_cpu);
 
 	return g_test_run();
 }
