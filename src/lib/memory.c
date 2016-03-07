@@ -15,7 +15,7 @@
  * \param memory Pointer to the block of RAM to load the ROM into.
  * \return Number of bytes loaded into RAM.
  */
-long memory_load(void *self, const char *filename) {
+static long memory_load(void *self, const char *filename) {
 	memory *mem = self;
 
 	FILE *infile = fopen(filename, "r");
@@ -49,7 +49,7 @@ long memory_load(void *self, const char *filename) {
  * Frees an allocated memory object
  * \param memory memory object to free
  */
-void memory_free(void *self) {
+static void memory_free(void *self) {
 	memory *mem = self;
 
 	free(mem->memory);

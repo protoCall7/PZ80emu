@@ -75,6 +75,20 @@ void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memo
 }
 
 /**
+ * Loads a user supplied value into a 16 bit register pair
+ * \param reg register to load
+ * \param memory block of memory to retrieve nn from
+ * \param pc pointer to program counter
+ */
+void _load_reg16_nn(word *reg, uint8_t *memory, word *pc) {
+	word nn;
+	nn.B.h = memory[pc->W++];
+	nn.B.l = memory[pc->W++];
+
+	reg->W = pc->W;
+}
+
+/**
  * Runs the cpu
  * \param cpu A z80 cpu struct to run.
  * \param memory An allocated block of memory to pass to the cpu.
@@ -180,8 +194,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
 			case 0x21:
 				// ld ix,nn
-				cpu->ix.B.h = memory[cpu->pc.W++];
-				cpu->ix.B.l = memory[cpu->pc.W++];
+				_load_reg16_nn(&cpu->ix, memory, &cpu->pc);
 				break;
 			}
 			break;
@@ -273,8 +286,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
 			case 0x21:
 				// ld iy,nn
-				cpu->iy.B.h = memory[cpu->pc.W++];
-				cpu->iy.B.l = memory[cpu->pc.W++];
+				_load_reg16_nn(&cpu->iy, memory, &cpu->pc);
 				break;
 			}
 			break;
@@ -681,26 +693,22 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 		// 16-bit transfer instructions
 		case 0x01:
 			// ld bc,nn
-			cpu->bc.B.h = memory[cpu->pc.W++];
-			cpu->bc.B.l = memory[cpu->pc.W++];
+			_load_reg16_nn(&cpu->bc, memory, &cpu->pc);
 			break;
 
 		case 0x11:
 			// ld de,nn
-			cpu->de.B.h = memory[cpu->pc.W++];
-			cpu->de.B.l = memory[cpu->pc.W++];
+			_load_reg16_nn(&cpu->de, memory, &cpu->pc);
 			break;
 
 		case 0x21:
 			// ld hl,nn
-			cpu->de.B.h = memory[cpu->pc.W++];
-			cpu->de.B.l = memory[cpu->pc.W++];
+			_load_reg16_nn(&cpu->hl, memory, &cpu->pc);
 			break;
 
 		case 0x31:
 			// ld sp,nn
-			cpu->sp.B.h = memory[cpu->pc.W++];
-			cpu->sp.B.l = memory[cpu->pc.W++];
+			_load_reg16_nn(&cpu->sp, memory, &cpu->pc);
 			break;
 
 		case 0x03:

@@ -6,7 +6,6 @@
  *
  */
 
-
 #ifndef __PZ80emu__z80__
 #define __PZ80emu__z80__
 
@@ -20,8 +19,7 @@
 
 /** Type to deal with endianness and access of high/low bits */
 typedef union {
-	/** 16 Bit Pair */
-	unsigned short W;
+	unsigned short W; /** 16 Bit Pair */
 
 	/** Combination of High and Low bytes in correct order for
 	 * endianness.
@@ -35,12 +33,8 @@ typedef union {
 	} B;
 } word;
 
-
-/** Creates a z80 type referring to the z80 struct */
-typedef struct z80 z80;
-
 /** Collection of registers comprising a Z80 CPU */
-struct z80 {
+typedef struct {
 	word pc; /** program counter */
 	int counter; /** interrupt counter */
 	uint8_t a; /** A register */
@@ -56,7 +50,7 @@ struct z80 {
 	word _de; /** DE' register pair */
 	word _hl; /** HL' register pair */
 	word sp; /** Stack Pointer */
-};
+} z80;
 
 z80 *new_cpu(void);
 void reset_cpu(z80 *cpu); // reset function

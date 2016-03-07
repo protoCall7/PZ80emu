@@ -12,7 +12,7 @@ static void setup_memory(test_fixture *tf, gconstpointer data) {
 }
 
 static void teardown_memory(test_fixture *tf, gconstpointer data) {
-	free(tf->mem);
+	tf->mem->memory_free(tf->mem);
 }
 
 static void test_memory_load(test_fixture *tf, gconstpointer data) {
