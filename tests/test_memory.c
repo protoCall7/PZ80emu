@@ -7,15 +7,15 @@ typedef struct {
 	uint8_t *memory;
 } test_fixture;
 
-static void setup_memory(test_fixture tf, gconstpointer data) {
+static void setup_memory(test_fixture *tf, gconstpointer data) {
 	tf->memory = create_ram();
 }
 
-static void teardown_memory(test_fixture tf, gconstpointer data) {
+static void teardown_memory(test_fixture *tf, gconstpointer data) {
 	free(tf->memory);
 }
 
-static void test_load_rom(test_fixture tf, gconstpointer data) {
+static void test_load_rom(test_fixture *tf, gconstpointer data) {
 	g_assert(load_rom(data, tf->memory) == 11);
 
 	uint8_t bin[11] = {  0x3e, 0x05, 0x06, 0x07, 0x80, 0x32, 0x10, 0x00, 0xc3, 0x00, 0x00 };
