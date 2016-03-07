@@ -3,6 +3,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
   #copy data we're interested in to other place
   cp -R PZ80emu-0.1-coverage $HOME/coverage
+  cp -R doxygen-doc/html $HOME/docs
 
   #go to home and setup git
   cd $HOME
@@ -16,6 +17,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   cd gh-pages
   git rm -rf coverage
   cp -Rf $HOME/coverage .
+  cp -Rf $HOME/docs .
 
   #clean, add, commit and push files
   git add -f .
