@@ -59,6 +59,19 @@ void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memo
 	*reg = memory[(index + index_register->W)];
 }
 
+/** Loads a value into a memory location stored in an
+   index register + an offset from a register.
+   \param reg register to load from
+   \param index_register pointer to ix or iy index register
+   \param memory block of memory containing the value to load
+   \param pc pointer to program counter
+ */
+void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
+	uint8_t index = memory[pc->W++];
+
+	memory[(index + index_register->W)] = *reg;
+}
+
 /** Runs the cpu
    \param cpu A z80 cpu struct to run.
    \param memory An allocated block of memory to pass to the cpu.
@@ -119,73 +132,38 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
 			case 0x77:
 				// ld (ix+n),a
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->ix.W)] = cpu->a;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->a, &cpu->ix, memory, &cpu->pc);
+				break;
 
 			case 0x70:
 				// ld (ix+n),b
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->ix.W)] = cpu->bc.B.h;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->bc.B.h, &cpu->ix, memory, &cpu->pc);
+				break;
 
 			case 0x71:
 				// ld (ix+n),c
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->ix.W)] = cpu->bc.B.l;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->bc.B.l, &cpu->ix, memory, &cpu->pc);
+				break;
 
 			case 0x72:
 				// ld (ix+n),d
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->ix.W)] = cpu->de.B.h;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->de.B.h, &cpu->ix, memory, &cpu->pc);
+				break;
 
 			case 0x73:
 				// ld (ix+n),e
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->ix.W)] = cpu->de.B.l;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->de.B.l, &cpu->ix, memory, &cpu->pc);
+				break;
 
 			case 0x74:
 				// ld (ix+n),h
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->ix.W)] = cpu->hl.B.h;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->hl.B.h, &cpu->ix, memory, &cpu->pc);
+				break;
 
 			case 0x75:
 				// ld (ix+n),l
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->ix.W)] = cpu->hl.B.l;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->hl.B.l, &cpu->ix, memory, &cpu->pc);
+				break;
 
 			case 0x36:
 				// ld (ix+n),n
@@ -196,6 +174,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 				memory[(index + cpu->ix.W)] = memory[cpu->pc.W++];
 			}
 			break;
+
 			case 0x21:
 				// ld ix,nn
 				cpu->ix.B.h = memory[cpu->pc.W++];
@@ -246,73 +225,38 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
 			case 0x77:
 				// ld (iy+n),a
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->iy.W)] = cpu->a;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->a, &cpu->iy, memory, &cpu->pc);
+				break;
 
 			case 0x70:
 				// ld (iy+n),b
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->iy.W)] = cpu->bc.B.h;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->bc.B.h, &cpu->iy, memory, &cpu->pc);
+				break;
 
 			case 0x71:
 				// ld (iy+n),c
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->iy.W)] = cpu->bc.B.l;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->bc.B.l, &cpu->iy, memory, &cpu->pc);
+				break;
 
 			case 0x72:
 				// ld (iy+n),d
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->iy.W)] = cpu->de.B.h;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->de.B.h, &cpu->iy, memory, &cpu->pc);
+				break;
 
 			case 0x73:
 				// ld (iy+n),e
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->iy.W)] = cpu->de.B.l;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->de.B.l, &cpu->iy, memory, &cpu->pc);
+				break;
 
 			case 0x74:
 				// ld (iy+n),h
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->iy.W)] = cpu->hl.B.h;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->hl.B.h, &cpu->iy, memory, &cpu->pc);
+				break;
 
 			case 0x75:
 				// ld (iy+n),l
-			{
-				uint8_t index;
-				index = memory[cpu->pc.W++];
-
-				memory[(index + cpu->iy.W)] = cpu->hl.B.l;
-			}
-			break;
+				_load_mem_idx_offset_reg8(&cpu->hl.B.l, &cpu->iy, memory, &cpu->pc);
+				break;
 
 			case 0x36:
 				// ld (iy+n),n
