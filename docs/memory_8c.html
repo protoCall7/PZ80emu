@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -90,77 +91,15 @@ Include dependency graph for memory.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="memory_8c__incl.png" border="0" usemap="#src_2lib_2memory_8c" alt=""/></div>
 <map name="src_2lib_2memory_8c" id="src_2lib_2memory_8c">
-</map>
+<area shape="rect" id="node3" href="memory_8h.html" title="Memory setup functions." alt="" coords="5,83,85,112"/></map>
 </div>
 </div><table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8c.html#afb45d10a4192db504a9e31f1ce2966c2">memory_load</a> (void *self, const char *filename)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8c.html#aa4f446fdad7bcf53f9a1fc34ce5e96b5">memory_free</a> (void *self)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structmemory.html">memory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="memory_8c.html#a275b343797d96b7116c8ea15e1540a50">memory_new</a> (void)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"></div><hr/><h2>Function Documentation</h2>
-<a class="anchor" id="aa4f446fdad7bcf53f9a1fc34ce5e96b5"></a><!-- doxytag: member="memory.c::memory_free" ref="aa4f446fdad7bcf53f9a1fc34ce5e96b5" args="(void *self)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="memory_8c.html#aa4f446fdad7bcf53f9a1fc34ce5e96b5">memory_free</a> </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Frees an allocated memory object </p>
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">memory</td><td>memory object to free </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="afb45d10a4192db504a9e31f1ce2966c2"></a><!-- doxytag: member="memory.c::memory_load" ref="afb45d10a4192db504a9e31f1ce2966c2" args="(void *self, const char *filename)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">long <a class="el" href="memory_8c.html#afb45d10a4192db504a9e31f1ce2966c2">memory_load</a> </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>filename</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Loads the contents of a ROM file into memory </p>
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>String containing the filename of the ROM image. </td></tr>
-    <tr><td class="paramname">memory</td><td>Pointer to the block of RAM to load the ROM into. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Number of bytes loaded into RAM. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a275b343797d96b7116c8ea15e1540a50"></a><!-- doxytag: member="memory.c::memory_new" ref="a275b343797d96b7116c8ea15e1540a50" args="(void)" -->
 <div class="memitem">
 <div class="memproto">
@@ -178,15 +117,6 @@ Functions</h2></td></tr>
 <p>Allocates a block of RAM of size MEMSIZE </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Pointer to allocated block of RAM. </dd></dl>
 
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="memory_8c_a275b343797d96b7116c8ea15e1540a50_cgraph.png" border="0" usemap="#memory_8c_a275b343797d96b7116c8ea15e1540a50_cgraph" alt=""/></div>
-<map name="memory_8c_a275b343797d96b7116c8ea15e1540a50_cgraph" id="memory_8c_a275b343797d96b7116c8ea15e1540a50_cgraph">
-</map>
-</div>
-</p>
-
 </div>
 </div>
 </div><!-- contents -->
@@ -195,7 +125,7 @@ Here is the call graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

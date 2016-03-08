@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$z80_8c.html#a20869ce2e719e74335cde7a9ff68da72" title="_load_reg8_mem_idx_offset" alt="" coords="95,5,279,35"/>
+<area shape="rect" id="node5" href="$z80_8c.html#af15ac3030d787c91b40958824bbee38d" title="_load_mem_idx_offset_reg8" alt="" coords="95,59,279,88"/>
+<area shape="rect" id="node7" href="$z80_8c.html#a1996a16c481738563ee9664c86798310" title="_load_reg16_nn" alt="" coords="131,112,243,141"/>
+<area shape="rect" id="node9" href="$z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4" title="_load_reg8_mem_pair" alt="" coords="112,165,261,195"/>
+</map>

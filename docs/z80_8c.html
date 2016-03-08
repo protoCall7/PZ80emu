@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -90,7 +91,7 @@ Include dependency graph for z80.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="z80_8c__incl.png" border="0" usemap="#src_2lib_2z80_8c" alt=""/></div>
 <map name="src_2lib_2z80_8c" id="src_2lib_2z80_8c">
-</map>
+<area shape="rect" id="node7" href="z80_8h.html" title="z80 CPU data structure and functions" alt="" coords="144,83,197,112"/><area shape="rect" id="node10" href="utils_8h.html" title="utils.h" alt="" coords="221,83,277,112"/></map>
 </div>
 </div><table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
@@ -100,6 +101,7 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4">_load_reg8_mem_pair</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *address_pair, uint8_t *<a class="el" href="structmemory.html">memory</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#a20869ce2e719e74335cde7a9ff68da72">_load_reg8_mem_idx_offset</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *index_register, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#af15ac3030d787c91b40958824bbee38d">_load_mem_idx_offset_reg8</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *index_register, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#a1996a16c481738563ee9664c86798310">_load_reg16_nn</a> (<a class="el" href="unionword.html">word</a> *reg, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#a1b74b3253597fc1e33ba18c07cba0c55">run</a> (<a class="el" href="structz80.html">z80</a> *cpu, uint8_t *<a class="el" href="structmemory.html">memory</a>, long runcycles)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
@@ -146,6 +148,48 @@ Functions</h2></td></tr>
     <tr><td class="paramname">reg</td><td>register to load from </td></tr>
     <tr><td class="paramname">index_register</td><td>pointer to ix or iy index register </td></tr>
     <tr><td class="paramname">memory</td><td>block of memory containing the value to load </td></tr>
+    <tr><td class="paramname">pc</td><td>pointer to program counter </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1996a16c481738563ee9664c86798310"></a><!-- doxytag: member="z80.c::_load_reg16_nn" ref="a1996a16c481738563ee9664c86798310" args="(word *reg, uint8_t *memory, word *pc)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="z80_8c.html#a1996a16c481738563ee9664c86798310">_load_reg16_nn</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="unionword.html">word</a> *&#160;</td>
+          <td class="paramname"><em>reg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>memory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="unionword.html">word</a> *&#160;</td>
+          <td class="paramname"><em>pc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Loads a user supplied value into a 16 bit register pair </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reg</td><td>register to load </td></tr>
+    <tr><td class="paramname">memory</td><td>block of memory to retrieve nn from </td></tr>
     <tr><td class="paramname">pc</td><td>pointer to program counter </td></tr>
   </table>
   </dd>
@@ -327,13 +371,19 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Count of cycles executed. </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>inc bc isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug:</a></b></dt><dd>inc b isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000003">Bug:</a></b></dt><dd>dec b isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000004">Bug:</a></b></dt><dd>dec bc isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000005">Bug:</a></b></dt><dd>inc c isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000006">Bug:</a></b></dt><dd>dec c isn't operating on flags </dd></dl>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="z80_8c_a1b74b3253597fc1e33ba18c07cba0c55_cgraph.png" border="0" usemap="#z80_8c_a1b74b3253597fc1e33ba18c07cba0c55_cgraph" alt=""/></div>
 <map name="z80_8c_a1b74b3253597fc1e33ba18c07cba0c55_cgraph" id="z80_8c_a1b74b3253597fc1e33ba18c07cba0c55_cgraph">
-</map>
+<area shape="rect" id="node3" href="z80_8c.html#a20869ce2e719e74335cde7a9ff68da72" title="_load_reg8_mem_idx_offset" alt="" coords="95,5,279,35"/><area shape="rect" id="node5" href="z80_8c.html#af15ac3030d787c91b40958824bbee38d" title="_load_mem_idx_offset_reg8" alt="" coords="95,59,279,88"/><area shape="rect" id="node7" href="z80_8c.html#a1996a16c481738563ee9664c86798310" title="_load_reg16_nn" alt="" coords="131,112,243,141"/><area shape="rect" id="node9" href="z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4" title="_load_reg8_mem_pair" alt="" coords="112,165,261,195"/></map>
 </div>
 </p>
 
@@ -345,7 +395,7 @@ Here is the call graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

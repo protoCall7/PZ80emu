@@ -47,6 +47,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -78,7 +79,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Defines</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">src/lib/z80.h File Reference</div>  </div>
@@ -100,7 +100,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="z80_8h__dep__incl.png" border="0" usemap="#src_2lib_2z80_8hdep" alt=""/></div>
 <map name="src_2lib_2z80_8hdep" id="src_2lib_2z80_8hdep">
-</map>
+<area shape="rect" id="node3" href="_p_z80emu_8c.html" title="Main application." alt="" coords="5,83,136,112"/><area shape="rect" id="node5" href="display_8c.html" title="src/lib/display.c" alt="" coords="160,83,272,112"/><area shape="rect" id="node7" href="z80_8c.html" title="src/lib/z80.c" alt="" coords="296,83,389,112"/></map>
 </div>
 </div>
 <p><a href="z80_8h_source.html">Go to the source code of this file.</a></p>
@@ -113,9 +113,6 @@ Data Structures</h2></td></tr>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#ae62758a9b0155b93aabb7ce2375e2562">INIT_PC</a>&#160;&#160;&#160;0x0000</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#a533f998159de957b1f91e571cda46b9c">INTERRUPT_PERIOD</a>&#160;&#160;&#160;10240</td></tr>
-<tr><td colspan="2"><h2><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structz80.html">z80</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#a60a4996423ce53818be083ec280f22f6">z80</a></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structz80.html">z80</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#ac8cab0e04e700308b2e92227099cb1af">new_cpu</a> (void)</td></tr>
@@ -154,21 +151,6 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>The number of cycles to run before triggering interrupt </p>
-
-</div>
-</div>
-<hr/><h2>Typedef Documentation</h2>
-<a class="anchor" id="a60a4996423ce53818be083ec280f22f6"></a><!-- doxytag: member="z80.h::z80" ref="a60a4996423ce53818be083ec280f22f6" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structz80.html">z80</a> <a class="el" href="structz80.html">z80</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Creates a <a class="el" href="structz80.html">z80</a> type referring to the <a class="el" href="structz80.html">z80</a> struct </p>
 
 </div>
 </div>
@@ -396,13 +378,19 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Count of cycles executed. </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>inc bc isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug:</a></b></dt><dd>inc b isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000003">Bug:</a></b></dt><dd>dec b isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000004">Bug:</a></b></dt><dd>dec bc isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000005">Bug:</a></b></dt><dd>inc c isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000006">Bug:</a></b></dt><dd>dec c isn't operating on flags </dd></dl>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="z80_8h_a95b3b2c404bfad3b4ff6b10de3f60e5c_cgraph.png" border="0" usemap="#z80_8h_a95b3b2c404bfad3b4ff6b10de3f60e5c_cgraph" alt=""/></div>
 <map name="z80_8h_a95b3b2c404bfad3b4ff6b10de3f60e5c_cgraph" id="z80_8h_a95b3b2c404bfad3b4ff6b10de3f60e5c_cgraph">
-</map>
+<area shape="rect" id="node3" href="z80_8c.html#a20869ce2e719e74335cde7a9ff68da72" title="_load_reg8_mem_idx_offset" alt="" coords="95,5,279,35"/><area shape="rect" id="node5" href="z80_8c.html#af15ac3030d787c91b40958824bbee38d" title="_load_mem_idx_offset_reg8" alt="" coords="95,59,279,88"/><area shape="rect" id="node7" href="z80_8c.html#a1996a16c481738563ee9664c86798310" title="_load_reg16_nn" alt="" coords="131,112,243,141"/><area shape="rect" id="node9" href="z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4" title="_load_reg8_mem_pair" alt="" coords="112,165,261,195"/></map>
 </div>
 </p>
 
@@ -414,7 +402,7 @@ Here is the call graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

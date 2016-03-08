@@ -1,0 +1,13 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$z80_8c.html#ac8cab0e04e700308b2e92227099cb1af" title="new_cpu" alt="" coords="131,5,205,35"/>
+<area shape="rect" id="node5" href="$memory_8c.html#a275b343797d96b7116c8ea15e1540a50" title="memory_new" alt="" coords="119,59,217,88"/>
+<area shape="rect" id="node7" href="$display_8c.html#a4155f0f7bbade3bd0d0c461885c55423" title="create_newscreen" alt="" coords="104,112,232,141"/>
+<area shape="rect" id="node9" href="$z80_8c.html#a1b74b3253597fc1e33ba18c07cba0c55" title="run" alt="" coords="148,165,188,195"/>
+<area shape="rect" id="node19" href="$display_8c.html#a0a44b6e178e2bcc56cba1ce6a2c79bfc" title="create_newwin" alt="" coords="113,219,223,248"/>
+<area shape="rect" id="node21" href="$display_8c.html#af86de78ec4c1740ec30bd58a3dd7b009" title="display_registers" alt="" coords="108,272,228,301"/>
+<area shape="rect" id="node23" href="$display_8c.html#a714fcfe742140633f6a5bee9efd55f1a" title="display_mem" alt="" coords="119,325,217,355"/>
+<area shape="rect" id="node11" href="$z80_8c.html#a20869ce2e719e74335cde7a9ff68da72" title="_load_reg8_mem_idx_offset" alt="" coords="281,85,465,115"/>
+<area shape="rect" id="node13" href="$z80_8c.html#af15ac3030d787c91b40958824bbee38d" title="_load_mem_idx_offset_reg8" alt="" coords="281,139,465,168"/>
+<area shape="rect" id="node15" href="$z80_8c.html#a1996a16c481738563ee9664c86798310" title="_load_reg16_nn" alt="" coords="317,192,429,221"/>
+<area shape="rect" id="node17" href="$z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4" title="_load_reg8_mem_pair" alt="" coords="299,245,448,275"/>
+</map>
