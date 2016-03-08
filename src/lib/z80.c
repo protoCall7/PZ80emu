@@ -712,17 +712,17 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			break;
 
 		case 0x03:
-			// inc bc
+			/// @bug inc bc isn't operating on flags
 			cpu->bc.W++;
 			break;
 
 		case 0x04:
-			// inc b
+			/// @bug inc b isn't operating on flags
 			cpu->bc.B.h++;
 			break;
 
 		case 0x05:
-			// dec b
+			/// @bug dec b isn't operating on flags
 			cpu->bc.B.h--;
 			break;
 
@@ -766,17 +766,17 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			break;
 
 		case 0x0B:
-			// dec bc
+			/// @bug dec bc isn't operating on flags
 			cpu->bc.W--;
 			break;
 
 		case 0x0C:
-			// inc c
+			/// @bug inc c isn't operating on flags
 			cpu->bc.B.h++;
 			break;
 
 		case 0x0D:
-			// dec c
+			/// @bug dec c isn't operating on flags
 			cpu->bc.B.h--;
 			break;
 
