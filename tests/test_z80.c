@@ -140,6 +140,17 @@ static void test_load_mem_offset_idx_from_reg8(test_fixture *tf, gconstpointer d
 
 }
 
+static void test_load_reg16_from_nn(test_fixture *tf, gconstpointer data) {
+	uint8_t *memory = calloc(1024, sizeof(uint8_t));
+
+	memory[0x0000] = 0xFF;
+	memory[0x0001] = 0xEE;
+
+	_load_reg16_nn(&tf->test_cpu->bc, memory, &tf->test_cpu->pc);
+
+	g_assert(tf->test_cpu->bc.W == 0xEEFF);
+}
+
 static void test_nop(test_fixture *tf, gconstpointer data) {
 	// int run(z80 *cpu, uint8_t *memory, long cycles);
 	// make memory with a nop in it
@@ -150,12 +161,26 @@ static void test_nop(test_fixture *tf, gconstpointer data) {
 	g_assert(tf->test_cpu->pc.W == 1);
 }
 
-static void test_ld_a_a(test_fixture *tf, gconstpointer data) {
-	uint8_t *memory = malloc(1);
-	*memory = 0x7F;
+static void test_ld_a(test_fixture *tf, gconstpointer data) {
+	uint8_t memory[9] = {0x3e, 0x05, 0x7f, 0x47, 0x4f, 0x57, 0x5f, 0x67, 0x6f};
 
-	g_assert(run(tf->test_cpu, memory, 1) == 1);
-	g_assert(tf->test_cpu->pc.W == 1);
+	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(tf->test_cpu->pc.W == 9);
+	g_assert(tf->test_cpu->a == 0x05);
+	g_assert(tf->test_cpu->bc.W == 0x0505);
+	g_assert(tf->test_cpu->de.W == 0x0505);
+	g_assert(tf->test_cpu->hl.W == 0x0505);
+}
+
+static void test_ld_b(test_fixture *tf, gconstpointer data) {
+	uint8_t memory[9] = {0x06, 0x05, 0x78, 0x40, 0x48, 0x50, 0x58, 0x60, 0x68};
+
+	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(tf->test_cpu->pc.W == 9);
+	g_assert(tf->test_cpu->a == 0x05);
+	g_assert(tf->test_cpu->bc.W == 0x0505);
+	g_assert(tf->test_cpu->de.W == 0x0505);
+	g_assert(tf->test_cpu->hl.W == 0x0505);
 }
 
 int main (int argc, char *argv[]) {
@@ -166,8 +191,11 @@ int main (int argc, char *argv[]) {
 	g_test_add("/z80 helpers/_load_reg8_mem_pair()", test_fixture, NULL, setup_cpu, test_load_reg8_from_ram, teardown_cpu);
 	g_test_add("/z80 helpers/_load_reg8_mem_idx_offset()", test_fixture, NULL, setup_cpu, test_load_reg8_from_offset_idx, teardown_cpu);
 	g_test_add("/z80 helpers/_load_mem_idx_offset_reg8()", test_fixture, NULL, setup_cpu, test_load_mem_offset_idx_from_reg8, teardown_cpu);
+	g_test_add("/z80 helpers/_load_reg16_nn()", test_fixture, NULL, setup_cpu, test_load_reg16_from_nn, teardown_cpu);
 	g_test_add("/z80 instructions/NOP", test_fixture, NULL, setup_cpu, test_nop, teardown_cpu);
-	g_test_add("/z80 instructions/ld a,a", test_fixture, NULL, setup_cpu, test_ld_a_a, teardown_cpu);
+	g_test_add("/z80 instructions/ld r,a", test_fixture, NULL, setup_cpu, test_ld_a, teardown_cpu);
+	g_test_add("/z80 instructions/ld r,b", test_fixture, NULL, setup_cpu, test_ld_b, teardown_cpu);
+
 
 	return g_test_run();
 }

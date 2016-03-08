@@ -85,7 +85,7 @@ void _load_reg16_nn(word *reg, uint8_t *memory, word *pc) {
 	nn.B.h = memory[pc->W++];
 	nn.B.l = memory[pc->W++];
 
-	reg->W = pc->W;
+	reg->W = nn.W;
 }
 
 /**
@@ -404,6 +404,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 		case 0x48:
 			// ld c,b
 			cpu->bc.B.l = cpu->bc.B.h;
+			break;
 
 		case 0x49:
 			// ld c,c
