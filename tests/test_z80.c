@@ -3,6 +3,7 @@
 #include <glib.h>
 #include <stdlib.h>
 #include "z80.h"
+#include "memory.h"
 #include "utils.h"
 
 // set up test fixture with a cpu object
@@ -183,6 +184,76 @@ static void test_ld_b(test_fixture *tf, gconstpointer data) {
 	g_assert(tf->test_cpu->hl.W == 0x0505);
 }
 
+static void test_ld_c(test_fixture *tf, gconstpointer data) {
+	uint8_t memory[9] = {0x0e, 0x05, 0x79, 0x41, 0x49, 0x51, 0x59, 0x61, 0x69};
+
+	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(tf->test_cpu->pc.W == 9);
+	g_assert(tf->test_cpu->a == 0x05);
+	g_assert(tf->test_cpu->bc.W == 0x0505);
+	g_assert(tf->test_cpu->de.W == 0x0505);
+	g_assert(tf->test_cpu->hl.W == 0x0505);
+}
+
+static void test_ld_d(test_fixture *tf, gconstpointer data) {
+	uint8_t memory[9] = {0x16, 0x05, 0x7a, 0x42, 0x4a, 0x52, 0x5a, 0x62, 0x6a};
+
+	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(tf->test_cpu->pc.W == 9);
+	g_assert(tf->test_cpu->a == 0x05);
+	g_assert(tf->test_cpu->bc.W == 0x0505);
+	g_assert(tf->test_cpu->de.W == 0x0505);
+	g_assert(tf->test_cpu->hl.W == 0x0505);
+}
+
+static void test_ld_e(test_fixture *tf, gconstpointer data) {
+	uint8_t memory[9] = {0x1e, 0x05, 0x7b, 0x43, 0x4b, 0x53, 0x5b, 0x63, 0x6b};
+
+	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(tf->test_cpu->pc.W == 9);
+	g_assert(tf->test_cpu->a == 0x05);
+	g_assert(tf->test_cpu->bc.W == 0x0505);
+	g_assert(tf->test_cpu->de.W == 0x0505);
+	g_assert(tf->test_cpu->hl.W == 0x0505);
+}
+
+static void test_ld_h(test_fixture *tf, gconstpointer data) {
+	uint8_t memory[9] = {0x26, 0x05, 0x7c, 0x44, 0x4c, 0x54, 0x5c, 0x64, 0x6c};
+
+	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(tf->test_cpu->pc.W == 9);
+	g_assert(tf->test_cpu->a == 0x05);
+	g_assert(tf->test_cpu->bc.W == 0x0505);
+	g_assert(tf->test_cpu->de.W == 0x0505);
+	g_assert(tf->test_cpu->hl.W == 0x0505);
+}
+
+static void test_ld_l(test_fixture *tf, gconstpointer data) {
+	uint8_t memory[9] = {0x2e, 0x05, 0x7d, 0x45, 0x4d, 0x55, 0x5d, 0x65, 0x6d};
+
+	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(tf->test_cpu->pc.W == 9);
+	g_assert(tf->test_cpu->a == 0x05);
+	g_assert(tf->test_cpu->bc.W == 0x0505);
+	g_assert(tf->test_cpu->de.W == 0x0505);
+	g_assert(tf->test_cpu->hl.W == 0x0505);
+}
+
+static void test_ld_reg8_ixn(test_fixture *tf, gconstpointer data) {
+
+	memory *testmem = memory_new();
+	testmem->memory_load(testmem, data);
+
+	g_assert(run(tf->test_cpu, testmem->memory, 17));
+	g_assert(tf->test_cpu->pc.W);
+	g_assert(tf->test_cpu->a == 0x01);
+	g_assert(tf->test_cpu->bc.W == 0x0302);
+	g_assert(tf->test_cpu->de.W == 0x0504);
+	g_assert(tf->test_cpu->hl.W == 0x0706);
+
+	testmem->memory_free(testmem);
+}
+
 int main (int argc, char *argv[]) {
 	g_test_init (&argc, &argv, NULL);
 
@@ -195,7 +266,12 @@ int main (int argc, char *argv[]) {
 	g_test_add("/z80 instructions/NOP", test_fixture, NULL, setup_cpu, test_nop, teardown_cpu);
 	g_test_add("/z80 instructions/ld r,a", test_fixture, NULL, setup_cpu, test_ld_a, teardown_cpu);
 	g_test_add("/z80 instructions/ld r,b", test_fixture, NULL, setup_cpu, test_ld_b, teardown_cpu);
-
+	g_test_add("/z80 instructions/ld r,c", test_fixture, NULL, setup_cpu, test_ld_c, teardown_cpu);
+	g_test_add("/z80 instructions/ld r,d", test_fixture, NULL, setup_cpu, test_ld_d, teardown_cpu);
+	g_test_add("/z80 instructions/ld r,e", test_fixture, NULL, setup_cpu, test_ld_e, teardown_cpu);
+	g_test_add("/z80 instructions/ld r,h", test_fixture, NULL, setup_cpu, test_ld_h, teardown_cpu);
+	g_test_add("/z80 instructions/ld r,l", test_fixture, NULL, setup_cpu, test_ld_l, teardown_cpu);
+	g_test_add("/z80 instructions/ld r,(ix+n)", test_fixture, "test_ld_ixn.bin", setup_cpu, test_ld_reg8_ixn, teardown_cpu);
 
 	return g_test_run();
 }
