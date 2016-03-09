@@ -20,26 +20,26 @@ static long memory_load(void *self, const char *filename) {
 
 	FILE *infile = fopen(filename, "r");
 	if (infile == NULL) {
-		return 1;
+		return -1;
 	}
 
 	if((fseek(infile, 0L, SEEK_END)) != 0) {
-		exit(EXIT_FAILURE);
+		return -1;
 	}
 
 	long file_numbytes = ftell(infile);
 
 	if((fseek(infile, 0L, SEEK_SET)) != 0) {
-		exit(EXIT_FAILURE);
+		return -1;
 	}
 
 	size_t readbytes = fread(mem->memory, sizeof(char), (size_t)file_numbytes, infile);
 	if(readbytes != (size_t)file_numbytes) {
-		exit(EXIT_FAILURE);
+		return -1;
 	}
 
 	if((fclose(infile)) != 0) {
-		exit(EXIT_FAILURE);
+		return -1;
 	}
 
 	return file_numbytes;
