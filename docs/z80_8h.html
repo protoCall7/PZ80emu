@@ -120,6 +120,7 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#a98200db180fcce4a6df8cf3fe6ff38a4">_load_reg8_mem_pair</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *address_pair, uint8_t *<a class="el" href="structmemory.html">memory</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#a20869ce2e719e74335cde7a9ff68da72">_load_reg8_mem_idx_offset</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *index_register, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#af15ac3030d787c91b40958824bbee38d">_load_mem_idx_offset_reg8</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *index_register, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#a1996a16c481738563ee9664c86798310">_load_reg16_nn</a> (<a class="el" href="unionword.html">word</a> *reg, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#a95b3b2c404bfad3b4ff6b10de3f60e5c">run</a> (<a class="el" href="structz80.html">z80</a> *cpu, uint8_t *<a class="el" href="structmemory.html">memory</a>, long cycles)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
@@ -197,6 +198,48 @@ Functions</h2></td></tr>
     <tr><td class="paramname">reg</td><td>register to load from </td></tr>
     <tr><td class="paramname">index_register</td><td>pointer to ix or iy index register </td></tr>
     <tr><td class="paramname">memory</td><td>block of memory containing the value to load </td></tr>
+    <tr><td class="paramname">pc</td><td>pointer to program counter </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1996a16c481738563ee9664c86798310"></a><!-- doxytag: member="z80.h::_load_reg16_nn" ref="a1996a16c481738563ee9664c86798310" args="(word *reg, uint8_t *memory, word *pc)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="z80_8h.html#a1996a16c481738563ee9664c86798310">_load_reg16_nn</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="unionword.html">word</a> *&#160;</td>
+          <td class="paramname"><em>reg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>memory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="unionword.html">word</a> *&#160;</td>
+          <td class="paramname"><em>pc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Loads a user supplied value into a 16 bit register pair </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reg</td><td>register to load </td></tr>
+    <tr><td class="paramname">memory</td><td>block of memory to retrieve nn from </td></tr>
     <tr><td class="paramname">pc</td><td>pointer to program counter </td></tr>
   </table>
   </dd>
