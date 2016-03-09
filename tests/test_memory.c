@@ -25,10 +25,16 @@ static void test_memory_load(test_fixture *tf, gconstpointer data) {
 	}
 }
 
+static void test_memory_load_nofile(test_fixture *tf, gconstpointer data) {
+	g_assert(tf->mem->memory_load(tf->mem, NULL) == -1);
+}
+
 int main(int argc, char *argv[]) {
 	g_test_init(&argc, &argv, NULL);
 
 	g_test_add("/memory/memory_load()", test_fixture, "test.bin", setup_memory, test_memory_load, teardown_memory);
+	g_test_add("/memory/memory_load() bad input", test_fixture, NULL, setup_memory, test_memory_load_nofile, teardown_memory);
 
 	return g_test_run();
 }
+
