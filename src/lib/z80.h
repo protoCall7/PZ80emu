@@ -25,7 +25,7 @@ typedef union {
 	 * endianness.
 	 */
 	struct {
-#ifdef LOW_ENDIAN
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 		uint8_t l,h; /* ...in low-endian architecture */
 #else
 		uint8_t h,l; /* ...in high-endian architecture */

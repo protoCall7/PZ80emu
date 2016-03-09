@@ -144,8 +144,8 @@ static void test_load_mem_offset_idx_from_reg8(test_fixture *tf, gconstpointer d
 static void test_load_reg16_from_nn(test_fixture *tf, gconstpointer data) {
 	uint8_t *memory = calloc(1024, sizeof(uint8_t));
 
-	memory[0x0000] = 0xFF;
-	memory[0x0001] = 0xEE;
+	memory[0x0000] = 0xEE;
+	memory[0x0001] = 0xFF;
 
 	_load_reg16_nn(&tf->test_cpu->bc, memory, &tf->test_cpu->pc);
 
@@ -247,9 +247,9 @@ static void test_ld_reg8_ixn(test_fixture *tf, gconstpointer data) {
 	g_assert(run(tf->test_cpu, testmem->memory, 17));
 	g_assert(tf->test_cpu->pc.W);
 	g_assert(tf->test_cpu->a == 0x01);
-	g_assert(tf->test_cpu->bc.W == 0x0302);
-	g_assert(tf->test_cpu->de.W == 0x0504);
-	g_assert(tf->test_cpu->hl.W == 0x0706);
+	g_assert(tf->test_cpu->bc.W == 0x0203);
+	g_assert(tf->test_cpu->de.W == 0x0405);
+	g_assert(tf->test_cpu->hl.W == 0x0607);
 
 	testmem->memory_free(testmem);
 }
