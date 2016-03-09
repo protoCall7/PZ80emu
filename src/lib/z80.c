@@ -41,7 +41,7 @@ void reset_cpu(z80 *cpu) {
  * from
  * \param memory block of memory containing the value to load
  */
-void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
+static void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
 	word address;
 	address.B.h = address_pair->B.h;
 	address.B.l = address_pair->B.l;
@@ -55,7 +55,7 @@ void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
  * \param memory block of memory containing the value to load
  * \param pc pointer to program counter
  */
-void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
+static void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
 	uint8_t index = memory[pc->W++];
 
 	*reg = memory[(index + index_register->W)];
@@ -68,7 +68,7 @@ void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memo
  * \param memory block of memory containing the value to load
  * \param pc pointer to program counter
  */
-void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
+static void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
 	uint8_t index = memory[pc->W++];
 
 	memory[(index + index_register->W)] = *reg;
@@ -80,10 +80,10 @@ void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memo
  * \param memory block of memory to retrieve nn from
  * \param pc pointer to program counter
  */
-void _load_reg16_nn(word *reg, uint8_t *memory, word *pc) {
+static void _load_reg16_nn(word *reg, uint8_t *memory, word *pc) {
 	word nn;
-	nn.B.h = memory[pc->W++];
 	nn.B.l = memory[pc->W++];
+	nn.B.h = memory[pc->W++];
 
 	reg->W = nn.W;
 }
@@ -668,7 +668,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
 		case 0x36:
 			// ld (hl),n
-			cpu->hl.W = memory[cpu->pc.W++];
+			memory[cpu->hl.W] = memory[cpu->pc.W++];
 			break;
 
 		case 0x02:
@@ -679,6 +679,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 		case 0x12:
 			// ld (de),a
 			memory[cpu->de.W] = cpu->a;
+			break;
 
 		case 0x32:
 			// ld (nn),a
