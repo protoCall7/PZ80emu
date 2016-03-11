@@ -19,7 +19,7 @@
 
 /** Type to deal with endianness and access of high/low bits */
 typedef union {
-	unsigned short W; /** 16 Bit Pair */
+	uint16_t W; /** 16 Bit Pair */
 
 	/** Combination of High and Low bytes in correct order for
 	 * endianness.
