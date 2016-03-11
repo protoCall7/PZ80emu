@@ -7,5 +7,7 @@ PZ80emu_LDADD = $(top_builddir)/src/lib/libz80.a
 PZ80emu_LDADD += $(top_builddir)/src/lib/libmemory.a
 PZ80emu_LDADD += $(top_builddir)/src/lib/libdisplay.a
 
+@DX_RULES@
+
 @CODE_COVERAGE_RULES@
 PZ80emu_CFLAGS = $(AM_CFLAGS) $(CODE_COVERAGE_CFLAGS)
