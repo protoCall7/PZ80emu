@@ -890,9 +890,9 @@
 <span class="lineNum">     787 </span>                :<span class="lineNoCov">          0 :                         return -1;</span>
 <span class="lineNum">     788 </span>                :            :                 }
 <span class="lineNum">     789 </span>                :            : 
-<span class="lineNum">     790 </span>        [<span class="branchCov" title="Branch 0 was taken 54 times"> + </span><span class="branchCov" title="Branch 1 was taken 37 times"> + </span>]:<span class="lineCov">         91 :                 if (cpu-&gt;counter &lt;= 0) {</span>
+<span class="lineNum">     790 </span>        [<span class="branchCov" title="Branch 0 was taken 57 times"> + </span><span class="branchCov" title="Branch 1 was taken 34 times"> + </span>]:<span class="lineCov">         91 :                 if (cpu-&gt;counter &lt;= 0) {</span>
 <span class="lineNum">     791 </span>                :            :                         // interrupt tasks here
-<span class="lineNum">     792 </span>                :<span class="lineCov">         54 :                         cpu-&gt;counter += INTERRUPT_PERIOD;</span>
+<span class="lineNum">     792 </span>                :<span class="lineCov">         57 :                         cpu-&gt;counter += INTERRUPT_PERIOD;</span>
 <span class="lineNum">     793 </span>                :            :                 }
 <span class="lineNum">     794 </span>                :            : 
 <span class="lineNum">     795 </span>                :<span class="lineCov">         91 :                 runcycles--;</span>
