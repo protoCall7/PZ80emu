@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - PZ80emu-0.1 Code Coverage - /home/travis/build/protoCall7/PZ80emu/src/lib/memory.c - functions</title>
+  <title>LCOV - PZ80emu-0.1 Code Coverage - /home/travis/build/protoCall7/PZ80emu/src/lib/z80.c - functions</title>
   <link rel="stylesheet" type="text/css" href="../../../../../../../gcov.css">
 </head>
 
@@ -19,7 +19,7 @@
         <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="35%" class="headerValue"><a href="../../../../../../../index.html">top level</a> - <a href="index.html">home/travis/build/protoCall7/PZ80emu/src/lib</a> - memory.c<span style="font-size: 80%;"> (<a href="memory.c.gcov.html">source</a> / functions)</span></td>
+            <td width="35%" class="headerValue"><a href="../../../../../../../index.html">top level</a> - <a href="index.html">home/travis/build/protoCall7/PZ80emu/src/lib</a> - z80.c<span style="font-size: 80%;"> (<a href="z80.c.gcov.html">source</a> / functions)</span></td>
             <td width="5%"></td>
             <td width="15%"></td>
             <td width="10%" class="headerCovTableHead">Hit</td>
@@ -31,17 +31,17 @@
             <td class="headerValue">PZ80emu-0.1 Code Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">23</td>
-            <td class="headerCovTableEntry">28</td>
-            <td class="headerCovTableEntryMed">82.1 %</td>
+            <td class="headerCovTableEntry">193</td>
+            <td class="headerCovTableEntry">303</td>
+            <td class="headerCovTableEntryLo">63.7 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
             <td class="headerValue">2016-03-11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">3</td>
-            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">7</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
@@ -56,9 +56,9 @@
 </td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">7</td>
-            <td class="headerCovTableEntry">12</td>
-            <td class="headerCovTableEntryLo">58.3 %</td>
+            <td class="headerCovTableEntry">82</td>
+            <td class="headerCovTableEntry">138</td>
+            <td class="headerCovTableEntryLo">59.4 %</td>
           </tr>
           <tr><td><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -72,20 +72,36 @@
   <table width="60%" cellpadding=1 cellspacing=1 border=0>
     <tr><td><br></td></tr>
     <tr>
-      <td width="80%" class="tableHead">Function Name <span class="tableHeadSort"><a href="memory.c.func.html"><img src="../../../../../../../updown.png" width=10 height=14 alt="Sort by function name" title="Sort by function name" border=0></a></span></td>
-      <td width="20%" class="tableHead">Hit count <span class="tableHeadSort"><img src="../../../../../../../glass.png" width=10 height=14 alt="Sort by hit count" title="Sort by hit count" border=0></span></td>
+      <td width="80%" class="tableHead">Function Name <span class="tableHeadSort"><img src="../../../../../../../glass.png" width=10 height=14 alt="Sort by function name" title="Sort by function name" border=0></span></td>
+      <td width="20%" class="tableHead">Hit count <span class="tableHeadSort"><a href="z80.c.func-sort-c.html"><img src="../../../../../../../updown.png" width=10 height=14 alt="Sort by hit count" title="Sort by hit count" border=0></a></span></td>
     </tr>
     <tr>
-              <td class="coverFn"><a href="memory.c.gcov.html#50">memory_free</a></td>
-              <td class="coverFnHi">4</td>
+              <td class="coverFn"><a href="z80.c.gcov.html#69">_load_mem_idx_offset_reg8</a></td>
+              <td class="coverFnHi">1</td>
             </tr>
     <tr>
-              <td class="coverFn"><a href="memory.c.gcov.html#16">memory_load</a></td>
-              <td class="coverFnHi">4</td>
+              <td class="coverFn"><a href="z80.c.gcov.html#81">_load_reg16_nn</a></td>
+              <td class="coverFnHi">3</td>
             </tr>
     <tr>
-              <td class="coverFn"><a href="memory.c.gcov.html#61">memory_new</a></td>
-              <td class="coverFnHi">4</td>
+              <td class="coverFn"><a href="z80.c.gcov.html#56">_load_reg8_mem_idx_offset</a></td>
+              <td class="coverFnHi">15</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="z80.c.gcov.html#42">_load_reg8_mem_pair</a></td>
+              <td class="coverFnHi">1</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="z80.c.gcov.html#17">new_cpu</a></td>
+              <td class="coverFnHi">16</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="z80.c.gcov.html#30">reset_cpu</a></td>
+              <td class="coverFnHi">1</td>
+            </tr>
+    <tr>
+              <td class="coverFn"><a href="z80.c.gcov.html#96">run</a></td>
+              <td class="coverFnHi">10</td>
             </tr>
   </table>
   <br>
