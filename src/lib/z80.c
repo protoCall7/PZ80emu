@@ -41,7 +41,7 @@ void reset_cpu(z80 *cpu) {
  * from
  * \param memory block of memory containing the value to load
  */
-static void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
+void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory) {
 	word address;
 	address.B.h = address_pair->B.h;
 	address.B.l = address_pair->B.l;
@@ -55,7 +55,7 @@ static void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memor
  * \param memory block of memory containing the value to load
  * \param pc pointer to program counter
  */
-static void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
+void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
 	uint8_t index = memory[pc->W++];
 
 	*reg = memory[(index + index_register->W)];
@@ -68,7 +68,7 @@ static void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_
  * \param memory block of memory containing the value to load
  * \param pc pointer to program counter
  */
-static void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
+void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memory, word *pc) {
 	uint8_t index = memory[pc->W++];
 
 	memory[(index + index_register->W)] = *reg;
@@ -80,7 +80,7 @@ static void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_
  * \param memory block of memory to retrieve nn from
  * \param pc pointer to program counter
  */
-static void _load_reg16_nn(word *reg, uint8_t *memory, word *pc) {
+void _load_reg16_nn(word *reg, uint8_t *memory, word *pc) {
 	word nn;
 	nn.B.l = memory[pc->W++];
 	nn.B.h = memory[pc->W++];

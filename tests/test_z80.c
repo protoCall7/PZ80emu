@@ -149,7 +149,7 @@ static void test_load_reg16_from_nn(test_fixture *tf, gconstpointer data) {
 
 	_load_reg16_nn(&tf->test_cpu->bc, memory, &tf->test_cpu->pc);
 
-	g_assert(tf->test_cpu->bc.W == 0xEEFF);
+	g_assert(tf->test_cpu->bc.W == 0xFFEE);
 }
 
 static void test_nop(test_fixture *tf, gconstpointer data) {
