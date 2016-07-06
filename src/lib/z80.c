@@ -685,8 +685,8 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			// ld (nn),a
 		{
 			word address;
-			address.B.h = memory[cpu->pc.W++];
 			address.B.l = memory[cpu->pc.W++];
+			address.B.h = memory[cpu->pc.W++];
 
 			memory[address.W] = cpu->a;
 		}
