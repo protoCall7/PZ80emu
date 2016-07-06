@@ -26,3 +26,4 @@ test-driver
 *.gcno
 *.a
 *.trs
+*.swp
