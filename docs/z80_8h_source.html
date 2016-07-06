@@ -91,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00018"></a><a class="code" href="z80_8h.html#a533f998159de957b1f91e571cda46b9c">00018</a> <span class="preprocessor">#define INTERRUPT_PERIOD 10240</span>
 <a name="l00019"></a>00019 <span class="preprocessor"></span>
 <a name="l00021"></a><a class="code" href="unionword.html">00021</a> <span class="keyword">typedef</span> <span class="keyword">union </span>{
-<a name="l00022"></a>00022     <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> W; 
+<a name="l00022"></a>00022     uint16_t W; 
 <a name="l00027"></a>00027     <span class="keyword">struct </span>{
 <a name="l00028"></a>00028 <span class="preprocessor">#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__</span>
 <a name="l00029"></a>00029 <span class="preprocessor"></span>        uint8_t l,h; <span class="comment">/* ...in low-endian architecture */</span>
