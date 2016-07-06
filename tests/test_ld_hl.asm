@@ -27,6 +27,9 @@ ld (hl),e
 ld hl,0x0065
 ld (hl),h
 
+; load 0x55 into memory address 0x0065
+ld (hl),0x55
+
 ; load 0x56 into memory address 0x0066
 ld hl,0x0066
 ld (hl),l
