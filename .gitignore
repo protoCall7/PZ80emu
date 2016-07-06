@@ -1,4 +1,6 @@
 PZ80emu
+test_z80
+test_memory
 *.o
 *.log
 *.dSYM/
@@ -23,3 +25,4 @@ test-driver
 *.gcda
 *.gcno
 *.a
+*.trs
