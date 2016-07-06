@@ -299,6 +299,19 @@ static void test_ld_mem_iyn_reg8(test_fixture *tf, gconstpointer data) {
 	testmem->memory_free(testmem);
 }
 
+static void test_ld_hl(test_fixture *tf, gconstpointer data) {
+	memory *testmem = memory_new();
+	testmem->memory_load(testmem, data);
+
+	g_assert(run(tf->test_cpu, testmem->memory, 50));
+	g_assert(tf->test_cpu->a == 0x05);
+	g_assert(tf->test_cpu->bc.W == 0x0400);
+	g_assert(tf->test_cpu->de.W == 0x0201);
+	g_assert(tf->test_cpu->hl.W == 0x6666);
+
+	testmem->memory_free(testmem);
+}
+
 int main (int argc, char *argv[]) {
 	g_test_init (&argc, &argv, NULL);
 
@@ -320,6 +333,7 @@ int main (int argc, char *argv[]) {
 	g_test_add("/z80 instructions/ld r,(iy+n)", test_fixture, "test_ld_iyn.bin", setup_cpu, test_ld_reg8_iyn, teardown_cpu);
 	g_test_add("/z80 instructions/ld (ix+n),r", test_fixture, "test_ld_ixn_2.bin", setup_cpu, test_ld_mem_ixn_reg8, teardown_cpu);
 	g_test_add("/z80 instructions/ld (iy+n),r", test_fixture, "test_ld_iyn_2.bin", setup_cpu, test_ld_mem_iyn_reg8, teardown_cpu);
+	g_test_add("/z80 instructions/ld hl", test_fixture, "test_ld_hl.bin", setup_cpu, test_ld_hl, teardown_cpu);
 
 	return g_test_run();
 }
