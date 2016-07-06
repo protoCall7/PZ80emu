@@ -305,9 +305,17 @@ static void test_ld_hl(test_fixture *tf, gconstpointer data) {
 
 	g_assert(run(tf->test_cpu, testmem->memory, 50));
 	g_assert(tf->test_cpu->a == 0x05);
-	g_assert(tf->test_cpu->bc.W == 0x0400);
+	g_assert(tf->test_cpu->bc.W == 0x0455);
 	g_assert(tf->test_cpu->de.W == 0x0201);
 	g_assert(tf->test_cpu->hl.W == 0x6666);
+
+	g_assert(testmem->memory[0x0060] == 0x01);
+	g_assert(testmem->memory[0x0061] == 0x02);
+	g_assert(testmem->memory[0x0062] == 0x03);
+	g_assert(testmem->memory[0x0063] == 0x04);
+	g_assert(testmem->memory[0x0064] == 0x05);
+	g_assert(testmem->memory[0x0065] == 0x55);
+	g_assert(testmem->memory[0x0066] == 0x66);
 
 	testmem->memory_free(testmem);
 }
