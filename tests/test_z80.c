@@ -320,6 +320,22 @@ static void test_ld_hl(test_fixture *tf, gconstpointer data) {
 	testmem->memory_free(testmem);
 }
 
+static void test_ld_a_16(test_fixture *tf, gconstpointer data) {
+	memory *testmem = memory_new();
+	testmem->memory_load(testmem, data);
+
+	g_assert(run(tf->test_cpu, testmem->memory, 16));
+	g_assert(tf->test_cpu->bc.W == 0x0050);
+	g_assert(tf->test_cpu->de.W == 0x0060);
+	g_assert(tf->test_cpu->a == 0xFF);
+
+	for (int i = 0x0050; i < 0x0071; i += 0x0010) {
+		g_assert(testmem->memory[i] == 0xFF);
+	}
+
+	testmem->memory_free(testmem);
+}
+
 int main (int argc, char *argv[]) {
 	g_test_init (&argc, &argv, NULL);
 
@@ -342,6 +358,7 @@ int main (int argc, char *argv[]) {
 	g_test_add("/z80 instructions/ld (ix+n),r", test_fixture, "test_ld_ixn_2.bin", setup_cpu, test_ld_mem_ixn_reg8, teardown_cpu);
 	g_test_add("/z80 instructions/ld (iy+n),r", test_fixture, "test_ld_iyn_2.bin", setup_cpu, test_ld_mem_iyn_reg8, teardown_cpu);
 	g_test_add("/z80 instructions/ld hl", test_fixture, "test_ld_hl.bin", setup_cpu, test_ld_hl, teardown_cpu);
+	g_test_add("/z80 instructions/ld a 16-bit", test_fixture, "test_ld_a_16.bin", setup_cpu, test_ld_a_16, teardown_cpu);
 
 	return g_test_run();
 }
