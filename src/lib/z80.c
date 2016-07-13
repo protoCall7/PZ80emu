@@ -763,6 +763,8 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			// check for half carry
 			if ((((cpu->hl.W & 0x0FFF) + (cpu->bc.W & 0x0FFF)) & 0x1000) == 0x1000) {
 				cpu->flags |= (1 << 5);
+			} else {
+				cpu->flags &= (0 << 5);
 			}
 
 			// check for carry and add
@@ -772,6 +774,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 				cpu->hl.W -= 65536;
 			} else {
 				cpu->hl.W += cpu->bc.W;
+				cpu->flags &= ~1;
 			}
 
 			break;
