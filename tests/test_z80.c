@@ -355,12 +355,24 @@ static void test_add_hl(test_fixture *tf, gconstpointer data) {
 	memory[6] = 0x09;
 
 	g_assert(run(tf->test_cpu, memory, 7));
-
-	g_test_message("%d", tf->test_cpu->flags);
-
 	g_assert(tf->test_cpu->bc.W == 0x0FFF);
 	g_assert(tf->test_cpu->hl.W == 0x1FFE);
 	g_assert(tf->test_cpu->flags == 0b100000);
+
+	reset_cpu(tf->test_cpu);
+
+	memory[0] = 0x01;
+	memory[1] = 0xff;
+	memory[2] = 0x00;
+	memory[3] = 0x21;
+	memory[4] = 0xff;
+	memory[5] = 0x00;
+	memory[6] = 0x09;
+
+	g_assert(run(tf->test_cpu, memory, 7));
+	g_assert(tf->test_cpu->bc.W == 0x00FF);
+	g_assert(tf->test_cpu->hl.W == 0x01FE);
+	g_assert(tf->test_cpu->flags == 0b000000);
 }
 
 int main (int argc, char *argv[]) {
