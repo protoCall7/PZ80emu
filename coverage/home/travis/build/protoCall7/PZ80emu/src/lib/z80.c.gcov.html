@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">265</td>
-            <td class="headerCovTableEntry">303</td>
-            <td class="headerCovTableEntryMed">87.5 %</td>
+            <td class="headerCovTableEntry">310</td>
+            <td class="headerCovTableEntryMed">85.5 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-07-06</td>
+            <td class="headerValue">2016-07-13</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">7</td>
@@ -57,8 +57,8 @@
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">117</td>
-            <td class="headerCovTableEntry">138</td>
-            <td class="headerCovTableEntryMed">84.8 %</td>
+            <td class="headerCovTableEntry">142</td>
+            <td class="headerCovTableEntryMed">82.4 %</td>
           </tr>
           <tr><td><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -860,46 +860,55 @@
 <span class="lineNum">     757 </span>                :            :                 case 0x09:
 <span class="lineNum">     758 </span>                :            :                         // add hl,bc
 <span class="lineNum">     759 </span>                :            : 
-<span class="lineNum">     760 </span>                :            :                         if ((((cpu-&gt;hl.W &amp; 0xF000) + (cpu-&gt;bc.W &amp; 0xF000)) &amp; 0x1000) == 1) {
-<span class="lineNum">     761 </span>                :            :                                 cpu-&gt;flags |= (1 &lt;&lt; 5);
-<span class="lineNum">     762 </span>                :            :                         }
-<span class="lineNum">     763 </span>                :            : 
-<span class="lineNum">     764 </span>                :<span class="lineNoCov">          0 :                         if ((cpu-&gt;hl.W += cpu-&gt;bc.W) &gt; 0xFFFF) {</span>
-<span class="lineNum">     765 </span>                :            :                                 cpu-&gt;flags |= (1 &lt;&lt; 0);
-<span class="lineNum">     766 </span>                :            :                                 cpu-&gt;hl.W -= 65536;
-<span class="lineNum">     767 </span>                :            :                         }
-<span class="lineNum">     768 </span>                :<span class="lineNoCov">          0 :                         break;</span>
-<span class="lineNum">     769 </span>                :            : 
-<span class="lineNum">     770 </span>                :            :                 case 0x0B:
-<span class="lineNum">     771 </span>                :            :                         /// @bug dec bc isn't operating on flags
-<span class="lineNum">     772 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.W--;</span>
-<span class="lineNum">     773 </span>                :<span class="lineNoCov">          0 :                         break;</span>
-<span class="lineNum">     774 </span>                :            : 
-<span class="lineNum">     775 </span>                :            :                 case 0x0C:
-<span class="lineNum">     776 </span>                :            :                         /// @bug inc c isn't operating on flags
-<span class="lineNum">     777 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h++;</span>
-<span class="lineNum">     778 </span>                :<span class="lineNoCov">          0 :                         break;</span>
-<span class="lineNum">     779 </span>                :            : 
-<span class="lineNum">     780 </span>                :            :                 case 0x0D:
-<span class="lineNum">     781 </span>                :            :                         /// @bug dec c isn't operating on flags
-<span class="lineNum">     782 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h--;</span>
-<span class="lineNum">     783 </span>                :<span class="lineNoCov">          0 :                         break;</span>
-<span class="lineNum">     784 </span>                :            : 
-<span class="lineNum">     785 </span>                :            : 
-<span class="lineNum">     786 </span>                :            :                 default:
-<span class="lineNum">     787 </span>                :<span class="lineNoCov">          0 :                         return -1;</span>
-<span class="lineNum">     788 </span>                :            :                 }
-<span class="lineNum">     789 </span>                :            : 
-<span class="lineNum">     790 </span>        [<span class="branchCov" title="Branch 0 was taken 80 times"> + </span><span class="branchCov" title="Branch 1 was taken 111 times"> + </span>]:<span class="lineCov">        191 :                 if (cpu-&gt;counter &lt;= 0) {</span>
-<span class="lineNum">     791 </span>                :            :                         // interrupt tasks here
-<span class="lineNum">     792 </span>                :<span class="lineCov">         80 :                         cpu-&gt;counter += INTERRUPT_PERIOD;</span>
-<span class="lineNum">     793 </span>                :            :                 }
+<span class="lineNum">     760 </span>                :            :                         // reset N flag
+<span class="lineNum">     761 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;flags &amp;= (0 &lt;&lt; 4);</span>
+<span class="lineNum">     762 </span>                :            : 
+<span class="lineNum">     763 </span>                :            :                         // check for half carry
+<span class="lineNum">     764 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :                         if ((((cpu-&gt;hl.W &amp; 0x0FFF) + (cpu-&gt;bc.W &amp; 0x0FFF)) &amp; 0x1000) == 0x1000) {</span>
+<span class="lineNum">     765 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;flags |= (1 &lt;&lt; 5);</span>
+<span class="lineNum">     766 </span>                :            :                         }
+<span class="lineNum">     767 </span>                :            : 
+<span class="lineNum">     768 </span>                :            :                         // check for carry and add
+<span class="lineNum">     769 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :                         if ((cpu-&gt;hl.W + cpu-&gt;bc.W) &gt; 0xFFFF) {</span>
+<span class="lineNum">     770 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;hl.W += cpu-&gt;bc.W;</span>
+<span class="lineNum">     771 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;flags |= (1 &lt;&lt; 0);</span>
+<span class="lineNum">     772 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;hl.W -= 65536;</span>
+<span class="lineNum">     773 </span>                :            :                         } else {
+<span class="lineNum">     774 </span>                :<span class="lineNoCov">          0 :                                 cpu-&gt;hl.W += cpu-&gt;bc.W;</span>
+<span class="lineNum">     775 </span>                :            :                         }
+<span class="lineNum">     776 </span>                :            : 
+<span class="lineNum">     777 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     778 </span>                :            : 
+<span class="lineNum">     779 </span>                :            :                 case 0x0B:
+<span class="lineNum">     780 </span>                :            :                         /// @bug dec bc isn't operating on flags
+<span class="lineNum">     781 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.W--;</span>
+<span class="lineNum">     782 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     783 </span>                :            : 
+<span class="lineNum">     784 </span>                :            :                 case 0x0C:
+<span class="lineNum">     785 </span>                :            :                         /// @bug inc c isn't operating on flags
+<span class="lineNum">     786 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h++;</span>
+<span class="lineNum">     787 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     788 </span>                :            : 
+<span class="lineNum">     789 </span>                :            :                 case 0x0D:
+<span class="lineNum">     790 </span>                :            :                         /// @bug dec c isn't operating on flags
+<span class="lineNum">     791 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;bc.B.h--;</span>
+<span class="lineNum">     792 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     793 </span>                :            : 
 <span class="lineNum">     794 </span>                :            : 
-<span class="lineNum">     795 </span>                :<span class="lineCov">        191 :                 runcycles--;</span>
-<span class="lineNum">     796 </span>        [<span class="branchCov" title="Branch 0 was taken 177 times"> + </span><span class="branchCov" title="Branch 1 was taken 14 times"> + </span>]:<span class="lineCov">        191 :         } while (runcycles &gt; 0);</span>
-<span class="lineNum">     797 </span>                :            : 
-<span class="lineNum">     798 </span>                :<span class="lineCov">         14 :         return count;</span>
-<span class="lineNum">     799 </span>                :            : }
+<span class="lineNum">     795 </span>                :            :                 default:
+<span class="lineNum">     796 </span>                :<span class="lineNoCov">          0 :                         return -1;</span>
+<span class="lineNum">     797 </span>                :            :                 }
+<span class="lineNum">     798 </span>                :            : 
+<span class="lineNum">     799 </span>        [<span class="branchCov" title="Branch 0 was taken 105 times"> + </span><span class="branchCov" title="Branch 1 was taken 86 times"> + </span>]:<span class="lineCov">        191 :                 if (cpu-&gt;counter &lt;= 0) {</span>
+<span class="lineNum">     800 </span>                :            :                         // interrupt tasks here
+<span class="lineNum">     801 </span>                :<span class="lineCov">        105 :                         cpu-&gt;counter += INTERRUPT_PERIOD;</span>
+<span class="lineNum">     802 </span>                :            :                 }
+<span class="lineNum">     803 </span>                :            : 
+<span class="lineNum">     804 </span>                :<span class="lineCov">        191 :                 runcycles--;</span>
+<span class="lineNum">     805 </span>        [<span class="branchCov" title="Branch 0 was taken 177 times"> + </span><span class="branchCov" title="Branch 1 was taken 14 times"> + </span>]:<span class="lineCov">        191 :         } while (runcycles &gt; 0);</span>
+<span class="lineNum">     806 </span>                :            : 
+<span class="lineNum">     807 </span>                :<span class="lineCov">         14 :         return count;</span>
+<span class="lineNum">     808 </span>                :            : }
 </pre>
       </td>
     </tr>
