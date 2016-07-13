@@ -375,6 +375,56 @@ static void test_add_hl(test_fixture *tf, gconstpointer data) {
 	g_assert(tf->test_cpu->flags == 0b000000);
 }
 
+static void test_add_a(test_fixture *tf, gconstpointer data) {
+    memory *testmem = memory_new();
+    testmem->memory_load(testmem, data); 
+
+    // run the cpu through the lds
+    g_assert(run(tf->test_cpu, testmem->memory, 7));
+    g_assert(tf->test_cpu->a == 0x01);
+    g_assert(tf->test_cpu->bc.B.h == 0x02);
+    g_assert(tf->test_cpu->bc.B.l == 0x03);
+    g_assert(tf->test_cpu->de.B.h == 0x04);
+    g_assert(tf->test_cpu->de.B.l == 0x05);
+    g_assert(tf->test_cpu->hl.B.h == 0x06);
+    g_assert(tf->test_cpu->hl.B.l == 0x07);
+
+    // test the first add (a = 0x02)
+    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(tf->test_cpu->a == 0x02);
+    g_assert(tf->test_cpu->flags == 0b000000);
+
+    // test the next add (a = 0x04);
+    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(tf->test_cpu->a == 0x04);
+    g_assert(tf->test_cpu->flags == 0b000000);
+
+    // test next add (a = 0x07);
+    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(tf->test_cpu->a == 0x07);
+    g_assert(tf->test_cpu->flags == 0b000000);
+
+    // test next add (a = 0x0B);
+    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(tf->test_cpu->a == 0x0B);
+    g_assert(tf->test_cpu->flags == 0b000000);
+
+    // test next add w/ HC (a = 0x10)
+    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(tf->test_cpu->a == 0x10);
+    g_assert(tf->test_cpu->flags == 0b100000);
+
+    // test next add (a = 0x16)
+    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(tf->test_cpu->a == 0x16);
+    g_assert(tf->test_cpu->flags == 0b000000);
+
+    // test next add (a = 0x1D)
+    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(tf->test_cpu->a == 0x1D);
+    g_assert(tf->test_cpu->flags == 0b000000);
+}
+
 int main (int argc, char *argv[]) {
 	g_test_init (&argc, &argv, NULL);
 
@@ -399,6 +449,7 @@ int main (int argc, char *argv[]) {
 	g_test_add("/z80 instructions/ld hl", test_fixture, "data/test_ld_hl.bin", setup_cpu, test_ld_hl, teardown_cpu);
 	g_test_add("/z80 instructions/ld a 16-bit", test_fixture, "data/test_ld_a_16.bin", setup_cpu, test_ld_a_16, teardown_cpu);
 	g_test_add("/z80 instructions/add hl", test_fixture, NULL, setup_cpu, test_add_hl, teardown_cpu);
+    g_test_add("/z80 instructions/add a", test_fixture, "data/test_add_a.bin", setup_cpu, test_add_a, teardown_cpu);
 
 	return g_test_run();
 }
