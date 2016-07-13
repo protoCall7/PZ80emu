@@ -196,8 +196,25 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 				// ld ix,nn
 				_load_reg16_nn(&cpu->ix, memory, &cpu->pc);
 				break;
+
+			case 0xE3:
+				// ex (sp),ix
+				if (memory[cpu->sp.W + 1] != cpu->ix.B.h) {
+					cpu->ix.B.h ^= memory[cpu->sp.W + 1];
+					memory[cpu->sp.W + 1] ^= cpu->ix.B.h;
+					cpu->ix.B.h ^= memory[cpu->sp.W + 1];
+				}
+
+				if (memory[cpu->sp.W] != cpu->ix.B.l) {
+					cpu->ix.B.l ^= memory[cpu->sp.W];
+					memory[cpu->sp.W] ^= cpu->ix.B.l;
+					cpu->ix.B.l ^= memory[cpu->sp.W];
+				}
+				break;
+
 			}
 			break;
+
 
 		// extended instruction set 0xFDxx
 		case 0xFD:
@@ -288,6 +305,23 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 				// ld iy,nn
 				_load_reg16_nn(&cpu->iy, memory, &cpu->pc);
 				break;
+
+			case 0xE3:
+				// ex (sp),iy
+
+				if (memory[cpu->sp.W + 1] != cpu->iy.B.h) {
+					cpu->iy.B.h ^= memory[cpu->sp.W + 1];
+					memory[cpu->sp.W + 1] ^= cpu->iy.B.h;
+					cpu->iy.B.h ^= memory[cpu->sp.W + 1];
+				}
+
+				if (memory[cpu->sp.W] != cpu->iy.B.l) {
+					cpu->iy.B.l ^= memory[cpu->sp.W];
+					memory[cpu->sp.W] ^= cpu->iy.B.l;
+					cpu->iy.B.l ^= memory[cpu->sp.W];
+				}
+				break;
+
 			}
 			break;
 

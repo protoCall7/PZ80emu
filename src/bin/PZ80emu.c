@@ -13,7 +13,6 @@
  * - Implement stepping
  * - Implement GetOpt
  * - Check all void casts
- * - Check implementation of add hl,bc
  * - Fix error handling and reporting
  */
 
