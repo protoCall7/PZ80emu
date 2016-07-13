@@ -780,6 +780,27 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			}
 			break;
 
+		case 0xD9:
+			// exx
+			if (cpu->bc.W != cpu->_bc.W) {
+				cpu->bc.W ^= cpu->_bc.W;
+				cpu->_bc.W ^= cpu->bc.W;
+				cpu->bc.W ^= cpu->_bc.W;
+			}
+
+			if (cpu->de.W != cpu->_de.W) {
+				cpu->de.W ^= cpu->_de.W;
+				cpu->_de.W ^= cpu->de.W;
+				cpu->de.W ^= cpu->_de.W;
+			}
+
+			if (cpu->hl.W != cpu->_hl.W) {
+				cpu->hl.W ^= cpu->_hl.W;
+				cpu->_hl.W ^= cpu->hl.W;
+				cpu->hl.W ^= cpu->_hl.W;
+			}
+			break;
+
 		case 0x09:
 			// add hl,bc
 
