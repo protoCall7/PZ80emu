@@ -31,18 +31,18 @@
             <td class="headerValue">PZ80emu-0.1 Code Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">277</td>
+            <td class="headerCovTableEntry">306</td>
             <td class="headerCovTableEntry">392</td>
-            <td class="headerCovTableEntryLo">70.7 %</td>
+            <td class="headerCovTableEntryMed">78.1 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
             <td class="headerValue">2016-07-13</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">7</td>
             <td class="headerCovTableEntry">8</td>
-            <td class="headerCovTableEntryMed">87.5 %</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Legend:</td>
@@ -56,9 +56,9 @@
 </td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">123</td>
+            <td class="headerCovTableEntry">136</td>
             <td class="headerCovTableEntry">187</td>
-            <td class="headerCovTableEntryLo">65.8 %</td>
+            <td class="headerCovTableEntryLo">72.7 %</td>
           </tr>
           <tr><td><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -94,13 +94,13 @@
 <span class="lineNum">      16 </span>                :            :  * Fills out a new z80 CPU struct
 <a name="17"><span class="lineNum">      17 </span>                :            :  * \return A z80 struct</a>
 <span class="lineNum">      18 </span>                :            :  */
-<span class="lineNum">      19 </span>                :<span class="lineCov">         21 : z80 *new_cpu(void) {</span>
+<span class="lineNum">      19 </span>                :<span class="lineCov">         22 : z80 *new_cpu(void) {</span>
 <span class="lineNum">      20 </span>                :            :         z80 *cpu;
-<span class="lineNum">      21 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 21 times"> + </span>]:<span class="lineCov">         21 :         if ((cpu = calloc(1, sizeof(z80))) == NULL) {</span>
+<span class="lineNum">      21 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 22 times"> + </span>]:<span class="lineCov">         22 :         if ((cpu = calloc(1, sizeof(z80))) == NULL) {</span>
 <span class="lineNum">      22 </span>                :<span class="lineNoCov">          0 :                 exit(EXIT_FAILURE);</span>
 <span class="lineNum">      23 </span>                :            :         }
 <span class="lineNum">      24 </span>                :            : 
-<span class="lineNum">      25 </span>                :<span class="lineCov">         21 :         return cpu;</span>
+<span class="lineNum">      25 </span>                :<span class="lineCov">         22 :         return cpu;</span>
 <span class="lineNum">      26 </span>                :            : }
 <span class="lineNum">      27 </span>                :            : 
 <span class="lineNum">      28 </span>                :            : /**
@@ -166,27 +166,27 @@
 <span class="lineNum">      88 </span>                :<span class="lineCov">         28 :         reg-&gt;W = nn.W;</span>
 <a name="89"><span class="lineNum">      89 </span>                :<span class="lineCov">         28 : }</span></a>
 <span class="lineNum">      90 </span>                :            : 
-<span class="lineNum">      91 </span>                :<span class="lineNoCov">          0 : void _add_a_reg8(z80 *cpu, uint8_t *reg) {</span>
+<span class="lineNum">      91 </span>                :<span class="lineCov">          7 : void _add_a_reg8(z80 *cpu, uint8_t *reg) {</span>
 <span class="lineNum">      92 </span>                :            :         // carry flag
-<span class="lineNum">      93 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         if ((cpu-&gt;a + *reg) &gt; 255) {</span>
+<span class="lineNum">      93 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 7 times"> + </span>]:<span class="lineCov">          7 :         if ((cpu-&gt;a + *reg) &gt; 255) {</span>
 <span class="lineNum">      94 </span>                :<span class="lineNoCov">          0 :                 cpu-&gt;flags |= (1 &lt;&lt; 0);</span>
 <span class="lineNum">      95 </span>                :            :         } else {
-<span class="lineNum">      96 </span>                :<span class="lineNoCov">          0 :                 cpu-&gt;flags &amp;= ~1;</span>
+<span class="lineNum">      96 </span>                :<span class="lineCov">          7 :                 cpu-&gt;flags &amp;= ~1;</span>
 <span class="lineNum">      97 </span>                :            :         }
 <span class="lineNum">      98 </span>                :            : 
 <span class="lineNum">      99 </span>                :            :         // zero flag
-<span class="lineNum">     100 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         if ((cpu-&gt;a + *reg) == 0) {</span>
+<span class="lineNum">     100 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 7 times"> + </span>]:<span class="lineCov">          7 :         if ((cpu-&gt;a + *reg) == 0) {</span>
 <span class="lineNum">     101 </span>                :<span class="lineNoCov">          0 :                 cpu-&gt;flags |= (1 &lt;&lt; 1);</span>
 <span class="lineNum">     102 </span>                :            :         } else {
-<span class="lineNum">     103 </span>                :<span class="lineNoCov">          0 :                 cpu-&gt;flags &amp;= ~(1 &lt;&lt; 1);</span>
+<span class="lineNum">     103 </span>                :<span class="lineCov">          7 :                 cpu-&gt;flags &amp;= ~(1 &lt;&lt; 1);</span>
 <span class="lineNum">     104 </span>                :            :         }
 <span class="lineNum">     105 </span>                :            : 
 <span class="lineNum">     106 </span>                :            :         // overflow flag
-<span class="lineNum">     107 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         if (cpu-&gt;a &gt; 0) {</span>
+<span class="lineNum">     107 </span>        [<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          7 :         if (cpu-&gt;a &gt; 0) {</span>
 <span class="lineNum">     108 </span>                :            :                 if ((cpu-&gt;a + *reg) &lt; 0) {
 <span class="lineNum">     109 </span>                :            :                         cpu-&gt;flags |= (1 &lt;&lt; 2);
 <span class="lineNum">     110 </span>                :            :                 } else {
-<span class="lineNum">     111 </span>                :<span class="lineNoCov">          0 :                         cpu-&gt;flags &amp;= ~(1 &lt;&lt; 2);</span>
+<span class="lineNum">     111 </span>                :<span class="lineCov">          7 :                         cpu-&gt;flags &amp;= ~(1 &lt;&lt; 2);</span>
 <span class="lineNum">     112 </span>                :            :                 }
 <span class="lineNum">     113 </span>                :            :         } else if (cpu-&gt;a &lt; 0) {
 <span class="lineNum">     114 </span>                :            :                 if ((cpu-&gt;a + *reg) &gt; 0) {
@@ -199,24 +199,24 @@
 <span class="lineNum">     121 </span>                :            :         }
 <span class="lineNum">     122 </span>                :            : 
 <span class="lineNum">     123 </span>                :            :         // sign flag
-<span class="lineNum">     124 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :         if ((127 &lt; (cpu-&gt;a + *reg)) &amp;&amp; ((cpu-&gt;a + *reg) &lt; 256)) {</span>
+<span class="lineNum">     124 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 7 times"> + </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">          7 :         if ((127 &lt; (cpu-&gt;a + *reg)) &amp;&amp; ((cpu-&gt;a + *reg) &lt; 256)) {</span>
 <span class="lineNum">     125 </span>                :<span class="lineNoCov">          0 :                 cpu-&gt;flags |= (1 &lt;&lt; 3);</span>
 <span class="lineNum">     126 </span>                :            :         } else {
-<span class="lineNum">     127 </span>                :<span class="lineNoCov">          0 :                 cpu-&gt;flags &amp;= ~(1 &lt;&lt; 3);</span>
+<span class="lineNum">     127 </span>                :<span class="lineCov">          7 :                 cpu-&gt;flags &amp;= ~(1 &lt;&lt; 3);</span>
 <span class="lineNum">     128 </span>                :            :         }
 <span class="lineNum">     129 </span>                :            : 
 <span class="lineNum">     130 </span>                :            :         // reset N flag
-<span class="lineNum">     131 </span>                :<span class="lineNoCov">          0 :         cpu-&gt;flags &amp;= ~(1 &lt;&lt; 4);</span>
+<span class="lineNum">     131 </span>                :<span class="lineCov">          7 :         cpu-&gt;flags &amp;= ~(1 &lt;&lt; 4);</span>
 <span class="lineNum">     132 </span>                :            : 
 <span class="lineNum">     133 </span>                :            :         // half carry flag
-<span class="lineNum">     134 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         if(((cpu-&gt;a &amp; 0x0F) + (*reg &amp; 0x0F) &amp; 0x10) == 0x10) {</span>
-<span class="lineNum">     135 </span>                :<span class="lineNoCov">          0 :                 cpu-&gt;flags |= (1 &lt;&lt; 5);</span>
+<span class="lineNum">     134 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>]:<span class="lineCov">          7 :         if(((cpu-&gt;a &amp; 0x0F) + (*reg &amp; 0x0F) &amp; 0x10) == 0x10) {</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">          1 :                 cpu-&gt;flags |= (1 &lt;&lt; 5);</span>
 <span class="lineNum">     136 </span>                :            :         } else {
-<span class="lineNum">     137 </span>                :<span class="lineNoCov">          0 :                 cpu-&gt;flags &amp;= ~(1 &lt;&lt; 5);</span>
+<span class="lineNum">     137 </span>                :<span class="lineCov">          6 :                 cpu-&gt;flags &amp;= ~(1 &lt;&lt; 5);</span>
 <span class="lineNum">     138 </span>                :            :         }
 <span class="lineNum">     139 </span>                :            : 
-<span class="lineNum">     140 </span>                :<span class="lineNoCov">          0 :         cpu-&gt;a += *reg;</span>
-<span class="lineNum">     141 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     140 </span>                :<span class="lineCov">          7 :         cpu-&gt;a += *reg;</span>
+<span class="lineNum">     141 </span>                :<span class="lineCov">          7 : }</span>
 <span class="lineNum">     142 </span>                :            : 
 <span class="lineNum">     143 </span>                :            : /**
 <span class="lineNum">     144 </span>                :            :  * Runs the cpu
@@ -225,18 +225,18 @@
 <span class="lineNum">     147 </span>                :            :  * \param runcycles The number of clock cycles to run the cpu.
 <a name="148"><span class="lineNum">     148 </span>                :            :  * \return Count of cycles executed.</a>
 <span class="lineNum">     149 </span>                :            :  */
-<span class="lineNum">     150 </span>                :<span class="lineCov">         17 : int run(z80 *cpu, uint8_t *memory, long runcycles) {</span>
-<span class="lineNum">     151 </span>                :<span class="lineCov">         17 :         int count = 0;</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">         25 : int run(z80 *cpu, uint8_t *memory, long runcycles) {</span>
+<span class="lineNum">     151 </span>                :<span class="lineCov">         25 :         int count = 0;</span>
 <span class="lineNum">     152 </span>                :            :         // number of T cycles for each opcode
-<span class="lineNum">     153 </span>                :<span class="lineCov">         17 :         const int cycles[15] = {4, 10, 7, 6, 4, 4, 7, 4, 4, 11, 7, 6, 4, 4, 7};</span>
+<span class="lineNum">     153 </span>                :<span class="lineCov">         25 :         const int cycles[15] = {4, 10, 7, 6, 4, 4, 7, 4, 4, 11, 7, 6, 4, 4, 7};</span>
 <span class="lineNum">     154 </span>                :            : 
 <span class="lineNum">     155 </span>                :            :         do {
-<span class="lineNum">     156 </span>                :<span class="lineCov">        209 :                 uint8_t opcode = memory[cpu-&gt;pc.W++]; // fetch next opcode from memory</span>
-<span class="lineNum">     157 </span>                :<span class="lineCov">        209 :                 cpu-&gt;counter -= cycles[opcode]; // decrease the interrupt counter by number of cycles for opcode</span>
-<span class="lineNum">     158 </span>                :<span class="lineCov">        209 :                 count++;</span>
+<span class="lineNum">     156 </span>                :<span class="lineCov">        223 :                 uint8_t opcode = memory[cpu-&gt;pc.W++]; // fetch next opcode from memory</span>
+<span class="lineNum">     157 </span>                :<span class="lineCov">        223 :                 cpu-&gt;counter -= cycles[opcode]; // decrease the interrupt counter by number of cycles for opcode</span>
+<span class="lineNum">     158 </span>                :<span class="lineCov">        223 :                 count++;</span>
 <span class="lineNum">     159 </span>                :            : 
 <span class="lineNum">     160 </span>                :            :                 // opcode interpreter switch
-<span class="lineNum">     161 </span>  [<span class="branchCov" title="Branch 0 was taken 24 times"> + </span><span class="branchCov" title="Branch 1 was taken 24 times"> + </span><span class="branchCov" title="Branch 2 was taken 42 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        209 :                 switch (opcode) {</span>
+<span class="lineNum">     161 </span>  [<span class="branchCov" title="Branch 0 was taken 24 times"> + </span><span class="branchCov" title="Branch 1 was taken 24 times"> + </span><span class="branchCov" title="Branch 2 was taken 42 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        223 :                 switch (opcode) {</span>
 <span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
 <span class="lineNum">         </span><span class="branchCov" title="Branch 9 was taken 1 time"> + </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchCov" title="Branch 11 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
 <span class="lineNum">         </span><span class="branchCov" title="Branch 14 was taken 1 time"> + </span><span class="branchCov" title="Branch 15 was taken 1 time"> + </span><span class="branchCov" title="Branch 16 was taken 1 time"> + </span><span class="branchCov" title="Branch 17 was taken 1 time"> + </span><span class="branchCov" title="Branch 18 was taken 1 time"> + </span> 
@@ -250,12 +250,12 @@
 <span class="lineNum">         </span><span class="branchCov" title="Branch 54 was taken 1 time"> + </span><span class="branchCov" title="Branch 55 was taken 1 time"> + </span><span class="branchCov" title="Branch 56 was taken 1 time"> + </span><span class="branchCov" title="Branch 57 was taken 1 time"> + </span><span class="branchCov" title="Branch 58 was taken 1 time"> + </span> 
 <span class="lineNum">         </span><span class="branchCov" title="Branch 59 was taken 1 time"> + </span><span class="branchCov" title="Branch 60 was taken 1 time"> + </span><span class="branchCov" title="Branch 61 was taken 1 time"> + </span><span class="branchCov" title="Branch 62 was taken 1 time"> + </span><span class="branchCov" title="Branch 63 was taken 1 time"> + </span> 
 <span class="lineNum">         </span><span class="branchCov" title="Branch 64 was taken 1 time"> + </span><span class="branchCov" title="Branch 65 was taken 1 time"> + </span><span class="branchCov" title="Branch 66 was taken 1 time"> + </span><span class="branchCov" title="Branch 67 was taken 1 time"> + </span><span class="branchCov" title="Branch 68 was taken 1 time"> + </span> 
-<span class="lineNum">         </span><span class="branchCov" title="Branch 69 was taken 5 times"> + </span><span class="branchCov" title="Branch 70 was taken 3 times"> + </span><span class="branchCov" title="Branch 71 was taken 3 times"> + </span><span class="branchCov" title="Branch 72 was taken 3 times"> + </span><span class="branchCov" title="Branch 73 was taken 3 times"> + </span> 
-<span class="lineNum">         </span><span class="branchCov" title="Branch 74 was taken 3 times"> + </span><span class="branchCov" title="Branch 75 was taken 3 times"> + </span><span class="branchCov" title="Branch 76 was taken 1 time"> + </span><span class="branchCov" title="Branch 77 was taken 1 time"> + </span><span class="branchCov" title="Branch 78 was taken 1 time"> + </span> 
+<span class="lineNum">         </span><span class="branchCov" title="Branch 69 was taken 6 times"> + </span><span class="branchCov" title="Branch 70 was taken 4 times"> + </span><span class="branchCov" title="Branch 71 was taken 4 times"> + </span><span class="branchCov" title="Branch 72 was taken 4 times"> + </span><span class="branchCov" title="Branch 73 was taken 4 times"> + </span> 
+<span class="lineNum">         </span><span class="branchCov" title="Branch 74 was taken 4 times"> + </span><span class="branchCov" title="Branch 75 was taken 4 times"> + </span><span class="branchCov" title="Branch 76 was taken 1 time"> + </span><span class="branchCov" title="Branch 77 was taken 1 time"> + </span><span class="branchCov" title="Branch 78 was taken 1 time"> + </span> 
 <span class="lineNum">         </span><span class="branchCov" title="Branch 79 was taken 1 time"> + </span><span class="branchCov" title="Branch 80 was taken 5 times"> + </span><span class="branchCov" title="Branch 81 was taken 2 times"> + </span><span class="branchCov" title="Branch 82 was taken 16 times"> + </span><span class="branchNoCov" title="Branch 83 was not taken"> - </span> 
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 84 was not taken"> - </span><span class="branchNoCov" title="Branch 85 was not taken"> - </span><span class="branchNoCov" title="Branch 86 was not taken"> - </span><span class="branchNoCov" title="Branch 87 was not taken"> - </span><span class="branchNoCov" title="Branch 88 was not taken"> - </span> 
-<span class="lineNum">         </span><span class="branchNoCov" title="Branch 89 was not taken"> - </span><span class="branchNoCov" title="Branch 90 was not taken"> - </span><span class="branchNoCov" title="Branch 91 was not taken"> - </span><span class="branchNoCov" title="Branch 92 was not taken"> - </span><span class="branchNoCov" title="Branch 93 was not taken"> - </span> 
-<span class="lineNum">         </span><span class="branchNoCov" title="Branch 94 was not taken"> - </span><span class="branchNoCov" title="Branch 95 was not taken"> - </span><span class="branchNoCov" title="Branch 96 was not taken"> - </span><span class="branchNoCov" title="Branch 97 was not taken"> - </span><span class="branchNoCov" title="Branch 98 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 89 was not taken"> - </span><span class="branchNoCov" title="Branch 90 was not taken"> - </span><span class="branchNoCov" title="Branch 91 was not taken"> - </span><span class="branchCov" title="Branch 92 was taken 1 time"> + </span><span class="branchCov" title="Branch 93 was taken 1 time"> + </span> 
+<span class="lineNum">         </span><span class="branchCov" title="Branch 94 was taken 1 time"> + </span><span class="branchCov" title="Branch 95 was taken 1 time"> + </span><span class="branchCov" title="Branch 96 was taken 1 time"> + </span><span class="branchCov" title="Branch 97 was taken 1 time"> + </span><span class="branchCov" title="Branch 98 was taken 1 time"> + </span> 
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 99 was not taken"> - </span><span class="branchCov" title="Branch 100 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 101 was not taken"> - </span><span class="branchNoCov" title="Branch 102 was not taken"> - </span><span class="branchNoCov" title="Branch 103 was not taken"> - </span> 
 <span class="lineNum">         </span>            <span class="branchCov" title="Branch 104 was taken 3 times"> + </span>]
 <span class="lineNum">     162 </span>                :            :                 // extended instruction set 0xDDxx
@@ -824,38 +824,38 @@
 <span class="lineNum">     719 </span>                :            : 
 <span class="lineNum">     720 </span>                :            :                 case 0x3E:
 <span class="lineNum">     721 </span>                :            :                         // ld a,n
-<span class="lineNum">     722 </span>                :<span class="lineCov">          5 :                         cpu-&gt;a = memory[cpu-&gt;pc.W++];</span>
-<span class="lineNum">     723 </span>                :<span class="lineCov">          5 :                         break;</span>
+<span class="lineNum">     722 </span>                :<span class="lineCov">          6 :                         cpu-&gt;a = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     723 </span>                :<span class="lineCov">          6 :                         break;</span>
 <span class="lineNum">     724 </span>                :            : 
 <span class="lineNum">     725 </span>                :            :                 case 0x06:
 <span class="lineNum">     726 </span>                :            :                         // ld b,n
-<span class="lineNum">     727 </span>                :<span class="lineCov">          3 :                         cpu-&gt;bc.B.h = memory[cpu-&gt;pc.W++];</span>
-<span class="lineNum">     728 </span>                :<span class="lineCov">          3 :                         break;</span>
+<span class="lineNum">     727 </span>                :<span class="lineCov">          4 :                         cpu-&gt;bc.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     728 </span>                :<span class="lineCov">          4 :                         break;</span>
 <span class="lineNum">     729 </span>                :            : 
 <span class="lineNum">     730 </span>                :            :                 case 0x0E:
 <span class="lineNum">     731 </span>                :            :                         // ld c,n
-<span class="lineNum">     732 </span>                :<span class="lineCov">          3 :                         cpu-&gt;bc.B.l = memory[cpu-&gt;pc.W++];</span>
-<span class="lineNum">     733 </span>                :<span class="lineCov">          3 :                         break;</span>
+<span class="lineNum">     732 </span>                :<span class="lineCov">          4 :                         cpu-&gt;bc.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     733 </span>                :<span class="lineCov">          4 :                         break;</span>
 <span class="lineNum">     734 </span>                :            : 
 <span class="lineNum">     735 </span>                :            :                 case 0x16:
 <span class="lineNum">     736 </span>                :            :                         // ld d,n
-<span class="lineNum">     737 </span>                :<span class="lineCov">          3 :                         cpu-&gt;de.B.h = memory[cpu-&gt;pc.W++];</span>
-<span class="lineNum">     738 </span>                :<span class="lineCov">          3 :                         break;</span>
+<span class="lineNum">     737 </span>                :<span class="lineCov">          4 :                         cpu-&gt;de.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     738 </span>                :<span class="lineCov">          4 :                         break;</span>
 <span class="lineNum">     739 </span>                :            : 
 <span class="lineNum">     740 </span>                :            :                 case 0x1E:
 <span class="lineNum">     741 </span>                :            :                         // ld e,n
-<span class="lineNum">     742 </span>                :<span class="lineCov">          3 :                         cpu-&gt;de.B.l = memory[cpu-&gt;pc.W++];</span>
-<span class="lineNum">     743 </span>                :<span class="lineCov">          3 :                         break;</span>
+<span class="lineNum">     742 </span>                :<span class="lineCov">          4 :                         cpu-&gt;de.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     743 </span>                :<span class="lineCov">          4 :                         break;</span>
 <span class="lineNum">     744 </span>                :            : 
 <span class="lineNum">     745 </span>                :            :                 case 0x26:
 <span class="lineNum">     746 </span>                :            :                         // ld h,n
-<span class="lineNum">     747 </span>                :<span class="lineCov">          3 :                         cpu-&gt;hl.B.h = memory[cpu-&gt;pc.W++];</span>
-<span class="lineNum">     748 </span>                :<span class="lineCov">          3 :                         break;</span>
+<span class="lineNum">     747 </span>                :<span class="lineCov">          4 :                         cpu-&gt;hl.B.h = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     748 </span>                :<span class="lineCov">          4 :                         break;</span>
 <span class="lineNum">     749 </span>                :            : 
 <span class="lineNum">     750 </span>                :            :                 case 0x2E:
 <span class="lineNum">     751 </span>                :            :                         // ld l,n
-<span class="lineNum">     752 </span>                :<span class="lineCov">          3 :                         cpu-&gt;hl.B.l = memory[cpu-&gt;pc.W++];</span>
-<span class="lineNum">     753 </span>                :<span class="lineCov">          3 :                         break;</span>
+<span class="lineNum">     752 </span>                :<span class="lineCov">          4 :                         cpu-&gt;hl.B.l = memory[cpu-&gt;pc.W++];</span>
+<span class="lineNum">     753 </span>                :<span class="lineCov">          4 :                         break;</span>
 <span class="lineNum">     754 </span>                :            : 
 <span class="lineNum">     755 </span>                :            :                 case 0x36:
 <span class="lineNum">     756 </span>                :            :                         // ld (hl),n
@@ -995,38 +995,38 @@
 <span class="lineNum">     890 </span>                :            :                 // add byte instructions
 <span class="lineNum">     891 </span>                :            :                 case 0x87:
 <span class="lineNum">     892 </span>                :            :                         // add a,a
-<span class="lineNum">     893 </span>                :<span class="lineNoCov">          0 :                         _add_a_reg8(cpu, &amp;cpu-&gt;a);</span>
-<span class="lineNum">     894 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     893 </span>                :<span class="lineCov">          1 :                         _add_a_reg8(cpu, &amp;cpu-&gt;a);</span>
+<span class="lineNum">     894 </span>                :<span class="lineCov">          1 :                         break;</span>
 <span class="lineNum">     895 </span>                :            : 
 <span class="lineNum">     896 </span>                :            :                 case 0x80:
 <span class="lineNum">     897 </span>                :            :                         // add a,b
-<span class="lineNum">     898 </span>                :<span class="lineNoCov">          0 :                         _add_a_reg8(cpu, &amp;cpu-&gt;bc.B.h);</span>
-<span class="lineNum">     899 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     898 </span>                :<span class="lineCov">          1 :                         _add_a_reg8(cpu, &amp;cpu-&gt;bc.B.h);</span>
+<span class="lineNum">     899 </span>                :<span class="lineCov">          1 :                         break;</span>
 <span class="lineNum">     900 </span>                :            : 
 <span class="lineNum">     901 </span>                :            :                 case 0x81:
 <span class="lineNum">     902 </span>                :            :                         // add a,c
-<span class="lineNum">     903 </span>                :<span class="lineNoCov">          0 :                         _add_a_reg8(cpu, &amp;cpu-&gt;bc.B.l);</span>
-<span class="lineNum">     904 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     903 </span>                :<span class="lineCov">          1 :                         _add_a_reg8(cpu, &amp;cpu-&gt;bc.B.l);</span>
+<span class="lineNum">     904 </span>                :<span class="lineCov">          1 :                         break;</span>
 <span class="lineNum">     905 </span>                :            : 
 <span class="lineNum">     906 </span>                :            :                 case 0x82:
 <span class="lineNum">     907 </span>                :            :                         // add a,d
-<span class="lineNum">     908 </span>                :<span class="lineNoCov">          0 :                         _add_a_reg8(cpu, &amp;cpu-&gt;de.B.h);</span>
-<span class="lineNum">     909 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     908 </span>                :<span class="lineCov">          1 :                         _add_a_reg8(cpu, &amp;cpu-&gt;de.B.h);</span>
+<span class="lineNum">     909 </span>                :<span class="lineCov">          1 :                         break;</span>
 <span class="lineNum">     910 </span>                :            : 
 <span class="lineNum">     911 </span>                :            :                 case 0x83:
 <span class="lineNum">     912 </span>                :            :                         // add a,e
-<span class="lineNum">     913 </span>                :<span class="lineNoCov">          0 :                         _add_a_reg8(cpu, &amp;cpu-&gt;de.B.l);</span>
-<span class="lineNum">     914 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     913 </span>                :<span class="lineCov">          1 :                         _add_a_reg8(cpu, &amp;cpu-&gt;de.B.l);</span>
+<span class="lineNum">     914 </span>                :<span class="lineCov">          1 :                         break;</span>
 <span class="lineNum">     915 </span>                :            : 
 <span class="lineNum">     916 </span>                :            :                 case 0x84:
 <span class="lineNum">     917 </span>                :            :                         // add a,h
-<span class="lineNum">     918 </span>                :<span class="lineNoCov">          0 :                         _add_a_reg8(cpu, &amp;cpu-&gt;hl.B.h);</span>
-<span class="lineNum">     919 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     918 </span>                :<span class="lineCov">          1 :                         _add_a_reg8(cpu, &amp;cpu-&gt;hl.B.h);</span>
+<span class="lineNum">     919 </span>                :<span class="lineCov">          1 :                         break;</span>
 <span class="lineNum">     920 </span>                :            : 
 <span class="lineNum">     921 </span>                :            :                 case 0x85:
 <span class="lineNum">     922 </span>                :            :                         // add a.l
-<span class="lineNum">     923 </span>                :<span class="lineNoCov">          0 :                         _add_a_reg8(cpu, &amp;cpu-&gt;hl.B.l);</span>
-<span class="lineNum">     924 </span>                :<span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">     923 </span>                :<span class="lineCov">          1 :                         _add_a_reg8(cpu, &amp;cpu-&gt;hl.B.l);</span>
+<span class="lineNum">     924 </span>                :<span class="lineCov">          1 :                         break;</span>
 <span class="lineNum">     925 </span>                :            : 
 <span class="lineNum">     926 </span>                :            :                 case 0x86:
 <span class="lineNum">     927 </span>                :            :                         // add a,(hl)
@@ -1078,15 +1078,15 @@
 <span class="lineNum">     973 </span>                :<span class="lineCov">          3 :                         return -1;</span>
 <span class="lineNum">     974 </span>                :            :                 }
 <span class="lineNum">     975 </span>                :            : 
-<span class="lineNum">     976 </span>        [<span class="branchCov" title="Branch 0 was taken 139 times"> + </span><span class="branchCov" title="Branch 1 was taken 67 times"> + </span>]:<span class="lineCov">        206 :                 if (cpu-&gt;counter &lt;= 0) {</span>
+<span class="lineNum">     976 </span>        [<span class="branchCov" title="Branch 0 was taken 156 times"> + </span><span class="branchCov" title="Branch 1 was taken 64 times"> + </span>]:<span class="lineCov">        220 :                 if (cpu-&gt;counter &lt;= 0) {</span>
 <span class="lineNum">     977 </span>                :            :                         // interrupt tasks here
-<span class="lineNum">     978 </span>                :<span class="lineCov">        139 :                         cpu-&gt;counter += INTERRUPT_PERIOD;</span>
+<span class="lineNum">     978 </span>                :<span class="lineCov">        156 :                         cpu-&gt;counter += INTERRUPT_PERIOD;</span>
 <span class="lineNum">     979 </span>                :            :                 }
 <span class="lineNum">     980 </span>                :            : 
-<span class="lineNum">     981 </span>                :<span class="lineCov">        206 :                 runcycles--;</span>
-<span class="lineNum">     982 </span>        [<span class="branchCov" title="Branch 0 was taken 192 times"> + </span><span class="branchCov" title="Branch 1 was taken 14 times"> + </span>]:<span class="lineCov">        206 :         } while (runcycles &gt; 0);</span>
+<span class="lineNum">     981 </span>                :<span class="lineCov">        220 :                 runcycles--;</span>
+<span class="lineNum">     982 </span>        [<span class="branchCov" title="Branch 0 was taken 198 times"> + </span><span class="branchCov" title="Branch 1 was taken 22 times"> + </span>]:<span class="lineCov">        220 :         } while (runcycles &gt; 0);</span>
 <span class="lineNum">     983 </span>                :            : 
-<span class="lineNum">     984 </span>                :<span class="lineCov">         17 :         return count;</span>
+<span class="lineNum">     984 </span>                :<span class="lineCov">         25 :         return count;</span>
 <span class="lineNum">     985 </span>                :            : }
 </pre>
       </td>
