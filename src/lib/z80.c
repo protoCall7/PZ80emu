@@ -757,14 +757,23 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 		case 0x09:
 			// add hl,bc
 
-			if ((((cpu->hl.W & 0xF000) + (cpu->bc.W & 0xF000)) & 0x1000) == 1) {
+			// reset N flag
+			cpu->flags &= (0 << 4);
+
+			// check for half carry
+			if ((((cpu->hl.W & 0x0FFF) + (cpu->bc.W & 0x0FFF)) & 0x1000) == 0x1000) {
 				cpu->flags |= (1 << 5);
 			}
 
-			if ((cpu->hl.W += cpu->bc.W) > 0xFFFF) {
+			// check for carry and add
+			if ((cpu->hl.W + cpu->bc.W) > 0xFFFF) {
+				cpu->hl.W += cpu->bc.W;
 				cpu->flags |= (1 << 0);
 				cpu->hl.W -= 65536;
+			} else {
+				cpu->hl.W += cpu->bc.W;
 			}
+
 			break;
 
 		case 0x0B:
