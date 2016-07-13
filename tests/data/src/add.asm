@@ -1,0 +1,4 @@
+ld hl,0xFFFF
+ld bc,0xFFFF
+
+add hl,bc

@@ -353,12 +353,12 @@ int main (int argc, char *argv[]) {
 	g_test_add("/z80 instructions/ld r,e", test_fixture, NULL, setup_cpu, test_ld_e, teardown_cpu);
 	g_test_add("/z80 instructions/ld r,h", test_fixture, NULL, setup_cpu, test_ld_h, teardown_cpu);
 	g_test_add("/z80 instructions/ld r,l", test_fixture, NULL, setup_cpu, test_ld_l, teardown_cpu);
-	g_test_add("/z80 instructions/ld r,(ix+n)", test_fixture, "test_ld_ixn.bin", setup_cpu, test_ld_reg8_ixn, teardown_cpu);
-	g_test_add("/z80 instructions/ld r,(iy+n)", test_fixture, "test_ld_iyn.bin", setup_cpu, test_ld_reg8_iyn, teardown_cpu);
-	g_test_add("/z80 instructions/ld (ix+n),r", test_fixture, "test_ld_ixn_2.bin", setup_cpu, test_ld_mem_ixn_reg8, teardown_cpu);
-	g_test_add("/z80 instructions/ld (iy+n),r", test_fixture, "test_ld_iyn_2.bin", setup_cpu, test_ld_mem_iyn_reg8, teardown_cpu);
-	g_test_add("/z80 instructions/ld hl", test_fixture, "test_ld_hl.bin", setup_cpu, test_ld_hl, teardown_cpu);
-	g_test_add("/z80 instructions/ld a 16-bit", test_fixture, "test_ld_a_16.bin", setup_cpu, test_ld_a_16, teardown_cpu);
+	g_test_add("/z80 instructions/ld r,(ix+n)", test_fixture, "data/test_ld_ixn.bin", setup_cpu, test_ld_reg8_ixn, teardown_cpu);
+	g_test_add("/z80 instructions/ld r,(iy+n)", test_fixture, "data/test_ld_iyn.bin", setup_cpu, test_ld_reg8_iyn, teardown_cpu);
+	g_test_add("/z80 instructions/ld (ix+n),r", test_fixture, "data/test_ld_ixn_2.bin", setup_cpu, test_ld_mem_ixn_reg8, teardown_cpu);
+	g_test_add("/z80 instructions/ld (iy+n),r", test_fixture, "data/test_ld_iyn_2.bin", setup_cpu, test_ld_mem_iyn_reg8, teardown_cpu);
+	g_test_add("/z80 instructions/ld hl", test_fixture, "data/test_ld_hl.bin", setup_cpu, test_ld_hl, teardown_cpu);
+	g_test_add("/z80 instructions/ld a 16-bit", test_fixture, "data/test_ld_a_16.bin", setup_cpu, test_ld_a_16, teardown_cpu);
 
 	return g_test_run();
 }
