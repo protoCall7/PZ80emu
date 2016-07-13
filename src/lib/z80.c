@@ -739,8 +739,34 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			cpu->a = (cpu->a << 1) | (cpu->a >> (sizeof(cpu->a) * 8 - 1));
 			break;
 
+		// Register Exchange Instructions
+		case 0xEB:
+			// ex hl,de
+			if(cpu->hl.W != cpu->de.W) {
+				cpu->hl.W ^= cpu->de.W;
+				cpu->de.W ^= cpu->hl.W;
+				cpu->hl.W ^= cpu->de.W;
+			}
+			break;
+
+		case 0xE3:
+			// ex (sp),hl
+
+			if (memory[cpu->sp.W + 1] != cpu->hl.B.h) {
+				cpu->hl.B.h ^= memory[cpu->sp.W + 1];
+				memory[cpu->sp.W + 1] ^= cpu->hl.B.h;
+				cpu->hl.B.h ^= memory[cpu->sp.W + 1];
+			}
+
+			if (memory[cpu->sp.W] != cpu->hl.B.l) {
+				cpu->hl.B.l ^= memory[cpu->sp.W];
+				memory[cpu->sp.W] ^= cpu->hl.B.l;
+				cpu->hl.B.l ^= memory[cpu->sp.W];
+			}
+			break;
+
 		case 0x08:
-			// ex af,'af
+			// ex af,af'
 			if (cpu->a != cpu->_a) {
 				cpu->a ^= cpu->_a;
 				cpu->_a ^= cpu->a;
