@@ -88,6 +88,58 @@ void _load_reg16_nn(word *reg, uint8_t *memory, word *pc) {
 	reg->W = nn.W;
 }
 
+void _add_a_reg8(z80 *cpu, uint8_t *reg) {
+	// carry flag
+	if ((cpu->a + *reg) > 255) {
+		cpu->flags |= (1 << 0);
+	} else {
+		cpu->flags &= ~1;
+	}
+
+	// zero flag
+	if ((cpu->a + *reg) == 0) {
+		cpu->flags |= (1 << 1);
+	} else {
+		cpu->flags &= ~(1 << 1);
+	}
+
+	// overflow flag
+	if (cpu->a > 0) {
+		if ((cpu->a + *reg) < 0) {
+			cpu->flags |= (1 << 2);
+		} else {
+			cpu->flags &= ~(1 << 2);
+		}
+	} else if (cpu->a < 0) {
+		if ((cpu->a + *reg) > 0) {
+			cpu->flags |= (1 << 2);
+		} else {
+			cpu->flags &= ~(1 << 2);
+		}
+	} else {
+		cpu->flags &= ~(1 << 2);
+	}
+
+	// sign flag
+	if ((127 < (cpu->a + *reg)) && ((cpu->a + *reg) < 256)) {
+		cpu->flags |= (1 << 3);
+	} else {
+		cpu->flags &= ~(1 << 3);
+	}
+
+	// reset N flag
+	cpu->flags &= ~(1 << 4);
+
+	// half carry flag
+	if(((cpu->a & 0x0F) + (*reg & 0x0F) & 0x10) == 0x10) {
+		cpu->flags |= (1 << 5);
+	} else {
+		cpu->flags &= ~(1 << 5);
+	}
+
+	cpu->a += *reg;
+}
+
 /**
  * Runs the cpu
  * \param cpu A z80 cpu struct to run.
@@ -833,6 +885,47 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 				cpu->_hl.W ^= cpu->hl.W;
 				cpu->hl.W ^= cpu->_hl.W;
 			}
+			break;
+
+		// add byte instructions
+		case 0x87:
+			// add a,a
+			_add_a_reg8(cpu, &cpu->a);
+			break;
+
+		case 0x80:
+			// add a,b
+			_add_a_reg8(cpu, &cpu->bc.B.h);
+			break;
+
+		case 0x81:
+			// add a,c
+			_add_a_reg8(cpu, &cpu->bc.B.l);
+			break;
+
+		case 0x82:
+			// add a,d
+			_add_a_reg8(cpu, &cpu->de.B.h);
+			break;
+
+		case 0x83:
+			// add a,e
+			_add_a_reg8(cpu, &cpu->de.B.l);
+			break;
+
+		case 0x84:
+			// add a,h
+			_add_a_reg8(cpu, &cpu->hl.B.h);
+			break;
+
+		case 0x85:
+			// add a.l
+			_add_a_reg8(cpu, &cpu->hl.B.l);
+			break;
+
+		case 0x86:
+			// add a,(hl)
+			_add_a_reg8(cpu, &memory[cpu->hl.W]);
 			break;
 
 		case 0x09:
