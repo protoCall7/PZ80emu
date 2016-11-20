@@ -358,6 +358,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 				_load_reg16_nn(&cpu->iy, memory, &cpu->pc);
 				break;
 
+
 			case 0xE3:
 				// ex (sp),iy
 
@@ -797,6 +798,12 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 		case 0x31:
 			// ld sp,nn
 			_load_reg16_nn(&cpu->sp, memory, &cpu->pc);
+			break;
+
+		case 0x2A:
+			// ld hl,(nn)
+			cpu->hl.W = (memory[cpu->pc.W++] << 8);
+			cpu->hl.W |= cpu->pc.W++;
 			break;
 
 		case 0x03:
