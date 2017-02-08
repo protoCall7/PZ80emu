@@ -16,5 +16,5 @@
    \return 0 == Checked Bit False, 1 == Checked Bit True.
  */
 
-#define IS_SET(val, bit) ((val) & (1 << (bit)))
+#define IS_SET(val, bit) !!((val) & (1 << (bit)))
 #endif // defined __PZ80emu__utils__

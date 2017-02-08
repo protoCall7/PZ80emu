@@ -48,8 +48,8 @@ void display_mem(WINDOW *win, uint8_t *memory) {
 void display_registers(WINDOW *win, z80 *cpu) {
 	// register status display
 	(void) mvwprintw(win, 1, 2, "Register Status:");
-	(void) mvwprintw(win, 2, 2, "pc\t  a\t  CZPSNH\t  bc\t  de\t  hl\t  ix\t  iy\t  'a\t  'CZPSNH\t  'bc\t  'de\t  'hl\t  sp");
-	(void) mvwprintw(win, 3, 2, "%04x\t  %02hhX\t  %c%c%c%c%c%c\t  %04hX\t  %04x\t  %04hX\t  %04x\t  %04x\t  %02hhX\t   %c%c%c%c%c%c\t  %04x\t  %04x\t  %04X\t  %04x",
+	(void) mvwprintw(win, 2, 2, "pc\t  a\t  CNPHZS\t  bc\t  de\t  hl\t  ix\t  iy\t  'a\t  'CNPHZS\t  'bc\t  'de\t  'hl\t  sp\t  i\t  r");
+	(void) mvwprintw(win, 3, 2, "%04x\t  %02hhX\t  %c%c%c%c%c%c\t  %04hX\t  %04x\t  %04hX\t  %04x\t  %04x\t  %02hhX\t   %c%c%c%c%c%c\t  %04x\t  %04x\t  %04X\t  %04x\t  %02X\t  %02X\t",
 	                 cpu->pc.W,
 	                 cpu->a,
 	                 (bool)IS_SET(cpu->flags, 0) ? '1' : '0',
@@ -73,7 +73,9 @@ void display_registers(WINDOW *win, z80 *cpu) {
 	                 cpu->_bc.W,
 	                 cpu->_de.W,
 	                 cpu->_hl.W,
-	                 cpu->sp.W
+	                 cpu->sp.W,
+					 cpu->ir.B.h,
+					 cpu->ir.B.l
 	                 );
 	(void) wrefresh(win);
 }

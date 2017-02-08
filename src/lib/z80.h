@@ -44,6 +44,7 @@ typedef struct {
 	word hl; /** HL register pair */
 	word ix; /** IX register */
 	word iy; /** IY register */
+	word ir; /** IR register */
 	uint8_t _a; /** A' register */
 	unsigned _flags : 6; /** flags' register */
 	word _bc; /** BC' register pair */

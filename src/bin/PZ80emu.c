@@ -51,7 +51,7 @@ int main(int argc, const char * argv[]) {
 	(void) run(cpu, mem->memory, runcycles);
 
 	// more display stuff
-	register_display = create_newwin(5, 128, 0, 0);
+	register_display = create_newwin(5, 148, 0, 0);
 	display_registers(register_display, cpu);
 
 	memory_display = create_newwin(11, 63, 6, 0);

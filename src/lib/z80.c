@@ -99,9 +99,9 @@ void _add_a_reg8(z80 *cpu, uint8_t *reg) {
 
 	// zero flag
 	if ((cpu->a + *reg) == 0) {
-		cpu->flags |= (1 << 1);
+		cpu->flags |= (1 << 4);
 	} else {
-		cpu->flags &= ~(1 << 1);
+		cpu->flags &= ~(1 << 4);
 	}
 
 	// overflow flag
@@ -123,19 +123,19 @@ void _add_a_reg8(z80 *cpu, uint8_t *reg) {
 
 	// sign flag
 	if ((127 < (cpu->a + *reg)) && ((cpu->a + *reg) < 256)) {
-		cpu->flags |= (1 << 3);
-	} else {
-		cpu->flags &= ~(1 << 3);
-	}
-
-	// reset N flag
-	cpu->flags &= ~(1 << 4);
-
-	// half carry flag
-	if(((cpu->a & 0x0F) + (*reg & 0x0F) & 0x10) == 0x10) {
 		cpu->flags |= (1 << 5);
 	} else {
 		cpu->flags &= ~(1 << 5);
+	}
+
+	// reset N flag
+	cpu->flags &= ~(1 << 1);
+
+	// half carry flag
+	if(((cpu->a & 0x0F) + (*reg & 0x0F) & 0x10) == 0x10) {
+		cpu->flags |= (1 << 3);
+	} else {
+		cpu->flags &= ~(1 << 3);
 	}
 
 	cpu->a += *reg;
@@ -160,7 +160,116 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
 		// opcode interpreter switch
 		switch (opcode) {
-		// extended instruction set 0xDDxx
+		case 0x00:
+			// nop
+			break;
+
+		case 0x01:
+			// ld bc,nn
+			_load_reg16_nn(&cpu->bc, memory, &cpu->pc);
+			break;
+
+		case 0x02:
+			// ld (bc),a
+			memory[cpu->bc.W] = cpu->a;
+			break;
+
+		case 0x03:
+			/// @bug inc bc isn't operating on flags
+			cpu->bc.W++;
+			break;
+
+		case 0x04:
+			/// @bug inc b isn't operating on flags
+			cpu->bc.B.h++;
+			break;
+
+		case 0x05:
+			/// @bug dec b isn't operating on flags
+			cpu->bc.B.h--;
+			break;
+
+		case 0x06:
+			// ld b,n
+			cpu->bc.B.h = memory[cpu->pc.W++];
+			break;
+
+		case 0x07:
+			// rlca
+			if(IS_SET(cpu->a, 7) == 1) {
+				cpu->flags |= (1 << 0);
+			}
+			else {
+				cpu->flags &= ~(1 << 0);
+			}
+			cpu->a = (cpu->a << 1) | (cpu->a >> (sizeof(cpu->a) * 8 - 1));
+			break;
+
+		case 0x08:
+			// ex af,af'
+			if (cpu->a != cpu->_a) {
+				cpu->a ^= cpu->_a;
+				cpu->_a ^= cpu->a;
+				cpu->a ^= cpu->_a;
+			}
+
+			if (cpu->flags != cpu->_flags) {
+				cpu->flags ^= cpu->_flags;
+				cpu->_flags ^= cpu->flags;
+				cpu->flags ^= cpu->_flags;
+			}
+			break;
+
+		case 0x09:
+			// add hl,bc
+
+			// reset N flag
+			cpu->flags &= (0 << 1);
+
+			// check for half carry
+			if ((((cpu->hl.W & 0x0FFF) + (cpu->bc.W & 0x0FFF)) & 0x1000) == 0x1000) {
+				cpu->flags |= (1 << 3);
+			} else {
+				cpu->flags &= (0 << 3);
+			}
+
+			// check for carry and add
+			if ((cpu->hl.W + cpu->bc.W) > 0xFFFF) {
+				cpu->hl.W += cpu->bc.W;
+				cpu->flags |= (1 << 0);
+				cpu->hl.W -= 65536;
+			} else {
+				cpu->hl.W += cpu->bc.W;
+				cpu->flags &= ~1;
+			}
+
+			break;
+
+		case 0x0A:
+			// ld a,(bc)
+			_load_reg8_mem_pair(&cpu->a, &cpu->bc, memory);
+			break;
+
+		case 0x0B:
+			/// @bug dec bc isn't operating on flags
+			cpu->bc.W--;
+			break;
+
+		case 0x0C:
+			/// @bug inc c isn't operating on flags
+			cpu->bc.B.h++;
+			break;
+
+		case 0x0D:
+			/// @bug dec c isn't operating on flags
+			cpu->bc.B.h--;
+			break;
+
+		case 0x0E:
+			// ld c,n
+			cpu->bc.B.l = memory[cpu->pc.W++];
+			break;
+
 		case 0xDD:
 			opcode = memory[cpu->pc.W++];
 
@@ -379,15 +488,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			}
 			break;
 
-		case 0x00:
-			// nop
-			break;
-
 		// 8-bit transfer instructions
-		case 0x0A:
-			// ld a,(bc)
-			_load_reg8_mem_pair(&cpu->a, &cpu->bc, memory);
-			break;
 
 		case 0x7F:
 			// ld a,a
@@ -724,15 +825,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			cpu->a = memory[cpu->pc.W++];
 			break;
 
-		case 0x06:
-			// ld b,n
-			cpu->bc.B.h = memory[cpu->pc.W++];
-			break;
 
-		case 0x0E:
-			// ld c,n
-			cpu->bc.B.l = memory[cpu->pc.W++];
-			break;
 
 		case 0x16:
 			// ld d,n
@@ -759,11 +852,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			memory[cpu->hl.W] = memory[cpu->pc.W++];
 			break;
 
-		case 0x02:
-			// ld (bc),a
-			memory[cpu->bc.W] = cpu->a;
-			break;
-
 		case 0x12:
 			// ld (de),a
 			memory[cpu->de.W] = cpu->a;
@@ -781,10 +869,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 		break;
 
 		// 16-bit transfer instructions
-		case 0x01:
-			// ld bc,nn
-			_load_reg16_nn(&cpu->bc, memory, &cpu->pc);
-			break;
 
 		case 0x11:
 			// ld de,nn
@@ -807,31 +891,8 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			cpu->hl.W |= cpu->pc.W++;
 			break;
 
-		case 0x03:
-			/// @bug inc bc isn't operating on flags
-			cpu->bc.W++;
-			break;
 
-		case 0x04:
-			/// @bug inc b isn't operating on flags
-			cpu->bc.B.h++;
-			break;
 
-		case 0x05:
-			/// @bug dec b isn't operating on flags
-			cpu->bc.B.h--;
-			break;
-
-		case 0x07:
-			// rlca
-			if(IS_SET(cpu->a, 7) == 1) {
-				cpu->flags |= (1 << 5);
-			}
-			else {
-				cpu->flags &= ~(1 << 5);
-			}
-			cpu->a = (cpu->a << 1) | (cpu->a >> (sizeof(cpu->a) * 8 - 1));
-			break;
 
 		// Register Exchange Instructions
 		case 0xEB:
@@ -859,20 +920,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			}
 			break;
 
-		case 0x08:
-			// ex af,af'
-			if (cpu->a != cpu->_a) {
-				cpu->a ^= cpu->_a;
-				cpu->_a ^= cpu->a;
-				cpu->a ^= cpu->_a;
-			}
-
-			if (cpu->flags != cpu->_flags) {
-				cpu->flags ^= cpu->_flags;
-				cpu->_flags ^= cpu->flags;
-				cpu->flags ^= cpu->_flags;
-			}
-			break;
 
 		case 0xD9:
 			// exx
@@ -936,45 +983,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			_add_a_reg8(cpu, &memory[cpu->hl.W]);
 			break;
 
-		case 0x09:
-			// add hl,bc
 
-			// reset N flag
-			cpu->flags &= (0 << 4);
-
-			// check for half carry
-			if ((((cpu->hl.W & 0x0FFF) + (cpu->bc.W & 0x0FFF)) & 0x1000) == 0x1000) {
-				cpu->flags |= (1 << 5);
-			} else {
-				cpu->flags &= (0 << 5);
-			}
-
-			// check for carry and add
-			if ((cpu->hl.W + cpu->bc.W) > 0xFFFF) {
-				cpu->hl.W += cpu->bc.W;
-				cpu->flags |= (1 << 0);
-				cpu->hl.W -= 65536;
-			} else {
-				cpu->hl.W += cpu->bc.W;
-				cpu->flags &= ~1;
-			}
-
-			break;
-
-		case 0x0B:
-			/// @bug dec bc isn't operating on flags
-			cpu->bc.W--;
-			break;
-
-		case 0x0C:
-			/// @bug inc c isn't operating on flags
-			cpu->bc.B.h++;
-			break;
-
-		case 0x0D:
-			/// @bug dec c isn't operating on flags
-			cpu->bc.B.h--;
-			break;
 
 
 		default:
