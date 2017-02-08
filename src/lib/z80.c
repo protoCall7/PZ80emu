@@ -7,6 +7,7 @@
 //  Copyright (c) 2015 Peter Ezetta. All rights reserved.
 //
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include "z80.h"
@@ -437,8 +438,8 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			// ld a,(nn)
 		{
 			word nn;
-			nn.B.h = memory[cpu->pc.W++];
 			nn.B.l = memory[cpu->pc.W++];
+			nn.B.h = memory[cpu->pc.W++];
 			cpu->a = memory[nn.W];
 		}
 		break;
@@ -926,7 +927,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			break;
 
 		case 0x85:
-			// add a.l
+			// add a,l
 			_add_a_reg8(cpu, &cpu->hl.B.l);
 			break;
 
