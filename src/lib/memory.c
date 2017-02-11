@@ -12,7 +12,7 @@
 /**
  * Loads the contents of a ROM file into memory
  * \param filename String containing the filename of the ROM image.
- * \param memory Pointer to the block of RAM to load the ROM into.
+ * \param self Pointer to the block of RAM to load the ROM into.
  * \return Number of bytes loaded into RAM.
  */
 static long memory_load(void *self, const char *filename) {
@@ -47,7 +47,7 @@ static long memory_load(void *self, const char *filename) {
 
 /**
  * Frees an allocated memory object
- * \param memory memory object to free
+ * \param self memory object to free
  */
 static void memory_free(void *self) {
 	memory *mem = self;

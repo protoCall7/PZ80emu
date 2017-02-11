@@ -12,6 +12,7 @@
 #include <stdint.h>
 #include "z80.h"
 #include "utils.h"
+#include "display.h"
 
 /**
  * Fills out a new z80 CPU struct
@@ -19,7 +20,7 @@
  */
 z80 *new_cpu(void) {
 	z80 *cpu;
-	if ((cpu = calloc(1, sizeof(z80))) == NULL) {
+	if ((cpu = calloc(1, sizeof (z80))) == NULL) {
 		exit(EXIT_FAILURE);
 	}
 
@@ -89,7 +90,73 @@ void _load_reg16_nn(word *reg, uint8_t *memory, word *pc) {
 	reg->W = nn.W;
 }
 
+/**
+ * Adds the contents of a user supplied register to A
+ * \param cpu z80 cpu object
+ * \param reg register to add to A
+ */
 void _add_a_reg8(z80 *cpu, uint8_t *reg) {
+	// carry flag
+	if ((cpu->a + *reg) > 255) {
+		cpu->flags |= (1 << 0);
+	} else {
+		cpu->flags &= ~1;
+	}
+
+	// zero flag
+	if ((cpu->a + *reg) == 0) {
+		cpu->flags |= (1 << 4);
+	} else {
+		cpu->flags &= ~(1 << 4);
+	}
+
+	// overflow flag
+	if (cpu->a > 0) {
+		if ((cpu->a + *reg) < 0) {
+			cpu->flags |= (1 << 2);
+		} else {
+			cpu->flags &= ~(1 << 2);
+		}
+	} else if (cpu->a < 0) {
+		if ((cpu->a + *reg) > 0) {
+			cpu->flags |= (1 << 2);
+		} else {
+			cpu->flags &= ~(1 << 2);
+		}
+	} else {
+		cpu->flags &= ~(1 << 2);
+	}
+
+	// sign flag
+	if ((127 < (cpu->a + *reg)) && ((cpu->a + *reg) < 256)) {
+		cpu->flags |= (1 << 5);
+	} else {
+		cpu->flags &= ~(1 << 5);
+	}
+
+	// reset N flag
+	cpu->flags &= ~(1 << 1);
+
+	// half carry flag
+	if(((cpu->a & 0x0F) + (*reg & 0x0F) & 0x10) == 0x10) {
+		cpu->flags |= (1 << 3);
+	} else {
+		cpu->flags &= ~(1 << 3);
+	}
+
+	cpu->a += *reg;
+}
+
+/**
+ * Adds the contents of a user supplied register and the carry flag to A
+ * \param cpu z80 cpu object
+ * \param reg register to add to A
+ */
+void _adc_a_reg8(z80 *cpu, uint8_t *reg) {
+	if ((IS_SET(cpu->flags, 0)) == 1) {
+		cpu->a++;
+	}
+
 	// carry flag
 	if ((cpu->a + *reg) > 255) {
 		cpu->flags |= (1 << 0);
@@ -148,7 +215,7 @@ void _add_a_reg8(z80 *cpu, uint8_t *reg) {
  * \param runcycles The number of clock cycles to run the cpu.
  * \return Count of cycles executed.
  */
-int run(z80 *cpu, uint8_t *memory, long runcycles) {
+int run(z80 *cpu, uint8_t *memory, long runcycles, int s_flag) {
 	int count = 0;
 	// number of T cycles for each opcode
 	const int cycles[15] = {4, 10, 7, 6, 4, 4, 7, 4, 4, 11, 7, 6, 4, 4, 7};
@@ -160,27 +227,19 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
 		// opcode interpreter switch
 		switch (opcode) {
-		case 0x00:
-			// nop
-			break;
+		case 0x00: break; // nop
 
-		case 0x01:
-			// ld bc,nn
-			_load_reg16_nn(&cpu->bc, memory, &cpu->pc);
-			break;
+		case 0x01: _load_reg16_nn(&cpu->bc, memory, &cpu->pc); break; // ld bc,nn
 
-		case 0x02:
-			// ld (bc),a
-			memory[cpu->bc.W] = cpu->a;
-			break;
+		case 0x02: memory[cpu->bc.W] = cpu->a; break; // ld (bc),a
 
-		case 0x03:
-			/// @bug inc bc isn't operating on flags
-			cpu->bc.W++;
-			break;
+		case 0x03: cpu->bc.W++; break; // inc bc
 
 		case 0x04:
-			/// @bug inc b isn't operating on flags
+			// inc b
+			if (IS_SET(cpu->flags, 1)) {
+				cpu->flags &= ~(1 << 1);
+			}
 			cpu->bc.B.h++;
 			break;
 
@@ -189,10 +248,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			cpu->bc.B.h--;
 			break;
 
-		case 0x06:
-			// ld b,n
-			cpu->bc.B.h = memory[cpu->pc.W++];
-			break;
+		case 0x06: cpu->bc.B.h = memory[cpu->pc.W++]; break; // ld b,n
 
 		case 0x07:
 			// rlca
@@ -251,7 +307,7 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			break;
 
 		case 0x0B:
-			/// @bug dec bc isn't operating on flags
+			// dec bc
 			cpu->bc.W--;
 			break;
 
@@ -269,6 +325,99 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			// ld c,n
 			cpu->bc.B.l = memory[cpu->pc.W++];
 			break;
+
+		case 0x0F:
+			// rrca
+			if(IS_SET(cpu->a, 0) == 1) {
+				cpu->flags |= (1 << 0);
+			}
+			else {
+				cpu->flags &= ~(1 << 0);
+			}
+			cpu->a = (cpu->a >> (sizeof(cpu->a) * 8 - 1)) | (cpu->a >> 1);
+			break;
+
+		case 0x10:
+			// djnz n
+			cpu->bc.B.h--;
+			if (cpu->bc.B.h == 0) {
+				cpu->pc.W += (signed) memory[cpu->pc.W++];
+			};
+			break;
+
+		case 0x11:
+			// ld de,nn
+			_load_reg16_nn(&cpu->de, memory, &cpu->pc);
+			break;
+                
+        case 0x12:
+            // ld (de),a
+            memory[cpu->de.W] = cpu->a;
+            break;
+                
+        case 0x16:
+            // ld d,n
+            cpu->de.B.h = memory[cpu->pc.W++];
+            break;
+                
+        case 0x1E:
+            // ld e,n
+            cpu->de.B.l = memory[cpu->pc.W++];
+            break;
+
+        case 0x22:
+            // ld (nn),hl
+            {
+                word address;
+                address.B.l = memory[cpu->pc.W++];
+                address.B.h = memory[cpu->pc.W++];
+                
+                memory[address.W++] = cpu->hl.B.l;
+                memory[address.W] = cpu->hl.B.h;
+            }
+            break;
+                
+		case 0x23:
+			// inc hl
+			cpu->hl.W++;
+			break;
+                
+        case 0x2A:
+            // ld hl,(nn)
+        {
+            word address;
+            address.B.l = memory[cpu->pc.W++];
+            address.B.h = memory[cpu->pc.W++];
+                
+            cpu->hl.B.l = memory[address.W++];
+            cpu->hl.B.h = memory[address.W];
+        }
+            break;
+                
+		case 0x2B:
+			// dec hl
+			cpu->hl.W--;
+			break;
+
+		case 0x8E:
+			// adc a,(hl)
+			_adc_a_reg8(cpu, &memory[cpu->hl.W]);
+			break;
+                
+        case 0x26:
+            // ld h,n
+            cpu->hl.B.h = memory[cpu->pc.W++];
+            break;
+                
+        case 0x2E:
+            // ld l,n
+            cpu->hl.B.l = memory[cpu->pc.W++];
+            break;
+                
+        case 0x36:
+            // ld (hl),n
+            memory[cpu->hl.W] = memory[cpu->pc.W++];
+            break;
 
 		case 0xDD:
 			opcode = memory[cpu->pc.W++];
@@ -376,7 +525,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 
 			}
 			break;
-
 
 		// extended instruction set 0xFDxx
 		case 0xFD:
@@ -825,55 +973,16 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			cpu->a = memory[cpu->pc.W++];
 			break;
 
-
-
-		case 0x16:
-			// ld d,n
-			cpu->de.B.h = memory[cpu->pc.W++];
-			break;
-
-		case 0x1E:
-			// ld e,n
-			cpu->de.B.l = memory[cpu->pc.W++];
-			break;
-
-		case 0x26:
-			// ld h,n
-			cpu->hl.B.h = memory[cpu->pc.W++];
-			break;
-
-		case 0x2E:
-			// ld l,n
-			cpu->hl.B.l = memory[cpu->pc.W++];
-			break;
-
-		case 0x36:
-			// ld (hl),n
-			memory[cpu->hl.W] = memory[cpu->pc.W++];
-			break;
-
-		case 0x12:
-			// ld (de),a
-			memory[cpu->de.W] = cpu->a;
-			break;
-
 		case 0x32:
 			// ld (nn),a
-		{
-			word address;
-			address.B.l = memory[cpu->pc.W++];
-			address.B.h = memory[cpu->pc.W++];
+            {
+                word address;
+                address.B.l = memory[cpu->pc.W++];
+                address.B.h = memory[cpu->pc.W++];
 
-			memory[address.W] = cpu->a;
-		}
-		break;
-
-		// 16-bit transfer instructions
-
-		case 0x11:
-			// ld de,nn
-			_load_reg16_nn(&cpu->de, memory, &cpu->pc);
-			break;
+                memory[address.W] = cpu->a;
+            }
+            break;
 
 		case 0x21:
 			// ld hl,nn
@@ -884,15 +993,6 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			// ld sp,nn
 			_load_reg16_nn(&cpu->sp, memory, &cpu->pc);
 			break;
-
-		case 0x2A:
-			// ld hl,(nn)
-			cpu->hl.W = (memory[cpu->pc.W++] << 8);
-			cpu->hl.W |= cpu->pc.W++;
-			break;
-
-
-
 
 		// Register Exchange Instructions
 		case 0xEB:
@@ -983,8 +1083,81 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 			_add_a_reg8(cpu, &memory[cpu->hl.W]);
 			break;
 
+		case 0xED:
+			opcode = memory[cpu->pc.W++];
 
+			switch(opcode) {
+				case 0x43:
+				// ld (nn),bc
+				{
+					word address;
+					address.B.l = memory[cpu->pc.W++];
+					address.B.h = memory[cpu->pc.W++];
 
+					memory[address.W] = cpu->bc.B.l;
+					memory[++address.W] = cpu->bc.B.h;
+				}
+				break;
+                    
+                case 0x4A:
+                    // adc hl,bc
+                    
+                    // reset N flag
+                    cpu->flags &= ~(1 << 1);
+                    
+                    // check for half carry
+                    if ((((cpu->hl.W & 0x0FFF) + (cpu->bc.W & 0x0FFF)) & 0x1000) == 0x1000) {
+                        cpu->flags |= (1 << 3);
+                    } else {
+                        cpu->flags &= ~(1 << 3);
+                    }
+                    
+                    // check for carry and add
+                    if ((cpu->hl.W + cpu->bc.W) > 0xFFFF) {
+                        if(IS_SET(cpu->flags, 0)) {
+                            cpu->hl.W++;
+                        }
+                        cpu->hl.W += cpu->bc.W;
+                        cpu->flags |= (1 << 0);
+                    } else {
+                        cpu->hl.W += cpu->bc.W;
+                        if ((IS_SET(cpu->flags, 0)) == 1) {
+                            cpu->hl.W++;
+                        }
+                        cpu->flags &= ~1;
+                    }
+                    
+
+                    break;
+                    
+                case 0x4B:
+                    // ld bc,(nn)
+                {
+                    word address;
+                    address.B.l = memory[cpu->pc.W++];
+                    address.B.h = memory[cpu->pc.W++];
+                    
+                    cpu->bc.B.l = memory[address.W++];
+                    cpu->bc.B.h = memory[address.W];
+                }
+                    break;
+
+				case 0x53:
+				// ld (nn),bc
+				{
+					word address;
+					address.B.l = memory[cpu->pc.W++];
+					address.B.h = memory[cpu->pc.W++];
+
+					memory[address.W] = cpu->de.B.l;
+					memory[++address.W] = cpu->de.B.h;
+				}
+				break;
+                    
+                default:
+                    exit(EXIT_FAILURE);
+			}
+			break;
 
 		default:
 			return -1;
@@ -996,6 +1169,14 @@ int run(z80 *cpu, uint8_t *memory, long runcycles) {
 		}
 
 		runcycles--;
+        
+        // step mode!
+        if (s_flag) {
+            display_registers(cpu);
+            display_mem(memory);
+            fgetc(stdin);
+        }
+        
 	} while (runcycles > 0);
 
 	return count;

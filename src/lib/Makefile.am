@@ -1,3 +1,9 @@
+if DEBUG
+  AM_CFLAGS =-I$(top_srcdir)/src/lib -Wall -g -O3
+else
+  AM_CFLAGS =-I$(top_srcdir)/src/lib -Wall
+endif
+
 noinst_LIBRARIES = libz80.a libmemory.a libdisplay.a
 noinst_HEADERS = z80.h memory.h display.h utils.h
 

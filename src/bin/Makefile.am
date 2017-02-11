@@ -1,4 +1,8 @@
-AM_CFLAGS = -I$(top_srcdir)/src/lib -Wall
+if DEBUG
+  AM_CFLAGS =-I$(top_srcdir)/src/lib -Wall -g -O3
+else
+  AM_CFLAGS =-I$(top_srcdir)/src/lib -Wall
+endif
 
 bin_PROGRAMS = PZ80emu
 PZ80emu_SOURCES = PZ80emu.c

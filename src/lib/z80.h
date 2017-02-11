@@ -55,7 +55,7 @@ typedef struct {
 
 z80 *new_cpu(void);
 void reset_cpu(z80 *cpu); // reset function
-int run(z80 *cpu, uint8_t *memory, long cycles); // run CPU function
+int run(z80 *cpu, uint8_t *memory, long cycles, int s_flag); // run CPU function
 void _load_reg8_mem_pair(uint8_t *reg, word *address_pair, uint8_t *memory);
 void _load_reg8_mem_idx_offset(uint8_t *reg, word *index_register, uint8_t *memory, word *pc);
 void _load_mem_idx_offset_reg8(uint8_t *reg, word *index_register, uint8_t *memory, word *pc);

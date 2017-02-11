@@ -5,19 +5,19 @@
  * PZ80emu
  *
  * Created by Peter Ezetta on 5/2/15.
- * Copyright (c) 2015 Peter Ezetta. All rights reserved.
+ * Copyright (c) 2015-2017 Peter Ezetta. All rights reserved.
  *
  * Todo:
  * - Implement rest of instruction set
  * - Implement menu system
- * - Implement stepping
- * - Implement GetOpt
  * - Check all void casts
  * - Fix error handling and reporting
  */
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdint.h>
 #include <ncurses.h>
 #include "z80.h"
@@ -25,40 +25,51 @@
 #include "display.h"
 
 /** PZ80 Machine Emulator */
-int main(int argc, const char * argv[]) {
-	WINDOW *register_display, *memory_display;
+int main(int argc, char *argv[]) {
+	long runcycles = 0, filesize = 0;
+    int s_flag = 0;
+	int c;
+    
+    extern char *optarg;
+    extern int optind, optopt;
 
-	// display variables
-	int main_row = 0;
-	int main_col = 0;
-
-	if (argc < 2) {
-		printf("Usage: ./PZ80emu <filename.bin>\n");
-		exit(EXIT_FAILURE);
-	}
-
-	z80 *cpu = new_cpu();
-
-	// create a new memory object
+    z80 *cpu = new_cpu();
 	memory *mem = memory_new();
 
-	// load memory
-	long runcycles = mem->memory_load(mem, argv[1]);
-
-	create_newscreen(main_row, main_col);
+	while ((c = getopt(argc, argv, "sr:f:")) != -1) {
+		switch (c) {
+			case 'r':
+				runcycles = strtol(optarg, NULL, 0);
+				break;
+                
+            case 'f':
+                filesize = mem->memory_load(mem, optarg);
+                break;
+                
+            case 's':
+                s_flag = 1;
+                break;
+                
+        }
+    }
+    
+    // make sure we got the required options, display help text if not
+    if (runcycles <= 0) {
+        printf("Usage: PZ80emu -f <filename> -r <runcycles>\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    if (filesize <= 0) {
+        printf("Usage: PZ80emu -f <filename> -r <runcycles>\n");
+        exit(EXIT_FAILURE);
+    }
 
 	// execute!
-	(void) run(cpu, mem->memory, runcycles);
+	(void) run(cpu, mem->memory, runcycles, s_flag);
 
-	// more display stuff
-	register_display = create_newwin(5, 148, 0, 0);
-	display_registers(register_display, cpu);
-
-	memory_display = create_newwin(11, 63, 6, 0);
-	display_mem(memory_display, mem->memory);
-
-	(void) wgetch(memory_display);
-	(void) endwin();
+	// display stuff
+	display_registers(cpu);
+	display_mem(mem->memory);
 
 	// memory cleanup (leaks are bad, mmkay?)
 	free(cpu);
