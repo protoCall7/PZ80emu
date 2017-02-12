@@ -341,6 +341,7 @@ static void test_add_hl(test_fixture *tf, gconstpointer data) {
 	uint8_t memory[7] = { 0x21, 0xff, 0xff, 0x01, 0xff, 0xff, 0x09 };
 
 	g_assert(run(tf->test_cpu, memory, 7, 0));
+	g_test_message("BC: %04X\n", tf->test_cpu->bc.W);
 	g_assert(tf->test_cpu->bc.W == 0xFFFF);
 	g_assert(tf->test_cpu->hl.W == 0xFFFE);
 	g_assert(tf->test_cpu->flags == 0b001001);
