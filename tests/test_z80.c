@@ -5,6 +5,7 @@
 #include "z80.h"
 #include "memory.h"
 #include "utils.h"
+#include "display.h"
 
 // set up test fixture with a cpu object
 typedef struct {
@@ -158,14 +159,14 @@ static void test_nop(test_fixture *tf, gconstpointer data) {
 
 	uint8_t *memory = calloc(1, sizeof(uint8_t));
 
-	g_assert(run(tf->test_cpu, memory, 1) == 1);
+	g_assert(run(tf->test_cpu, memory, 1, 0) == 1);
 	g_assert(tf->test_cpu->pc.W == 1);
 }
 
 static void test_ld_a(test_fixture *tf, gconstpointer data) {
 	uint8_t memory[9] = {0x3e, 0x05, 0x7f, 0x47, 0x4f, 0x57, 0x5f, 0x67, 0x6f};
 
-	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(run(tf->test_cpu, memory, 8, 0) == 8);
 	g_assert(tf->test_cpu->pc.W == 9);
 	g_assert(tf->test_cpu->a == 0x05);
 	g_assert(tf->test_cpu->bc.W == 0x0505);
@@ -176,7 +177,7 @@ static void test_ld_a(test_fixture *tf, gconstpointer data) {
 static void test_ld_b(test_fixture *tf, gconstpointer data) {
 	uint8_t memory[9] = {0x06, 0x05, 0x78, 0x40, 0x48, 0x50, 0x58, 0x60, 0x68};
 
-	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(run(tf->test_cpu, memory, 8, 0) == 8);
 	g_assert(tf->test_cpu->pc.W == 9);
 	g_assert(tf->test_cpu->a == 0x05);
 	g_assert(tf->test_cpu->bc.W == 0x0505);
@@ -187,7 +188,7 @@ static void test_ld_b(test_fixture *tf, gconstpointer data) {
 static void test_ld_c(test_fixture *tf, gconstpointer data) {
 	uint8_t memory[9] = {0x0e, 0x05, 0x79, 0x41, 0x49, 0x51, 0x59, 0x61, 0x69};
 
-	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(run(tf->test_cpu, memory, 8, 0) == 8);
 	g_assert(tf->test_cpu->pc.W == 9);
 	g_assert(tf->test_cpu->a == 0x05);
 	g_assert(tf->test_cpu->bc.W == 0x0505);
@@ -198,7 +199,7 @@ static void test_ld_c(test_fixture *tf, gconstpointer data) {
 static void test_ld_d(test_fixture *tf, gconstpointer data) {
 	uint8_t memory[9] = {0x16, 0x05, 0x7a, 0x42, 0x4a, 0x52, 0x5a, 0x62, 0x6a};
 
-	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(run(tf->test_cpu, memory, 8, 0) == 8);
 	g_assert(tf->test_cpu->pc.W == 9);
 	g_assert(tf->test_cpu->a == 0x05);
 	g_assert(tf->test_cpu->bc.W == 0x0505);
@@ -209,7 +210,7 @@ static void test_ld_d(test_fixture *tf, gconstpointer data) {
 static void test_ld_e(test_fixture *tf, gconstpointer data) {
 	uint8_t memory[9] = {0x1e, 0x05, 0x7b, 0x43, 0x4b, 0x53, 0x5b, 0x63, 0x6b};
 
-	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(run(tf->test_cpu, memory, 8, 0) == 8);
 	g_assert(tf->test_cpu->pc.W == 9);
 	g_assert(tf->test_cpu->a == 0x05);
 	g_assert(tf->test_cpu->bc.W == 0x0505);
@@ -220,7 +221,7 @@ static void test_ld_e(test_fixture *tf, gconstpointer data) {
 static void test_ld_h(test_fixture *tf, gconstpointer data) {
 	uint8_t memory[9] = {0x26, 0x05, 0x7c, 0x44, 0x4c, 0x54, 0x5c, 0x64, 0x6c};
 
-	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(run(tf->test_cpu, memory, 8, 0) == 8);
 	g_assert(tf->test_cpu->pc.W == 9);
 	g_assert(tf->test_cpu->a == 0x05);
 	g_assert(tf->test_cpu->bc.W == 0x0505);
@@ -231,7 +232,7 @@ static void test_ld_h(test_fixture *tf, gconstpointer data) {
 static void test_ld_l(test_fixture *tf, gconstpointer data) {
 	uint8_t memory[9] = {0x2e, 0x05, 0x7d, 0x45, 0x4d, 0x55, 0x5d, 0x65, 0x6d};
 
-	g_assert(run(tf->test_cpu, memory, 8) == 8);
+	g_assert(run(tf->test_cpu, memory, 8, 0) == 8);
 	g_assert(tf->test_cpu->pc.W == 9);
 	g_assert(tf->test_cpu->a == 0x05);
 	g_assert(tf->test_cpu->bc.W == 0x0505);
@@ -243,7 +244,7 @@ static void test_ld_reg8_ixn(test_fixture *tf, gconstpointer data) {
 	memory *testmem = memory_new();
 	testmem->memory_load(testmem, data);
 
-	g_assert(run(tf->test_cpu, testmem->memory, 17));
+	g_assert(run(tf->test_cpu, testmem->memory, 17, 0));
 	g_assert(tf->test_cpu->pc.W);
 	g_assert(tf->test_cpu->a == 0x01);
 	g_assert(tf->test_cpu->bc.W == 0x0203);
@@ -257,7 +258,7 @@ static void test_ld_reg8_iyn(test_fixture *tf, gconstpointer data) {
 	memory *testmem = memory_new();
 	testmem->memory_load(testmem, data);
 
-	g_assert(run(tf->test_cpu, testmem->memory, 17));
+	g_assert(run(tf->test_cpu, testmem->memory, 17, 0));
 	g_assert(tf->test_cpu->pc.W);
 	g_assert(tf->test_cpu->a == 0x01);
 	g_assert(tf->test_cpu->bc.W == 0x0203);
@@ -271,7 +272,7 @@ static void test_ld_mem_ixn_reg8(test_fixture *tf, gconstpointer data) {
 	memory *testmem = memory_new();
 	testmem->memory_load(testmem, data);
 
-	g_assert(run(tf->test_cpu, testmem->memory, 17));
+	g_assert(run(tf->test_cpu, testmem->memory, 17, 0));
 	g_assert(testmem->memory[0x0070] == 0x01);
 	g_assert(testmem->memory[0x0071] == 0x02);
 	g_assert(testmem->memory[0x0072] == 0x03);
@@ -287,7 +288,7 @@ static void test_ld_mem_iyn_reg8(test_fixture *tf, gconstpointer data) {
 	memory *testmem = memory_new();
 	testmem->memory_load(testmem, data);
 
-	g_assert(run(tf->test_cpu, testmem->memory, 17));
+	g_assert(run(tf->test_cpu, testmem->memory, 17, 0));
 	g_assert(testmem->memory[0x0070] == 0x01);
 	g_assert(testmem->memory[0x0071] == 0x02);
 	g_assert(testmem->memory[0x0072] == 0x03);
@@ -303,7 +304,7 @@ static void test_ld_hl(test_fixture *tf, gconstpointer data) {
 	memory *testmem = memory_new();
 	testmem->memory_load(testmem, data);
 
-	g_assert(run(tf->test_cpu, testmem->memory, 50));
+	g_assert(run(tf->test_cpu, testmem->memory, 50, 0));
 	g_assert(tf->test_cpu->a == 0x05);
 	g_assert(tf->test_cpu->bc.W == 0x0455);
 	g_assert(tf->test_cpu->de.W == 0x0201);
@@ -324,7 +325,7 @@ static void test_ld_a_16(test_fixture *tf, gconstpointer data) {
 	memory *testmem = memory_new();
 	testmem->memory_load(testmem, data);
 
-	g_assert(run(tf->test_cpu, testmem->memory, 16));
+	g_assert(run(tf->test_cpu, testmem->memory, 16, 0));
 	g_assert(tf->test_cpu->bc.W == 0x0050);
 	g_assert(tf->test_cpu->de.W == 0x0060);
 	g_assert(tf->test_cpu->a == 0xFF);
@@ -339,10 +340,10 @@ static void test_ld_a_16(test_fixture *tf, gconstpointer data) {
 static void test_add_hl(test_fixture *tf, gconstpointer data) {
 	uint8_t memory[7] = { 0x21, 0xff, 0xff, 0x01, 0xff, 0xff, 0x09 };
 
-	g_assert(run(tf->test_cpu, memory, 7));
+	g_assert(run(tf->test_cpu, memory, 7, 0));
 	g_assert(tf->test_cpu->bc.W == 0xFFFF);
 	g_assert(tf->test_cpu->hl.W == 0xFFFE);
-	g_assert(tf->test_cpu->flags == 0b100001);
+	g_assert(tf->test_cpu->flags == 0b100100);
 
 	reset_cpu(tf->test_cpu);
 
@@ -354,7 +355,7 @@ static void test_add_hl(test_fixture *tf, gconstpointer data) {
 	memory[5] = 0x0f;
 	memory[6] = 0x09;
 
-	g_assert(run(tf->test_cpu, memory, 7));
+	g_assert(run(tf->test_cpu, memory, 7, 0));
 	g_assert(tf->test_cpu->bc.W == 0x0FFF);
 	g_assert(tf->test_cpu->hl.W == 0x1FFE);
 	g_assert(tf->test_cpu->flags == 0b100000);
@@ -369,7 +370,7 @@ static void test_add_hl(test_fixture *tf, gconstpointer data) {
 	memory[5] = 0x00;
 	memory[6] = 0x09;
 
-	g_assert(run(tf->test_cpu, memory, 7));
+	g_assert(run(tf->test_cpu, memory, 7, 0));
 	g_assert(tf->test_cpu->bc.W == 0x00FF);
 	g_assert(tf->test_cpu->hl.W == 0x01FE);
 	g_assert(tf->test_cpu->flags == 0b000000);
@@ -380,7 +381,7 @@ static void test_add_a(test_fixture *tf, gconstpointer data) {
     testmem->memory_load(testmem, data); 
 
     // run the cpu through the lds
-    g_assert(run(tf->test_cpu, testmem->memory, 7));
+    g_assert(run(tf->test_cpu, testmem->memory, 7, 0));
     g_assert(tf->test_cpu->a == 0x01);
     g_assert(tf->test_cpu->bc.B.h == 0x02);
     g_assert(tf->test_cpu->bc.B.l == 0x03);
@@ -390,37 +391,37 @@ static void test_add_a(test_fixture *tf, gconstpointer data) {
     g_assert(tf->test_cpu->hl.B.l == 0x07);
 
     // test the first add (a = 0x02)
-    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(run(tf->test_cpu, testmem->memory, 1, 0));
     g_assert(tf->test_cpu->a == 0x02);
     g_assert(tf->test_cpu->flags == 0b000000);
 
     // test the next add (a = 0x04);
-    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(run(tf->test_cpu, testmem->memory, 1, 0));
     g_assert(tf->test_cpu->a == 0x04);
     g_assert(tf->test_cpu->flags == 0b000000);
 
     // test next add (a = 0x07);
-    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(run(tf->test_cpu, testmem->memory, 1, 0));
     g_assert(tf->test_cpu->a == 0x07);
     g_assert(tf->test_cpu->flags == 0b000000);
 
     // test next add (a = 0x0B);
-    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(run(tf->test_cpu, testmem->memory, 1, 0));
     g_assert(tf->test_cpu->a == 0x0B);
     g_assert(tf->test_cpu->flags == 0b000000);
 
     // test next add w/ HC (a = 0x10)
-    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(run(tf->test_cpu, testmem->memory, 1, 0));
     g_assert(tf->test_cpu->a == 0x10);
     g_assert(tf->test_cpu->flags == 0b100000);
 
     // test next add (a = 0x16)
-    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(run(tf->test_cpu, testmem->memory, 1, 0));
     g_assert(tf->test_cpu->a == 0x16);
     g_assert(tf->test_cpu->flags == 0b000000);
 
     // test next add (a = 0x1D)
-    g_assert(run(tf->test_cpu, testmem->memory, 1));
+    g_assert(run(tf->test_cpu, testmem->memory, 1, 0));
     g_assert(tf->test_cpu->a == 0x1D);
     g_assert(tf->test_cpu->flags == 0b000000);
 }
