@@ -36,5 +36,5 @@ FAIL: test_z80
 /z80 instructions/ld hl: OK
 /z80 instructions/ld a 16-bit: OK
 /z80 instructions/add hl: **
-ERROR:test_z80.c:346:test_add_hl: assertion failed: (tf->test_cpu->flags == 0b100100)
+ERROR:test_z80.c:344:test_add_hl: assertion failed: (tf->test_cpu->bc.W == 0xFFFF)
 
