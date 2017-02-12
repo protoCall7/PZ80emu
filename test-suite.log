@@ -1,0 +1,40 @@
+=======================================
+   PZ80emu 0.1: tests/test-suite.log
+=======================================
+
+# TOTAL: 2
+# PASS:  1
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  1
+# XPASS: 0
+# ERROR: 0
+
+.. contents:: :depth: 2
+
+FAIL: test_z80
+==============
+
+/z80 functions/new_cpu(): OK
+/z80 functions/reset_cpu(): OK
+/z80 helpers/_load_reg8_mem_pair(): OK
+/z80 helpers/_load_reg8_mem_idx_offset(): OK
+/z80 helpers/_load_mem_idx_offset_reg8(): OK
+/z80 helpers/_load_reg16_nn(): OK
+/z80 instructions/NOP: OK
+/z80 instructions/ld r,a: OK
+/z80 instructions/ld r,b: OK
+/z80 instructions/ld r,c: OK
+/z80 instructions/ld r,d: OK
+/z80 instructions/ld r,e: OK
+/z80 instructions/ld r,h: OK
+/z80 instructions/ld r,l: OK
+/z80 instructions/ld r,(ix+n): OK
+/z80 instructions/ld r,(iy+n): OK
+/z80 instructions/ld (ix+n),r: OK
+/z80 instructions/ld (iy+n),r: OK
+/z80 instructions/ld hl: OK
+/z80 instructions/ld a 16-bit: OK
+/z80 instructions/add hl: **
+ERROR:test_z80.c:346:test_add_hl: assertion failed: (tf->test_cpu->flags == 0b100100)
+
