@@ -97,10 +97,12 @@ Include dependency graph for display.c:</div>
 </div><table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="display_8c.html#a714fcfe742140633f6a5bee9efd55f1a">display_mem</a> (WINDOW *win, uint8_t *<a class="el" href="structmemory.html">memory</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="display_8c.html#af86de78ec4c1740ec30bd58a3dd7b009">display_registers</a> (WINDOW *win, <a class="el" href="structz80.html">z80</a> *cpu)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="display_8c.html#ae885fed08d888b2b7969583156400b28">curses_display_mem</a> (WINDOW *win, uint8_t *<a class="el" href="structmemory.html">memory</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="display_8c.html#a2f595ec07df1b95edbe368d3d4ff5b0a">curses_display_registers</a> (WINDOW *win, <a class="el" href="structz80.html">z80</a> *cpu)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">WINDOW *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="display_8c.html#a0a44b6e178e2bcc56cba1ce6a2c79bfc">create_newwin</a> (int height, int width, int starty, int startx)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="display_8c.html#a4155f0f7bbade3bd0d0c461885c55423">create_newscreen</a> (int main_row, int main_col)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="display_8c.html#aceb0d1b9ad0c5bf50f2f64d36d467474">display_mem</a> (uint8_t *<a class="el" href="structmemory.html">memory</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="display_8c.html#a3bc04a00563b8d8ebef494c25185f876">display_registers</a> (<a class="el" href="structz80.html">z80</a> *cpu)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Display functions for curses management and displaying system info </p>
@@ -132,8 +134,8 @@ Functions</h2></td></tr>
 <p>Creates a new curses screen </p>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">main_row</td><td></td></tr>
-    <tr><td class="paramname">main_col</td><td></td></tr>
+    <tr><td class="paramname">main_row</td><td>The starting row for the new screen </td></tr>
+    <tr><td class="paramname">main_col</td><td>The starting column for the new screen </td></tr>
   </table>
   </dd>
 </dl>
@@ -190,12 +192,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a714fcfe742140633f6a5bee9efd55f1a"></a><!-- doxytag: member="display.c::display_mem" ref="a714fcfe742140633f6a5bee9efd55f1a" args="(WINDOW *win, uint8_t *memory)" -->
+<a class="anchor" id="ae885fed08d888b2b7969583156400b28"></a><!-- doxytag: member="display.c::curses_display_mem" ref="ae885fed08d888b2b7969583156400b28" args="(WINDOW *win, uint8_t *memory)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="display_8h.html#a714fcfe742140633f6a5bee9efd55f1a">display_mem</a> </td>
+          <td class="memname">void <a class="el" href="display_8h.html#ae885fed08d888b2b7969583156400b28">curses_display_mem</a> </td>
           <td>(</td>
           <td class="paramtype">WINDOW *&#160;</td>
           <td class="paramname"><em>win</em>, </td>
@@ -225,12 +227,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af86de78ec4c1740ec30bd58a3dd7b009"></a><!-- doxytag: member="display.c::display_registers" ref="af86de78ec4c1740ec30bd58a3dd7b009" args="(WINDOW *win, z80 *cpu)" -->
+<a class="anchor" id="a2f595ec07df1b95edbe368d3d4ff5b0a"></a><!-- doxytag: member="display.c::curses_display_registers" ref="a2f595ec07df1b95edbe368d3d4ff5b0a" args="(WINDOW *win, z80 *cpu)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="display_8h.html#af86de78ec4c1740ec30bd58a3dd7b009">display_registers</a> </td>
+          <td class="memname">void <a class="el" href="display_8h.html#a2f595ec07df1b95edbe368d3d4ff5b0a">curses_display_registers</a> </td>
           <td>(</td>
           <td class="paramtype">WINDOW *&#160;</td>
           <td class="paramname"><em>win</em>, </td>
@@ -253,6 +255,54 @@ Functions</h2></td></tr>
 <dl class="params"><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">win</td><td>The curses window in which to display register state. </td></tr>
+    <tr><td class="paramname">cpu</td><td>A pointer to a <a class="el" href="structz80.html">z80</a> cpu struct for which to display registers. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aceb0d1b9ad0c5bf50f2f64d36d467474"></a><!-- doxytag: member="display.c::display_mem" ref="aceb0d1b9ad0c5bf50f2f64d36d467474" args="(uint8_t *memory)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="display_8h.html#aceb0d1b9ad0c5bf50f2f64d36d467474">display_mem</a> </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>memory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Display the current memory contents to STDOUT </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memory</td><td>A pointer to a memory struct for which to display registers. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a3bc04a00563b8d8ebef494c25185f876"></a><!-- doxytag: member="display.c::display_registers" ref="a3bc04a00563b8d8ebef494c25185f876" args="(z80 *cpu)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="display_8h.html#a3bc04a00563b8d8ebef494c25185f876">display_registers</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structz80.html">z80</a> *&#160;</td>
+          <td class="paramname"><em>cpu</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Display the current register state to STDOUT </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
     <tr><td class="paramname">cpu</td><td>A pointer to a <a class="el" href="structz80.html">z80</a> cpu struct for which to display registers. </td></tr>
   </table>
   </dd>

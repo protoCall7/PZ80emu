@@ -94,7 +94,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ad6e7b811a9721b6efd1f206b5e1035a7">IS_SET</a>(val, bit)&#160;&#160;&#160;((val) &amp; (1 &lt;&lt; (bit)))</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ad6e7b811a9721b6efd1f206b5e1035a7">IS_SET</a>(val, bit)&#160;&#160;&#160;!!((val) &amp; (1 &lt;&lt; (bit)))</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"></div><hr/><h2>Define Documentation</h2>
@@ -117,7 +117,7 @@ Defines</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;((val) &amp; (1 &lt;&lt; (bit)))</td>
+          <td></td><td>&#160;&#160;&#160;!!((val) &amp; (1 &lt;&lt; (bit)))</td>
         </tr>
       </table>
 </div>

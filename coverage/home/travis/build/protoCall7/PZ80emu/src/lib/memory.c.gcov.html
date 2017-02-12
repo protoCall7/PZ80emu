@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2017-02-08</td>
+            <td class="headerValue">2017-02-12</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -90,7 +90,7 @@
 <span class="lineNum">      12 </span>                :            : /**
 <span class="lineNum">      13 </span>                :            :  * Loads the contents of a ROM file into memory
 <span class="lineNum">      14 </span>                :            :  * \param filename String containing the filename of the ROM image.
-<span class="lineNum">      15 </span>                :            :  * \param memory Pointer to the block of RAM to load the ROM into.
+<span class="lineNum">      15 </span>                :            :  * \param self Pointer to the block of RAM to load the ROM into.
 <a name="16"><span class="lineNum">      16 </span>                :            :  * \return Number of bytes loaded into RAM.</a>
 <span class="lineNum">      17 </span>                :            :  */
 <span class="lineNum">      18 </span>                :<span class="lineCov">          2 : static long memory_load(void *self, const char *filename) {</span>
@@ -125,7 +125,7 @@
 <span class="lineNum">      47 </span>                :            : 
 <span class="lineNum">      48 </span>                :            : /**
 <span class="lineNum">      49 </span>                :            :  * Frees an allocated memory object
-<a name="50"><span class="lineNum">      50 </span>                :            :  * \param memory memory object to free</a>
+<a name="50"><span class="lineNum">      50 </span>                :            :  * \param self memory object to free</a>
 <span class="lineNum">      51 </span>                :            :  */
 <span class="lineNum">      52 </span>                :<span class="lineCov">          2 : static void memory_free(void *self) {</span>
 <span class="lineNum">      53 </span>                :<span class="lineCov">          2 :         memory *mem = self;</span>

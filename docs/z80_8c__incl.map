@@ -1,4 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="node9" href="$z80_8h.html" title="z80 CPU data structure and functions" alt="" coords="229,83,283,112"/>
-<area shape="rect" id="node12" href="$utils_8h.html" title="utils.h" alt="" coords="307,83,363,112"/>
+<area shape="rect" id="node9" href="$z80_8h.html" title="z80 CPU data structure and functions" alt="" coords="236,83,289,112"/>
+<area shape="rect" id="node12" href="$utils_8h.html" title="utils.h" alt="" coords="401,83,457,112"/>
+<area shape="rect" id="node14" href="$display_8h.html" title="display.h" alt="" coords="87,83,161,112"/>
 </map>

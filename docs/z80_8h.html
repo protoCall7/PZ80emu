@@ -117,7 +117,7 @@ Defines</h2></td></tr>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structz80.html">z80</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#ac8cab0e04e700308b2e92227099cb1af">new_cpu</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#a71c44a1a66f1455e396bf0c1d751bda3">reset_cpu</a> (<a class="el" href="structz80.html">z80</a> *cpu)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#a95b3b2c404bfad3b4ff6b10de3f60e5c">run</a> (<a class="el" href="structz80.html">z80</a> *cpu, uint8_t *<a class="el" href="structmemory.html">memory</a>, long cycles)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#ad23ce86320d4fb92aeb847665c38e40a">run</a> (<a class="el" href="structz80.html">z80</a> *cpu, uint8_t *<a class="el" href="structmemory.html">memory</a>, long cycles, int s_flag)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#a98200db180fcce4a6df8cf3fe6ff38a4">_load_reg8_mem_pair</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *address_pair, uint8_t *<a class="el" href="structmemory.html">memory</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#a20869ce2e719e74335cde7a9ff68da72">_load_reg8_mem_idx_offset</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *index_register, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8h.html#af15ac3030d787c91b40958824bbee38d">_load_mem_idx_offset_reg8</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *index_register, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
@@ -381,12 +381,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a95b3b2c404bfad3b4ff6b10de3f60e5c"></a><!-- doxytag: member="z80.h::run" ref="a95b3b2c404bfad3b4ff6b10de3f60e5c" args="(z80 *cpu, uint8_t *memory, long cycles)" -->
+<a class="anchor" id="ad23ce86320d4fb92aeb847665c38e40a"></a><!-- doxytag: member="z80.h::run" ref="ad23ce86320d4fb92aeb847665c38e40a" args="(z80 *cpu, uint8_t *memory, long cycles, int s_flag)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="z80_8h.html#a95b3b2c404bfad3b4ff6b10de3f60e5c">run</a> </td>
+          <td class="memname">int <a class="el" href="z80_8h.html#ad23ce86320d4fb92aeb847665c38e40a">run</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structz80.html">z80</a> *&#160;</td>
           <td class="paramname"><em>cpu</em>, </td>
@@ -401,7 +401,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">long&#160;</td>
-          <td class="paramname"><em>runcycles</em>&#160;</td>
+          <td class="paramname"><em>runcycles</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>s_flag</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -421,19 +427,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Count of cycles executed. </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>inc bc isn't operating on flags </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug:</a></b></dt><dd>inc b isn't operating on flags </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000003">Bug:</a></b></dt><dd>dec b isn't operating on flags </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000004">Bug:</a></b></dt><dd>dec bc isn't operating on flags </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000005">Bug:</a></b></dt><dd>inc c isn't operating on flags </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000006">Bug:</a></b></dt><dd>dec c isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>dec b isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug:</a></b></dt><dd>inc c isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000003">Bug:</a></b></dt><dd>dec c isn't operating on flags </dd></dl>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="z80_8h_a95b3b2c404bfad3b4ff6b10de3f60e5c_cgraph.png" border="0" usemap="#z80_8h_a95b3b2c404bfad3b4ff6b10de3f60e5c_cgraph" alt=""/></div>
-<map name="z80_8h_a95b3b2c404bfad3b4ff6b10de3f60e5c_cgraph" id="z80_8h_a95b3b2c404bfad3b4ff6b10de3f60e5c_cgraph">
-<area shape="rect" id="node3" href="z80_8c.html#a20869ce2e719e74335cde7a9ff68da72" title="_load_reg8_mem_idx_offset" alt="" coords="95,5,279,35"/><area shape="rect" id="node5" href="z80_8c.html#af15ac3030d787c91b40958824bbee38d" title="_load_mem_idx_offset_reg8" alt="" coords="95,59,279,88"/><area shape="rect" id="node7" href="z80_8c.html#a1996a16c481738563ee9664c86798310" title="_load_reg16_nn" alt="" coords="131,112,243,141"/><area shape="rect" id="node9" href="z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4" title="_load_reg8_mem_pair" alt="" coords="112,165,261,195"/></map>
+<div class="center"><img src="z80_8h_ad23ce86320d4fb92aeb847665c38e40a_cgraph.png" border="0" usemap="#z80_8h_ad23ce86320d4fb92aeb847665c38e40a_cgraph" alt=""/></div>
+<map name="z80_8h_ad23ce86320d4fb92aeb847665c38e40a_cgraph" id="z80_8h_ad23ce86320d4fb92aeb847665c38e40a_cgraph">
+<area shape="rect" id="node3" href="z80_8c.html#a1996a16c481738563ee9664c86798310" title="_load_reg16_nn" alt="" coords="131,5,243,35"/><area shape="rect" id="node5" href="z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4" title="_load_reg8_mem_pair" alt="" coords="112,59,261,88"/><area shape="rect" id="node7" href="z80_8c.html#ac2f3619c42db3fb5e299cc6c793fc206" title="_adc_a_reg8" alt="" coords="139,112,235,141"/><area shape="rect" id="node9" href="z80_8c.html#a20869ce2e719e74335cde7a9ff68da72" title="_load_reg8_mem_idx_offset" alt="" coords="95,165,279,195"/><area shape="rect" id="node11" href="z80_8c.html#af15ac3030d787c91b40958824bbee38d" title="_load_mem_idx_offset_reg8" alt="" coords="95,219,279,248"/><area shape="rect" id="node13" href="z80_8c.html#a79e80967a1349bdb34350570f704c2fb" title="_add_a_reg8" alt="" coords="139,272,235,301"/><area shape="rect" id="node15" href="display_8c.html#a3bc04a00563b8d8ebef494c25185f876" title="display_registers" alt="" coords="127,325,247,355"/><area shape="rect" id="node17" href="display_8c.html#aceb0d1b9ad0c5bf50f2f64d36d467474" title="display_mem" alt="" coords="137,379,236,408"/></map>
 </div>
 </p>
 

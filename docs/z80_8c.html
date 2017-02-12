@@ -87,12 +87,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;stdint.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="z80_8h_source.html">z80.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="utils_8h_source.html">utils.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="display_8h_source.html">display.h</a>&quot;</code><br/>
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for z80.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="z80_8c__incl.png" border="0" usemap="#src_2lib_2z80_8c" alt=""/></div>
 <map name="src_2lib_2z80_8c" id="src_2lib_2z80_8c">
-<area shape="rect" id="node9" href="z80_8h.html" title="z80 CPU data structure and functions" alt="" coords="229,83,283,112"/><area shape="rect" id="node12" href="utils_8h.html" title="utils.h" alt="" coords="307,83,363,112"/></map>
+<area shape="rect" id="node9" href="z80_8h.html" title="z80 CPU data structure and functions" alt="" coords="236,83,289,112"/><area shape="rect" id="node12" href="utils_8h.html" title="utils.h" alt="" coords="401,83,457,112"/><area shape="rect" id="node14" href="display_8h.html" title="display.h" alt="" coords="87,83,161,112"/></map>
 </div>
 </div><table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
@@ -103,12 +104,82 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#a20869ce2e719e74335cde7a9ff68da72">_load_reg8_mem_idx_offset</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *index_register, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#af15ac3030d787c91b40958824bbee38d">_load_mem_idx_offset_reg8</a> (uint8_t *reg, <a class="el" href="unionword.html">word</a> *index_register, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#a1996a16c481738563ee9664c86798310">_load_reg16_nn</a> (<a class="el" href="unionword.html">word</a> *reg, uint8_t *<a class="el" href="structmemory.html">memory</a>, <a class="el" href="unionword.html">word</a> *pc)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79e80967a1349bdb34350570f704c2fb"></a><!-- doxytag: member="z80.c::_add_a_reg8" ref="a79e80967a1349bdb34350570f704c2fb" args="(z80 *cpu, uint8_t *reg)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>_add_a_reg8</b> (<a class="el" href="structz80.html">z80</a> *cpu, uint8_t *reg)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#a1b74b3253597fc1e33ba18c07cba0c55">run</a> (<a class="el" href="structz80.html">z80</a> *cpu, uint8_t *<a class="el" href="structmemory.html">memory</a>, long runcycles)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#a79e80967a1349bdb34350570f704c2fb">_add_a_reg8</a> (<a class="el" href="structz80.html">z80</a> *cpu, uint8_t *reg)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#ac2f3619c42db3fb5e299cc6c793fc206">_adc_a_reg8</a> (<a class="el" href="structz80.html">z80</a> *cpu, uint8_t *reg)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z80_8c.html#a21209acc050f7fab04ab156d87c5a3ee">run</a> (<a class="el" href="structz80.html">z80</a> *cpu, uint8_t *<a class="el" href="structmemory.html">memory</a>, long runcycles, int s_flag)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"></div><hr/><h2>Function Documentation</h2>
+<a class="anchor" id="ac2f3619c42db3fb5e299cc6c793fc206"></a><!-- doxytag: member="z80.c::_adc_a_reg8" ref="ac2f3619c42db3fb5e299cc6c793fc206" args="(z80 *cpu, uint8_t *reg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="z80_8c.html#ac2f3619c42db3fb5e299cc6c793fc206">_adc_a_reg8</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structz80.html">z80</a> *&#160;</td>
+          <td class="paramname"><em>cpu</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>reg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Adds the contents of a user supplied register and the carry flag to A </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpu</td><td><a class="el" href="structz80.html">z80</a> cpu object </td></tr>
+    <tr><td class="paramname">reg</td><td>register to add to A </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a79e80967a1349bdb34350570f704c2fb"></a><!-- doxytag: member="z80.c::_add_a_reg8" ref="a79e80967a1349bdb34350570f704c2fb" args="(z80 *cpu, uint8_t *reg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="z80_8c.html#a79e80967a1349bdb34350570f704c2fb">_add_a_reg8</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structz80.html">z80</a> *&#160;</td>
+          <td class="paramname"><em>cpu</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>reg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Adds the contents of a user supplied register to A </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cpu</td><td><a class="el" href="structz80.html">z80</a> cpu object </td></tr>
+    <tr><td class="paramname">reg</td><td>register to add to A </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="af15ac3030d787c91b40958824bbee38d"></a><!-- doxytag: member="z80.c::_load_mem_idx_offset_reg8" ref="af15ac3030d787c91b40958824bbee38d" args="(uint8_t *reg, word *index_register, uint8_t *memory, word *pc)" -->
 <div class="memitem">
 <div class="memproto">
@@ -334,12 +405,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>_add_a_reg8</b> (<a c
 
 </div>
 </div>
-<a class="anchor" id="a1b74b3253597fc1e33ba18c07cba0c55"></a><!-- doxytag: member="z80.c::run" ref="a1b74b3253597fc1e33ba18c07cba0c55" args="(z80 *cpu, uint8_t *memory, long runcycles)" -->
+<a class="anchor" id="a21209acc050f7fab04ab156d87c5a3ee"></a><!-- doxytag: member="z80.c::run" ref="a21209acc050f7fab04ab156d87c5a3ee" args="(z80 *cpu, uint8_t *memory, long runcycles, int s_flag)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="z80_8h.html#a95b3b2c404bfad3b4ff6b10de3f60e5c">run</a> </td>
+          <td class="memname">int <a class="el" href="z80_8h.html#ad23ce86320d4fb92aeb847665c38e40a">run</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structz80.html">z80</a> *&#160;</td>
           <td class="paramname"><em>cpu</em>, </td>
@@ -354,7 +425,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>_add_a_reg8</b> (<a c
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">long&#160;</td>
-          <td class="paramname"><em>runcycles</em>&#160;</td>
+          <td class="paramname"><em>runcycles</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>s_flag</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -374,19 +451,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>_add_a_reg8</b> (<a c
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Count of cycles executed. </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>inc bc isn't operating on flags </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug:</a></b></dt><dd>inc b isn't operating on flags </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000003">Bug:</a></b></dt><dd>dec b isn't operating on flags </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000004">Bug:</a></b></dt><dd>dec bc isn't operating on flags </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000005">Bug:</a></b></dt><dd>inc c isn't operating on flags </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000006">Bug:</a></b></dt><dd>dec c isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>dec b isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000002">Bug:</a></b></dt><dd>inc c isn't operating on flags </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000003">Bug:</a></b></dt><dd>dec c isn't operating on flags </dd></dl>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="z80_8c_a1b74b3253597fc1e33ba18c07cba0c55_cgraph.png" border="0" usemap="#z80_8c_a1b74b3253597fc1e33ba18c07cba0c55_cgraph" alt=""/></div>
-<map name="z80_8c_a1b74b3253597fc1e33ba18c07cba0c55_cgraph" id="z80_8c_a1b74b3253597fc1e33ba18c07cba0c55_cgraph">
-<area shape="rect" id="node3" href="z80_8c.html#a20869ce2e719e74335cde7a9ff68da72" title="_load_reg8_mem_idx_offset" alt="" coords="95,5,279,35"/><area shape="rect" id="node5" href="z80_8c.html#af15ac3030d787c91b40958824bbee38d" title="_load_mem_idx_offset_reg8" alt="" coords="95,59,279,88"/><area shape="rect" id="node7" href="z80_8c.html#a1996a16c481738563ee9664c86798310" title="_load_reg16_nn" alt="" coords="131,112,243,141"/><area shape="rect" id="node9" href="z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4" title="_load_reg8_mem_pair" alt="" coords="112,165,261,195"/></map>
+<div class="center"><img src="z80_8c_a21209acc050f7fab04ab156d87c5a3ee_cgraph.png" border="0" usemap="#z80_8c_a21209acc050f7fab04ab156d87c5a3ee_cgraph" alt=""/></div>
+<map name="z80_8c_a21209acc050f7fab04ab156d87c5a3ee_cgraph" id="z80_8c_a21209acc050f7fab04ab156d87c5a3ee_cgraph">
+<area shape="rect" id="node3" href="z80_8c.html#a1996a16c481738563ee9664c86798310" title="_load_reg16_nn" alt="" coords="131,5,243,35"/><area shape="rect" id="node5" href="z80_8c.html#a98200db180fcce4a6df8cf3fe6ff38a4" title="_load_reg8_mem_pair" alt="" coords="112,59,261,88"/><area shape="rect" id="node7" href="z80_8c.html#ac2f3619c42db3fb5e299cc6c793fc206" title="_adc_a_reg8" alt="" coords="139,112,235,141"/><area shape="rect" id="node9" href="z80_8c.html#a20869ce2e719e74335cde7a9ff68da72" title="_load_reg8_mem_idx_offset" alt="" coords="95,165,279,195"/><area shape="rect" id="node11" href="z80_8c.html#af15ac3030d787c91b40958824bbee38d" title="_load_mem_idx_offset_reg8" alt="" coords="95,219,279,248"/><area shape="rect" id="node13" href="z80_8c.html#a79e80967a1349bdb34350570f704c2fb" title="_add_a_reg8" alt="" coords="139,272,235,301"/><area shape="rect" id="node15" href="display_8c.html#a3bc04a00563b8d8ebef494c25185f876" title="display_registers" alt="" coords="127,325,247,355"/><area shape="rect" id="node17" href="display_8c.html#aceb0d1b9ad0c5bf50f2f64d36d467474" title="display_mem" alt="" coords="137,379,236,408"/></map>
 </div>
 </p>
 
