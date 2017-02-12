@@ -343,7 +343,7 @@ static void test_add_hl(test_fixture *tf, gconstpointer data) {
 	g_assert(run(tf->test_cpu, memory, 7, 0));
 	g_assert(tf->test_cpu->bc.W == 0xFFFF);
 	g_assert(tf->test_cpu->hl.W == 0xFFFE);
-	g_assert(tf->test_cpu->flags == 0b100100);
+	g_assert(tf->test_cpu->flags == 0b001001);
 
 	reset_cpu(tf->test_cpu);
 
@@ -358,7 +358,7 @@ static void test_add_hl(test_fixture *tf, gconstpointer data) {
 	g_assert(run(tf->test_cpu, memory, 7, 0));
 	g_assert(tf->test_cpu->bc.W == 0x0FFF);
 	g_assert(tf->test_cpu->hl.W == 0x1FFE);
-	g_assert(tf->test_cpu->flags == 0b100000);
+	g_assert(tf->test_cpu->flags == 0b001000);
 
 	reset_cpu(tf->test_cpu);
 
@@ -413,7 +413,7 @@ static void test_add_a(test_fixture *tf, gconstpointer data) {
     // test next add w/ HC (a = 0x10)
     g_assert(run(tf->test_cpu, testmem->memory, 1, 0));
     g_assert(tf->test_cpu->a == 0x10);
-    g_assert(tf->test_cpu->flags == 0b100000);
+    g_assert(tf->test_cpu->flags == 0b001000);
 
     // test next add (a = 0x16)
     g_assert(run(tf->test_cpu, testmem->memory, 1, 0));
